@@ -4,7 +4,7 @@
  <title>Stephen Mariano</title>
  <link href="smcabrera.github.io/atom.xml" rel="self"/>
  <link href="smcabrera.github.io/"/>
- <updated>2014-06-15T15:17:37-05:00</updated>
+ <updated>2014-06-20T18:23:28-05:00</updated>
  <id>smcabrera.github.io</id>
  <author>
    <name>Mark Otto</name>
@@ -13,8 +13,91 @@
 
  
  <entry>
+   <title>Remote Pairing Tools</title>
+   <link href="smcabrera.github.io/2014/06/20/remote-pairing-tools/"/>
+   <updated>2014-06-20T00:00:00-05:00</updated>
+   <id>smcabrera.github.io/2014/06/20/remote-pairing-tools</id>
+   <content type="html">&lt;p&gt;I&amp;#39;ve recently been on the lookout for tools to make remote pair
+programming easier. My main motivations are the following&lt;br&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Pair programming, particularly with someone better than you (most
+programmers at this point!) is the best way to learn&lt;/li&gt;
+&lt;li&gt;My goal is to work remotely as a developer so I want to get a good
+comfortable remote setup.&lt;/li&gt;
+&lt;li&gt;I&amp;#39;m currently engaged in an &lt;a href=&quot;www.bloc.io&quot;&gt;apprenticeship&lt;/a&gt; heavily focused on remote
+pair programming. So now it&amp;#39;s urgent.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So just recently I&amp;#39;ve gotten much more aggressive at looking for quality
+tools. I bought a book from the Pragmatic Bookshelf and I&amp;#39;ve started
+googling heavily. Here&amp;#39;s what I&amp;#39;ve found:&lt;/p&gt;
+
+&lt;h3&gt;tmux&lt;/h3&gt;
+
+&lt;p&gt;tmux is the clear winner for my current use case&lt;br&gt;&lt;/p&gt;
+
+&lt;h4&gt;Pros:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Works great on linux&lt;/li&gt;
+&lt;li&gt;Works great with vim&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;em&gt;low-bandwidth usage&lt;/em&gt;&lt;/em&gt; This is huge.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;Cons&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Pair needs to be using a console editor like vim or emacs&lt;/li&gt;
+&lt;li&gt;Corllary to above--if you use vim and they use emacs, not so great&lt;/li&gt;
+&lt;li&gt;You may want to maniuplate the browser console together or do other
+screen sharing that doesn&amp;#39;t involve the console.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I&amp;#39;ll have to find other solutions for when tmux isn&amp;#39;t an option (screen sharing for when we want to look at what something looks like in a browser for instance) but I think that most of the time some kind of a tmux session solution is going to be the way to go (the prag programmers book also talks about different ways to do this).&lt;/p&gt;
+
+&lt;h3&gt;How it works&lt;/h3&gt;
+
+&lt;p&gt;Basically you can set up a remote server and then you both connect to it via ssh. There&amp;#39;s a pretty detailed description of the process &lt;a href=&quot;http://www.zeespencer.com/articles/building-a-remote-pairing-setup/&quot;&gt;here&lt;/a&gt; using prgmr.com. There&amp;#39;s this whole involved process for setting up your users, which he describes. There&amp;#39;s a description of something similar in the book from a book on the topic from the &lt;a href=&quot;http://pragprog.com/book/jkrp/remote-pairing&quot;&gt;Pragmatic Bookshelf&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3&gt;A Simpler Solution: tmate&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://tmate.io/&quot;&gt;tmate&lt;/a&gt;: A fork of tmux, designed to do the
+above configuration automatically. As far as I can tell:&lt;/p&gt;
+
+&lt;h4&gt;Pros:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Much easier setup--most of the work is already done for you.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;Cons:&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The other person has to use your tmux configurations&lt;/li&gt;
+&lt;li&gt;You&amp;#39;re stuck using ssh, instead of mosh (which is apparently faster than ssh).&lt;/li&gt;
+&lt;li&gt;I imagine, though I&amp;#39;m not positive, that you wouldn&amp;#39;t be able to use some of aforementioned tmux plugins.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Other Tools to try out&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://mosh.mit.edu/&quot;&gt;mosh&lt;/a&gt; SSH alternative. Uses less bandwidth and thus faster than ssh.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/zolrath/wemux&quot;&gt;wemux&lt;/a&gt;: tmux plugin for remote&lt;/li&gt;
+&lt;li&gt;pairing--need to check it out and see what kind of features.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/benmills/vimux&quot;&gt;vimux&lt;/a&gt;: ditto.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/tmuxinator/tmuxinator&quot;&gt;tmuxinator&lt;/a&gt;: Looks like it
+can be useful for saving a lot of settings (for a project) without
+having to restart it each time.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I haven&amp;#39;t tried any of this yet, but I&amp;#39;ll be giving these a shot and write about how it goes.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>Starting Bloc</title>
-   <link href="smcabrera.github.io/2014/06/15/starting+bloc/"/>
+   <link href="smcabrera.github.io/2014/06/15/starting%20bloc/"/>
    <updated>2014-06-15T00:00:00-05:00</updated>
    <id>smcabrera.github.io/2014/06/15/starting bloc</id>
    <content type="html">&lt;p&gt;Tomorrow I officially begin my apprenticeship with &lt;a href=&quot;bloc.io&quot;&gt;Bloc&lt;/a&gt;. I&amp;#39;m pretty excited.&lt;/p&gt;
@@ -28,41 +111,6 @@
 &lt;p&gt;I also suspect the mentor format might just be better than the traditional classroom format.  Learning, particularly learning development, takes place by doing. Compared to university education, thie teacher role in this setting seems less like a college lecturer and more like your thesis advisor--you meet periodically to go over your work and receive feedback and then you go back to your desk and work on your own. Being more independent and less structured is definitely challenging, but when I think back upon my experience in writing my senior thesis, I remember it as one of the times where I learned the most in all my time in college and was the most useful when applying for jobs. So I&amp;#39;m optimistic.&lt;/p&gt;
 
 &lt;p&gt;Education and &lt;em&gt;learning&lt;/em&gt; generally are areas that interest me a great deal. I&amp;#39;m very excited to see the ways that technology can transform education, so I expect I&amp;#39;ll have quite a bit to comment on as I go through Bloc. Stay tuned.&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>test post!</title>
-   <link href="smcabrera.github.io/2014/06/07/test-post/"/>
-   <updated>2014-06-07T00:00:00-05:00</updated>
-   <id>smcabrera.github.io/2014/06/07/test-post</id>
-   <content type="html">&lt;h2&gt;Heading This is a heading&lt;/h2&gt;
-
-&lt;p&gt;I&amp;#39;m writing a paragraph here
-It&amp;#39;s going to have several lines
-(I&amp;#39;m just trying to play around with this theme and see what it looks like.
-I suppose I&amp;#39;ll want to create a few more headings to see what those look like no?&lt;/p&gt;
-
-&lt;h3&gt;Sub-heading&lt;/h3&gt;
-
-&lt;p&gt;This is a level 2 heading
-And a level 3 one...&lt;/p&gt;
-
-&lt;div&gt;
-  &lt;pre&gt;&lt;code class='ruby'&gt;def methodname(arg)
-  puts arg
-end&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;So I guess this is an unordered list in markdown?
-* Maybe it is
-* It looks that way
-* Yeah&lt;/p&gt;
-
-&lt;p&gt;And an ordered list like this I gather:
-1. Item1
-2. Item2
-3. And finally item 3&lt;/p&gt;
 </content>
  </entry>
  

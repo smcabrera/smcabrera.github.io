@@ -53,16 +53,16 @@
         
       
         
-      
-        
-          
-        
-      
-        
           
             <li class="sidebar-nav-item">
               <a href="/about/">About</a>
             </li>
+          
+        
+      
+        
+      
+        
           
         
       
@@ -81,7 +81,94 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/2014/06/15/starting+bloc/">
+      <a href="/2014/06/20/remote-pairing-tools/">
+        Remote Pairing Tools
+      </a>
+    </h1>
+
+    <span class="post-date">20 Jun 2014</span>
+
+    <p>I&#39;ve recently been on the lookout for tools to make remote pair
+programming easier. My main motivations are the following<br></p>
+
+<ul>
+<li>Pair programming, particularly with someone better than you (most
+programmers at this point!) is the best way to learn</li>
+<li>My goal is to work remotely as a developer so I want to get a good
+comfortable remote setup.</li>
+<li>I&#39;m currently engaged in an <a href="www.bloc.io">apprenticeship</a> heavily focused on remote
+pair programming. So now it&#39;s urgent.</li>
+</ul>
+
+<p>So just recently I&#39;ve gotten much more aggressive at looking for quality
+tools. I bought a book from the Pragmatic Bookshelf and I&#39;ve started
+googling heavily. Here&#39;s what I&#39;ve found:</p>
+
+<h3>tmux</h3>
+
+<p>tmux is the clear winner for my current use case<br></p>
+
+<h4>Pros:</h4>
+
+<ul>
+<li>Works great on linux</li>
+<li>Works great with vim</li>
+<li><em><em>low-bandwidth usage</em></em> This is huge.</li>
+</ul>
+
+<h4>Cons</h4>
+
+<ul>
+<li>Pair needs to be using a console editor like vim or emacs</li>
+<li>Corllary to above--if you use vim and they use emacs, not so great</li>
+<li>You may want to maniuplate the browser console together or do other
+screen sharing that doesn&#39;t involve the console.</li>
+</ul>
+
+<p>I&#39;ll have to find other solutions for when tmux isn&#39;t an option (screen sharing for when we want to look at what something looks like in a browser for instance) but I think that most of the time some kind of a tmux session solution is going to be the way to go (the prag programmers book also talks about different ways to do this).</p>
+
+<h3>How it works</h3>
+
+<p>Basically you can set up a remote server and then you both connect to it via ssh. There&#39;s a pretty detailed description of the process <a href="http://www.zeespencer.com/articles/building-a-remote-pairing-setup/">here</a> using prgmr.com. There&#39;s this whole involved process for setting up your users, which he describes. There&#39;s a description of something similar in the book from a book on the topic from the <a href="http://pragprog.com/book/jkrp/remote-pairing">Pragmatic Bookshelf</a>.</p>
+
+<h3>A Simpler Solution: tmate</h3>
+
+<p><a href="http://tmate.io/">tmate</a>: A fork of tmux, designed to do the
+above configuration automatically. As far as I can tell:</p>
+
+<h4>Pros:</h4>
+
+<ul>
+<li>Much easier setup--most of the work is already done for you.</li>
+</ul>
+
+<h4>Cons:</h4>
+
+<ul>
+<li>The other person has to use your tmux configurations</li>
+<li>You&#39;re stuck using ssh, instead of mosh (which is apparently faster than ssh).</li>
+<li>I imagine, though I&#39;m not positive, that you wouldn&#39;t be able to use some of aforementioned tmux plugins.</li>
+</ul>
+
+<h3>Other Tools to try out</h3>
+
+<ul>
+<li><a href="http://mosh.mit.edu/">mosh</a> SSH alternative. Uses less bandwidth and thus faster than ssh.</li>
+<li><a href="https://github.com/zolrath/wemux">wemux</a>: tmux plugin for remote</li>
+<li>pairing--need to check it out and see what kind of features.</li>
+<li><a href="https://github.com/benmills/vimux">vimux</a>: ditto.</li>
+<li><a href="https://github.com/tmuxinator/tmuxinator">tmuxinator</a>: Looks like it
+can be useful for saving a lot of settings (for a project) without
+having to restart it each time.</li>
+</ul>
+
+<p>I haven&#39;t tried any of this yet, but I&#39;ll be giving these a shot and write about how it goes.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2014/06/15/starting%20bloc/">
         Starting Bloc
       </a>
     </h1>
@@ -99,45 +186,6 @@
 <p>I also suspect the mentor format might just be better than the traditional classroom format.  Learning, particularly learning development, takes place by doing. Compared to university education, thie teacher role in this setting seems less like a college lecturer and more like your thesis advisor--you meet periodically to go over your work and receive feedback and then you go back to your desk and work on your own. Being more independent and less structured is definitely challenging, but when I think back upon my experience in writing my senior thesis, I remember it as one of the times where I learned the most in all my time in college and was the most useful when applying for jobs. So I&#39;m optimistic.</p>
 
 <p>Education and <em>learning</em> generally are areas that interest me a great deal. I&#39;m very excited to see the ways that technology can transform education, so I expect I&#39;ll have quite a bit to comment on as I go through Bloc. Stay tuned.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2014/06/07/test-post/">
-        test post!
-      </a>
-    </h1>
-
-    <span class="post-date">07 Jun 2014</span>
-
-    <h2>Heading This is a heading</h2>
-
-<p>I&#39;m writing a paragraph here
-It&#39;s going to have several lines
-(I&#39;m just trying to play around with this theme and see what it looks like.
-I suppose I&#39;ll want to create a few more headings to see what those look like no?</p>
-
-<h3>Sub-heading</h3>
-
-<p>This is a level 2 heading
-And a level 3 one...</p>
-
-<div>
-  <pre><code class='ruby'>def methodname(arg)
-  puts arg
-end</code></pre>
-</div>
-
-<p>So I guess this is an unordered list in markdown?
-* Maybe it is
-* It looks that way
-* Yeah</p>
-
-<p>And an ordered list like this I gather:
-1. Item1
-2. Item2
-3. And finally item 3</p>
 
   </div>
   
