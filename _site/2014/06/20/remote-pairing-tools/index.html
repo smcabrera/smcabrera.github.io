@@ -1,4 +1,86 @@
-<p>I&#39;ve recently been on the lookout for tools to make remote pair
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Remote Pairing Tools &middot; Stephen Mariano
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>Stephen Mariano</h1>
+      <img src='/public/profilephoto_greyscale.jpg'class='container'/>
+      <p class="lead">Sharing my journey to becoming a full-stack web developer</p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item">
+        <a href="/">Home</a>
+      </li>
+
+      
+
+      
+      
+        
+          
+        
+      
+        
+          
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+
+      <li class="sidebar-nav-item"><a href="https://github.com/smcabrera">GitHub Projects</a></li>
+      <li class="sidebar-nav-item">Currently v2.0.0</li>
+    </ul>
+
+    <p>&copy; 2014. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Remote Pairing Tools</h1>
+  <span class="post-date">20 Jun 2014</span>
+  <p>I&#39;ve recently been on the lookout for tools to make remote pair
 programming easier. My main motivations are the following<br></p>
 
 <ul>
@@ -10,11 +92,16 @@ comfortable remote setup.</li>
 pair programming. So now it&#39;s urgent.</li>
 </ul>
 
-<p>So just recently I&#39;ve gotten much more aggressive at looking for quality
-tools. I bought a book from the Pragmatic Bookshelf and I&#39;ve started
-googling heavily. Here&#39;s what I&#39;ve found:</p>
+<p>Here&#39;s what I&#39;ve found.</p>
 
-<h3>tmux</h3>
+<h3>remote server with ssh and tmux</h3>
+
+<p>tmux, short for terminal multiplexer lets you run multiple terminals
+within one environment. It&#39;s sort of like browser tabs for your
+terminal. For remote pairing you can use it to connect to a remote
+server via a secure shell or ssh.</p>
+
+<p>There&#39;s a pretty detailed description of the process <a href="http://www.zeespencer.com/articles/building-a-remote-pairing-setup/">here</a> using prgmr.com as the remote server. I haven&#39;t tried it so I won&#39;t go into the process here but needless to say that setting it up is pretty involved. There&#39;s a description of something similar in the book from a book on the topic from the <a href="http://pragprog.com/book/jkrp/remote-pairing">Pragmatic Bookshelf</a>.</p>
 
 <p>tmux is the clear winner for my current use case<br></p>
 
@@ -23,7 +110,7 @@ googling heavily. Here&#39;s what I&#39;ve found:</p>
 <ul>
 <li>Works great on linux</li>
 <li>Works great with vim</li>
-<li><em><em>low-bandwidth usage</em></em> This is huge.</li>
+<li>Works great on <em><em>low-bandwidth</em></em>. This is huge for me.</li>
 </ul>
 
 <h4>Cons</h4>
@@ -36,10 +123,6 @@ screen sharing that doesn&#39;t involve the console.</li>
 </ul>
 
 <p>I&#39;ll have to find other solutions for when tmux isn&#39;t an option (screen sharing for when we want to look at what something looks like in a browser for instance) but I think that most of the time some kind of a tmux session solution is going to be the way to go (the prag programmers book also talks about different ways to do this).</p>
-
-<h3>How it works</h3>
-
-<p>Basically you can set up a remote server and then you both connect to it via ssh. There&#39;s a pretty detailed description of the process <a href="http://www.zeespencer.com/articles/building-a-remote-pairing-setup/">here</a> using prgmr.com. There&#39;s this whole involved process for setting up your users, which he describes. There&#39;s a description of something similar in the book from a book on the topic from the <a href="http://pragprog.com/book/jkrp/remote-pairing">Pragmatic Bookshelf</a>.</p>
 
 <h3>A Simpler Solution: tmate</h3>
 
@@ -73,3 +156,26 @@ having to restart it each time.</li>
 </ul>
 
 <p>I haven&#39;t tried any of this yet, but I&#39;ll be giving these a shot and write about how it goes.</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/06/15/starting%20bloc/">
+            Starting Bloc
+            <small>15 Jun 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+  </body>
+</html>

@@ -4,7 +4,7 @@
  <title>Stephen Mariano</title>
  <link href="smcabrera.github.io/atom.xml" rel="self"/>
  <link href="smcabrera.github.io/"/>
- <updated>2014-06-20T18:23:28-05:00</updated>
+ <updated>2014-06-20T19:02:00-05:00</updated>
  <id>smcabrera.github.io</id>
  <author>
    <name>Mark Otto</name>
@@ -29,11 +29,16 @@ comfortable remote setup.&lt;/li&gt;
 pair programming. So now it&amp;#39;s urgent.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;So just recently I&amp;#39;ve gotten much more aggressive at looking for quality
-tools. I bought a book from the Pragmatic Bookshelf and I&amp;#39;ve started
-googling heavily. Here&amp;#39;s what I&amp;#39;ve found:&lt;/p&gt;
+&lt;p&gt;Here&amp;#39;s what I&amp;#39;ve found.&lt;/p&gt;
 
-&lt;h3&gt;tmux&lt;/h3&gt;
+&lt;h3&gt;remote server with ssh and tmux&lt;/h3&gt;
+
+&lt;p&gt;tmux, short for terminal multiplexer lets you run multiple terminals
+within one environment. It&amp;#39;s sort of like browser tabs for your
+terminal. For remote pairing you can use it to connect to a remote
+server via a secure shell or ssh.&lt;/p&gt;
+
+&lt;p&gt;There&amp;#39;s a pretty detailed description of the process &lt;a href=&quot;http://www.zeespencer.com/articles/building-a-remote-pairing-setup/&quot;&gt;here&lt;/a&gt; using prgmr.com as the remote server. I haven&amp;#39;t tried it so I won&amp;#39;t go into the process here but needless to say that setting it up is pretty involved. There&amp;#39;s a description of something similar in the book from a book on the topic from the &lt;a href=&quot;http://pragprog.com/book/jkrp/remote-pairing&quot;&gt;Pragmatic Bookshelf&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;tmux is the clear winner for my current use case&lt;br&gt;&lt;/p&gt;
 
@@ -42,7 +47,7 @@ googling heavily. Here&amp;#39;s what I&amp;#39;ve found:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Works great on linux&lt;/li&gt;
 &lt;li&gt;Works great with vim&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;&lt;em&gt;low-bandwidth usage&lt;/em&gt;&lt;/em&gt; This is huge.&lt;/li&gt;
+&lt;li&gt;Works great on &lt;em&gt;&lt;em&gt;low-bandwidth&lt;/em&gt;&lt;/em&gt;. This is huge for me.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4&gt;Cons&lt;/h4&gt;
@@ -55,10 +60,6 @@ screen sharing that doesn&amp;#39;t involve the console.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;I&amp;#39;ll have to find other solutions for when tmux isn&amp;#39;t an option (screen sharing for when we want to look at what something looks like in a browser for instance) but I think that most of the time some kind of a tmux session solution is going to be the way to go (the prag programmers book also talks about different ways to do this).&lt;/p&gt;
-
-&lt;h3&gt;How it works&lt;/h3&gt;
-
-&lt;p&gt;Basically you can set up a remote server and then you both connect to it via ssh. There&amp;#39;s a pretty detailed description of the process &lt;a href=&quot;http://www.zeespencer.com/articles/building-a-remote-pairing-setup/&quot;&gt;here&lt;/a&gt; using prgmr.com. There&amp;#39;s this whole involved process for setting up your users, which he describes. There&amp;#39;s a description of something similar in the book from a book on the topic from the &lt;a href=&quot;http://pragprog.com/book/jkrp/remote-pairing&quot;&gt;Pragmatic Bookshelf&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h3&gt;A Simpler Solution: tmate&lt;/h3&gt;
 

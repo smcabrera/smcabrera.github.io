@@ -100,11 +100,16 @@ comfortable remote setup.</li>
 pair programming. So now it&#39;s urgent.</li>
 </ul>
 
-<p>So just recently I&#39;ve gotten much more aggressive at looking for quality
-tools. I bought a book from the Pragmatic Bookshelf and I&#39;ve started
-googling heavily. Here&#39;s what I&#39;ve found:</p>
+<p>Here&#39;s what I&#39;ve found.</p>
 
-<h3>tmux</h3>
+<h3>remote server with ssh and tmux</h3>
+
+<p>tmux, short for terminal multiplexer lets you run multiple terminals
+within one environment. It&#39;s sort of like browser tabs for your
+terminal. For remote pairing you can use it to connect to a remote
+server via a secure shell or ssh.</p>
+
+<p>There&#39;s a pretty detailed description of the process <a href="http://www.zeespencer.com/articles/building-a-remote-pairing-setup/">here</a> using prgmr.com as the remote server. I haven&#39;t tried it so I won&#39;t go into the process here but needless to say that setting it up is pretty involved. There&#39;s a description of something similar in the book from a book on the topic from the <a href="http://pragprog.com/book/jkrp/remote-pairing">Pragmatic Bookshelf</a>.</p>
 
 <p>tmux is the clear winner for my current use case<br></p>
 
@@ -113,7 +118,7 @@ googling heavily. Here&#39;s what I&#39;ve found:</p>
 <ul>
 <li>Works great on linux</li>
 <li>Works great with vim</li>
-<li><em><em>low-bandwidth usage</em></em> This is huge.</li>
+<li>Works great on <em><em>low-bandwidth</em></em>. This is huge for me.</li>
 </ul>
 
 <h4>Cons</h4>
@@ -126,10 +131,6 @@ screen sharing that doesn&#39;t involve the console.</li>
 </ul>
 
 <p>I&#39;ll have to find other solutions for when tmux isn&#39;t an option (screen sharing for when we want to look at what something looks like in a browser for instance) but I think that most of the time some kind of a tmux session solution is going to be the way to go (the prag programmers book also talks about different ways to do this).</p>
-
-<h3>How it works</h3>
-
-<p>Basically you can set up a remote server and then you both connect to it via ssh. There&#39;s a pretty detailed description of the process <a href="http://www.zeespencer.com/articles/building-a-remote-pairing-setup/">here</a> using prgmr.com. There&#39;s this whole involved process for setting up your users, which he describes. There&#39;s a description of something similar in the book from a book on the topic from the <a href="http://pragprog.com/book/jkrp/remote-pairing">Pragmatic Bookshelf</a>.</p>
 
 <h3>A Simpler Solution: tmate</h3>
 

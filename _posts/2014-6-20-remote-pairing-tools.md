@@ -1,3 +1,8 @@
+---
+layout: post
+title: Remote Pairing Tools
+---
+
 I've recently been on the lookout for tools to make remote pair
 programming easier. My main motivations are the following<br>
 
@@ -8,19 +13,22 @@ programming easier. My main motivations are the following<br>
 - I'm currently engaged in an [apprenticeship](www.bloc.io) heavily focused on remote
   pair programming. So now it's urgent.
 
-So just recently I've gotten much more aggressive at looking for quality
-tools. I bought a book from the Pragmatic Bookshelf and I've started
-googling heavily. Here's what I've found:
+Here's what I've found.
 
-### tmux
+### remote server with ssh and tmux
 
-tmux is the clear winner for my current use case<br>
+tmux, short for terminal multiplexer lets you run multiple terminals
+within one environment. It's sort of like browser tabs for your
+terminal. For remote pairing you can use it to connect to a remote
+server via a secure shell or ssh.
+
+There's a pretty detailed description of the process [here](http://www.zeespencer.com/articles/building-a-remote-pairing-setup/) using prgmr.com as the remote server. I haven't tried it so I won't go into the process here but needless to say that setting it up is pretty involved. There's a description of something similar in the book from a book on the topic from the [Pragmatic Bookshelf](http://pragprog.com/book/jkrp/remote-pairing).
 
 ####Pros:
 
 - Works great on linux
 - Works great with vim
-- _*low-bandwidth usage*_ This is huge.
+- Works great on _*low-bandwidth*_. This is huge for me.
 
 ####Cons
 
@@ -30,9 +38,6 @@ tmux is the clear winner for my current use case<br>
   screen sharing that doesn't involve the console.
 
 I'll have to find other solutions for when tmux isn't an option (screen sharing for when we want to look at what something looks like in a browser for instance) but I think that most of the time some kind of a tmux session solution is going to be the way to go (the prag programmers book also talks about different ways to do this).
-
-### How it works
-Basically you can set up a remote server and then you both connect to it via ssh. There's a pretty detailed description of the process [here](http://www.zeespencer.com/articles/building-a-remote-pairing-setup/) using prgmr.com. There's this whole involved process for setting up your users, which he describes. There's a description of something similar in the book from a book on the topic from the [Pragmatic Bookshelf](http://pragprog.com/book/jkrp/remote-pairing).
 
 ### A Simpler Solution: tmate
 
@@ -46,9 +51,9 @@ above configuration automatically. As far as I can tell:
 ####Cons:
   - The other person has to use your tmux configurations
   - You're stuck using ssh, instead of mosh (which is apparently faster than ssh).
-  - I imagine, though I'm not positive, that you wouldn't be able to use some of aforementioned tmux plugins.
+  - I'm not sure if you'd be able to use tmux plugins like tmuxinator.
 
-### Other Tools to try out
+### Other Tools to investigate
 
 - [mosh](http://mosh.mit.edu/) SSH alternative. Uses less bandwidth and thus faster than ssh.
 - [wemux](https://github.com/zolrath/wemux): tmux plugin for remote
