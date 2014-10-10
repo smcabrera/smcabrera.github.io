@@ -1,16 +1,130 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+       &middot; Stephen Mariano
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>Stephen Mariano</h1>
+      <img src='/public/profilephoto_greyscale.jpg'class='container'/>
+      <p class="lead">Sharing my journey to becoming a full-stack web developer</p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item">
+        <a href="/">Home</a>
+      </li>
+
+      
+
+      
+      
+        
+          
+        
+      
+        
+          
+            <li class="sidebar-nav-item">
+              <a href="/about/">About</a>
+            </li>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+
+      <li class="sidebar-nav-item"><a href="https://github.com/smcabrera">GitHub Projects</a></li>
+      <li class="sidebar-nav-item">Currently v2.0.0</li>
+    </ul>
+
+    <p>&copy; 2014. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Stephen Mariano</title>
  <link href="smcabrera.github.io/atom.xml" rel="self"/>
  <link href="smcabrera.github.io/"/>
- <updated>2014-06-20T19:02:00-05:00</updated>
+ <updated>2014-10-10T02:47:42-05:00</updated>
  <id>smcabrera.github.io</id>
  <author>
    <name>Mark Otto</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>REPL Driven Development con pry</title>
+   <link href="smcabrera.github.io/2014/10/10/REPL-Driven-Development/"/>
+   <updated>2014-10-10T00:00:00-05:00</updated>
+   <id>smcabrera.github.io/2014/10/10/REPL-Driven-Development</id>
+   <content type="html">&lt;p&gt;Aqui pueden ver mis slides de la charla sobre REPL driven development con pry:&lt;/p&gt;
+
+&lt;iframe src=&quot;//www.slideshare.net/slideshow/embed_code/40098358&quot; width=&quot;476&quot; height=&quot;400&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;También aqui estan los links a los recursos y charlas que mencionaba:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;pryrepl.org&quot;&gt;Pry&lt;/a&gt;: Aprender más sobre pry y ser eres muy fan, hasta te puedes comprar un polo.&lt;/li&gt;
+&lt;li&gt;pry-rails (gem &amp;#39;pry-rails&amp;#39; en tu Gemfile)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;github.com/epeli/slimux/&quot;&gt;slimux&lt;/a&gt;: Plugin para vim que te permita mandar texto a otra ventana tmux (sirve con pry pero también para rspec por ejemplo).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Otras Charlas muy buenas que me inspiraron bastante:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=D9j_Mf91M0I&quot;&gt;Ruby Conf 2013: REPL driven development with pry&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=D9j_Mf91M0I&quot;&gt;Rails Conf 2013 Pry--The Good Parts!&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=4hfMUP5iTq8&quot;&gt;Rails Conf 2014 Debugger driven development with pry&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title></title>
+   <link href="smcabrera.github.io/2014/09/07/"/>
+   <updated>2014-09-07T00:00:00-05:00</updated>
+   <id>smcabrera.github.io/2014/09/</id>
+   <content type="html"></content>
+ </entry>
  
  <entry>
    <title>Remote Pairing Tools</title>
@@ -39,8 +153,6 @@ terminal. For remote pairing you can use it to connect to a remote
 server via a secure shell or ssh.&lt;/p&gt;
 
 &lt;p&gt;There&amp;#39;s a pretty detailed description of the process &lt;a href=&quot;http://www.zeespencer.com/articles/building-a-remote-pairing-setup/&quot;&gt;here&lt;/a&gt; using prgmr.com as the remote server. I haven&amp;#39;t tried it so I won&amp;#39;t go into the process here but needless to say that setting it up is pretty involved. There&amp;#39;s a description of something similar in the book from a book on the topic from the &lt;a href=&quot;http://pragprog.com/book/jkrp/remote-pairing&quot;&gt;Pragmatic Bookshelf&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;tmux is the clear winner for my current use case&lt;br&gt;&lt;/p&gt;
 
 &lt;h4&gt;Pros:&lt;/h4&gt;
 
@@ -77,10 +189,10 @@ above configuration automatically. As far as I can tell:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;The other person has to use your tmux configurations&lt;/li&gt;
 &lt;li&gt;You&amp;#39;re stuck using ssh, instead of mosh (which is apparently faster than ssh).&lt;/li&gt;
-&lt;li&gt;I imagine, though I&amp;#39;m not positive, that you wouldn&amp;#39;t be able to use some of aforementioned tmux plugins.&lt;/li&gt;
+&lt;li&gt;I&amp;#39;m not sure if you&amp;#39;d be able to use tmux plugins like tmuxinator.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3&gt;Other Tools to try out&lt;/h3&gt;
+&lt;h3&gt;Other Tools to investigate&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;http://mosh.mit.edu/&quot;&gt;mosh&lt;/a&gt; SSH alternative. Uses less bandwidth and thus faster than ssh.&lt;/li&gt;
@@ -117,3 +229,8 @@ having to restart it each time.&lt;/li&gt;
  
 
 </feed>
+
+    </div>
+
+  </body>
+</html>

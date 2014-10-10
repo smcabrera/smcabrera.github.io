@@ -81,6 +81,49 @@
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/2014/10/10/REPL-Driven-Development/">
+        REPL Driven Development con pry
+      </a>
+    </h1>
+
+    <span class="post-date">10 Oct 2014</span>
+
+    <p>Aqui pueden ver mis slides de la charla sobre REPL driven development con pry:</p>
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/40098358" width="476" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+
+<p>También aqui estan los links a los recursos y charlas que mencionaba:</p>
+
+<ul>
+<li><a href="pryrepl.org">Pry</a>: Aprender más sobre pry y ser eres muy fan, hasta te puedes comprar un polo.</li>
+<li>pry-rails (gem &#39;pry-rails&#39; en tu Gemfile)</li>
+<li><a href="github.com/epeli/slimux/">slimux</a>: Plugin para vim que te permita mandar texto a otra ventana tmux (sirve con pry pero también para rspec por ejemplo).</li>
+</ul>
+
+<p>Otras Charlas muy buenas que me inspiraron bastante:</p>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=D9j_Mf91M0I">Ruby Conf 2013: REPL driven development with pry</a></li>
+<li><a href="https://www.youtube.com/watch?v=D9j_Mf91M0I">Rails Conf 2013 Pry--The Good Parts!</a></li>
+<li><a href="https://www.youtube.com/watch?v=4hfMUP5iTq8">Rails Conf 2014 Debugger driven development with pry</a></li>
+</ul>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2014/09/07/">
+        
+      </a>
+    </h1>
+
+    <span class="post-date">07 Sep 2014</span>
+
+    
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/2014/06/20/remote-pairing-tools/">
         Remote Pairing Tools
       </a>
@@ -110,8 +153,6 @@ terminal. For remote pairing you can use it to connect to a remote
 server via a secure shell or ssh.</p>
 
 <p>There&#39;s a pretty detailed description of the process <a href="http://www.zeespencer.com/articles/building-a-remote-pairing-setup/">here</a> using prgmr.com as the remote server. I haven&#39;t tried it so I won&#39;t go into the process here but needless to say that setting it up is pretty involved. There&#39;s a description of something similar in the book from a book on the topic from the <a href="http://pragprog.com/book/jkrp/remote-pairing">Pragmatic Bookshelf</a>.</p>
-
-<p>tmux is the clear winner for my current use case<br></p>
 
 <h4>Pros:</h4>
 
@@ -148,10 +189,10 @@ above configuration automatically. As far as I can tell:</p>
 <ul>
 <li>The other person has to use your tmux configurations</li>
 <li>You&#39;re stuck using ssh, instead of mosh (which is apparently faster than ssh).</li>
-<li>I imagine, though I&#39;m not positive, that you wouldn&#39;t be able to use some of aforementioned tmux plugins.</li>
+<li>I&#39;m not sure if you&#39;d be able to use tmux plugins like tmuxinator.</li>
 </ul>
 
-<h3>Other Tools to try out</h3>
+<h3>Other Tools to investigate</h3>
 
 <ul>
 <li><a href="http://mosh.mit.edu/">mosh</a> SSH alternative. Uses less bandwidth and thus faster than ssh.</li>
