@@ -9,7 +9,7 @@ Aqui pueden ver mis slides de la charla sobre REPL driven development con pry:
 
 También aqui estan los links a los recursos y charlas que mencionaba:
 
-- [Pry](pryrepl.org): Aprender más sobre pry y ser eres muy fan, hasta te puedes comprar un polo.
+- [Pry](pryrepl.org): Aprender más sobre pry y si eres muy fan, hasta te puedes comprar un polo.
 - pry-rails (gem 'pry-rails' en tu Gemfile)
 - [slimux](github.com/epeli/slimux/): Plugin para vim que te permita mandar texto a otra ventana tmux (sirve con pry pero también para rspec por ejemplo).
 

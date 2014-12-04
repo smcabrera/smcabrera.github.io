@@ -1,95 +1,77 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
-
+<html>
   <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <!-- meta information -->
+<meta charset="utf-8">
+<meta name="description" 
+      content="I'm an American expat living in Peru where I moved three years ago to work as a research assistant. A year in I decid..." >
+<meta name="author" content="Stephen Mariano Cabrera">
 
-  <!-- Enable responsiveness on mobile devices-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<!-- Enable responsiveness on mobile devices-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  <title>
-    
-      About &middot; Stephen Mariano
-    
-  </title>
+<!-- title -->
+<title>About &middot; smcabrera</title>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/poole.css">
-  <link rel="stylesheet" href="/public/css/syntax.css">
-  <link rel="stylesheet" href="/public/css/hyde.css">
-  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+<!-- icons -->
+<link rel="shortcut icon" href="/public/images/favicon.ico" />
 
-  <!-- Icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
-                                 <link rel="shortcut icon" href="/public/favicon.ico">
+<!-- stylesheets -->
+<link rel="stylesheet" href="/public/css/responsive.gs.12col.css">
+<link rel="stylesheet" href="/public/css/animate.min.css">
+<link rel="stylesheet" href="/public/css/main.css">
 
-  <!-- RSS -->
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
-</head>
+<!-- Google fonts -->
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic&subset=latin-ext">
 
 
+
+<!-- feed links -->
+<link rel="alternate" href="smcabrera.github.io/feed.xml" type="application/rss+xml" title="">
+
+  </head>
   <body>
+    <div class="container azul">
+      <header class="top row gutters">
+        <div class="col span_2 center">
+          <!-- TODO: add baseurl to the logo link -->
+          <a href="smcabrera.github.io" id="logo" title="smcabrera"
+             style="background-image: url(/public/images/logo.png);"></a>
+        </div>
+        <nav class="col span_10 top-navbar">
+  
+  <a href="/" title="Home"
+     >Home</a>
+  
+  <a href="/about" title="About"
+     class="current-page">About</a>
+  
+</nav>
 
-    <div class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-      <h1>Stephen Mariano</h1>
-      <img src='/public/profilephoto_greyscale.jpg'class='container'/>
-      <p class="lead">Sharing my journey to becoming a full-stack web developer</p>
+      </header>
+
+      <article class="single row gutters">
+  <h2>About</h2>
+
+  <p>I&#39;m an American expat living in Peru where I moved three years ago to work as a research assistant. A year in I decided to quit that job, but remain in the country while I explored other options. After a year taking online courses and tutorials I discovered my current passion: programming. Since then I&#39;ve been trying to make the shift into web development, from taking courses remotely to shifting my responsibilities in my job so I could learn and practice new skills. My goal is to work as a ruby on rails developer for a company with a distributed team and continue to explore the world while doing what I love.</p>
+
+</article>
+
+
+      <footer>
+        <p>
+          This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.en_US">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+        </p>
+      </footer>
     </div>
 
-    <ul class="sidebar-nav">
-      <li class="sidebar-nav-item">
-        <a href="/">Home</a>
-      </li>
-
-      
-
-      
-      
-        
-          
-        
-      
-        
-          
-            <li class="sidebar-nav-item active">
-              <a href="/about/">About</a>
-            </li>
-          
-        
-      
-        
-      
-        
-          
-        
-      
-
-      <li class="sidebar-nav-item"><a href="https://github.com/smcabrera">GitHub Projects</a></li>
-      <li class="sidebar-nav-item">Currently v2.0.0</li>
-    </ul>
-
-    <p>&copy; 2014. All rights reserved.</p>
-  </div>
-</div>
-
-
-    <div class="content container">
-      <div class="page">
-  <h1 class="page-title">About</h1>
-  <p class="message">
-  Hi! This is my professional blog where I intend to write on subjects that interest me about software development, education and learning and learning software development. Hope you find it useful!
-</p>
-
-<p>Kudos to github for hosting this blog for free and also for the open source platform it was built with, created by one of their cofounders. Long live open source!</p>
-
-<p>The jekyll project&#39;s pretty cool--you can check it out on <a href="https://github.com/jekyll/jekyll">github</a> (of course).</p>
-
-</div>
-
-    </div>
-
+    <!-- scripts -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/public/js/jquery.fitvids.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("article").fitVids();
+      });
+    </script>
   </body>
 </html>

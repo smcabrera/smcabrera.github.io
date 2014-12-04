@@ -1,24 +1,13 @@
-# Dependencies
-markdown:         redcarpet
-highlighter:      pygments
+markdown: redcarpet
+highlighter: pygments
+permalink: /:title
 
-# Permalinks
-permalink:        pretty
+url: smcabrera.github.io
+baseurl:
 
-# Setup
-title:            Stephen Mariano
-tagline:          'Personal Blog'
-description:      'Sharing my journey to becoming a full-stack web developer'
-url:              smcabrera.github.io
+redcarpet:
+  extensions: [strikethrough, tables]
 
-author:
-  name:           'Mark Otto'
-  url:            https://twitter.com/mdo
-
-paginate:         5
-
-# Custom vars
-version:          2.0.0
-
-github:
-  repo:           https://github.com/smcabrera
+sass:
+  sass_dir: public/css
+  style: :compressed
