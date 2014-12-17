@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Details to keep in Mind Setting up your Laravel App--Dealing with Different Database Passwords
+title: Details to keep in Mind Setting up your Laravel App
 ---
 
-### 
+### Dealing with Different Database Passwords
 There are two crucial points that I dug out of the laravel documentation today about setting up environments. I didn't find this stuff right away when I looked for it because I didn't quite know where to look for. I figured there might be others in a similar predicament so I thought I'd write about it here.
 
 ### The problem: two or more developers multiple developers with different database passwords working on the same repository
