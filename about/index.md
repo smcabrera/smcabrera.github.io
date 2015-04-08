@@ -1,6 +1,27 @@
 ---
 layout: page
-title: About
+title: About Me
+tags: [about, Jekyll, theme, responsive]
+modified: 2014-08-08T20:53:07.573882-04:00
+comments: true
+image:
+  feature: about-page-image.jpg
+  credit: Natalia Cabrera
+  creditlink:
 ---
 
-I'm an American expat living in Peru where I moved three years ago to work as a research assistant. A year in I decided to quit my job, and use the power of the internet to explore new possibilities while remaining in Peru. I discovered that I loved programming, and so after a year of taking online courses and tutorials I decided to devote myself full time to building a career in web development. Now, I'm enrolled in an intensive ruby on rails course and working part time for a former employer supporting the development of an application built on php5 and the laravel framework. My goal is to work as a ruby on rails developer on a distributed team and continue doing what I love while exploring the world.
+## Hi!
+My name's Stephen Mariano. I usually go by Stephen in North America and Mariano in South America, but I'll answer to whatever you feel like calling me.
+
+<br>
+I'm an American expat living in Peru. I love writing, learning and [building things](/projects/). Right now I'm building things with Ruby. I hope to use this site to share some of that love.
+<br>
+
+## How I got here
+I took a pretty winding road into web development. Back in 2011 I moved to the Peruvian highlands to work for an NGO as a research assistant. A year in I decided to quit my job and explore other possiblities while teaching English in Peru. After a year of taking online courses on  everything from linear algebra and data analysis to Ancient Greek History and python programming I decided to dedicate myself to learning web development. Eventually I learned enough (PHP) to take on web responsibilities in my current job doing tasks like automating the writing of SEO text with python scripts or creating a little hack for a custom google analytics solution to improve tracking for sales.
+
+I wanted to do this full time though and I wanted to learn more than I was likely going to get a chance to doing what I was doing so I enrolled in an online web development bootcamp (they call it an apprencticeship) with [bloc](https://www.bloc.io).
+
+## What I'm up to now
+Right now I split my time between working supporting an administrative site CMS built with the Laravel framework and building [personal projects](/projects/) with Ruby on Rails.
+

@@ -1,11 +1,52 @@
 ---
 layout: page
-title: Projects
+title: ""
+date:
+modified:
+excerpt:
+tags: []
+image:
+  feature:
 ---
 
-- [Blackjack](http://smcabrera-blackjack.herokuapp.com/): A web-based blackjack game written in ruby using the sinatra framework
-- [Code Katas](https://github.com/smcabrera/katas): Practice exercises I work on to improve how I write ruby and to practice basic algorithms (and mabye because I'm kind of addicted).
-- [Bloccit](https://github.com/smcabrera/bloccit): A reddit clone I wrote with the help of tutorials as part of the bloc course.
-- [Blocitoff](https://github.com/smcabrera/blocitoff): This is a simple todo list rails application I wrote from scratch as part of the bloc course.
-- [Castillo-Cabrera](https://github.com/smcabrera/castillo-cabrera): These are my dotfiles, feel free to steal anything you find useful.
-- [GAtest](http://www.smcabrera.com/gatest/): Test site I built to test out google analytics code for work.
+##  Blocitoff
+A todo list application I wrote from scratch as part the [bloc](https://www.bloc.io) bootcamp. It has the additional wrinkle that todos that you don't finish within a week self-destruct (via a rake task triggered by a cron job). Stop procrastinating!
+<br>
+[source](https://github.com/smcabrera/blocitoff)
+<hr />
+
+##  Bloccit
+A reddit clone I wrote as part of the [bloc](https://www.bloc.io) bootcamp.
+<br>
+[site](https://github.com/smcabrera/bloccit) | [source](http://smcabrera-bloccit.herokuapp.com/)
+<hr />
+
+## Job Scrape
+My (very originally named) job site scraper turned into a rails app.
+<br>
+[source](https://github.com/smcabrera/job-scrape)
+<hr />
+
+## Timewatch
+A simple time tracking app inspired by the timetrap gem.
+<br>
+[source](https://github.com/smcabrera/timewatch)
+<hr />
+
+## Blackjack
+A simple blackjack game written in ruby using the sinatra framework. Written as part the Introduction to Ruby and Web Development Course from [Tealeaf Academy](http://www.gotealeaf.com/curriculum).
+<br>
+[site](http://smcabrera-blackjack.herokuapp.com/) | [source](https://github.com/smcabrera/web-blackjack)
+<hr />
+
+##  Code Katas
+Not really a project, this is a repo of coding exercises I use to practice everything from TDD to algorithms, refactoring to code review. I gave a talk about the utility of Code Katas at the March 2015 Ruby Peru meetup. Hopefully I'll get around to writing about this too.
+<br>
+[source](https://github.com/smcabrera/katas)
+<hr />
+
+##  castillo-cabrera
+Not really a project either but still code worth sharing. This is my dotfiles repository--my castle (castillo = castle in spanish). I'm dangerously obsessed with my setup; hopefully someone will benefit benefit from my sharing them so I can feel a little better about all the time I've spent.
+<br>
+[source](https://github.com/smcabrera/castillo-cabrera)
+<hr />

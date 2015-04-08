@@ -1,6 +1,15 @@
 ---
 layout: post
 title: Details to keep in Mind Setting up your Laravel App
+layout: post
+excerpt: "There's a few not-so-obvious details that you need to configure for a new laravel app when working with multiple developers"
+modified: 2015-04-06
+tags: [laravel, php, configuration]
+comments: true
+image:
+  feature:
+  credit:
+  creditlink:
 ---
 
 ### Dealing with Different Database Passwords

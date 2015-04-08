@@ -1,6 +1,14 @@
 ---
 layout: post
 title: Remote Pairing Tools
+excerpt: "How do you code with another programmer when you're not in the same room--or even the same country?"
+modified:
+tags: [pairing, agile, remote, tools]
+comments: true
+image:
+  feature:
+  credit:
+  creditlink:
 ---
 
 I've recently been on the lookout for tools to make remote pair

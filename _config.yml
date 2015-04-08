@@ -1,13 +1,60 @@
-markdown: redcarpet
+# Site wide configuration
+
+title:            Stephen Mariano Cabrera
+locale:           en_US
+url: http://localhost:4000
+
+
+# Jekyll configuration
+
+permalink:   /:categories/:title/
+markdown:    kramdown
 highlighter: pygments
-permalink: /:title
-
-url: smcabrera.github.io
-baseurl:
-
-redcarpet:
-  extensions: [strikethrough, tables]
-
 sass:
-  sass_dir: public/css
-  style: :compressed
+  sass_dir: _sass
+  style: compressed
+gems:
+  - jekyll-sitemap
+
+kramdown:
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  use_coderay: false
+
+
+# Site owner
+owner:
+  name: Stephen Mariano Cabrera
+  avatar: bio-photo.jpg
+  bio: "Rails Developer"
+  email: stephen.m.cabrera@gmail.com
+  disqus-shortname:
+  twitter: stephenmarian0
+  facebook: #username
+  google:
+    plus: #username
+    analytics:
+    verify:
+    ad-client:
+    ad-slot:
+  bing-verify:
+  github: smcabrera
+  stackoverflow: 2181217/stephen-mariano-cabrera
+  linkedin: smcabrera
+  xing: #username
+  instagram: #username
+  lastfm: #username
+  tumblr: #username
+  pinterest: #username
+  foursquare: #username
+  steam: #username
+  dribbble: #username
+  youtube: #username
+  soundcloud: #username
+  weibo: #username
+  flickr: #username
+
+include: [".htaccess"]
+exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules", "Gemfile", "Gemfile.lock", "LICENSE", "README.md"]
