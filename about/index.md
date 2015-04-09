@@ -5,8 +5,8 @@ tags: [about]
 modified: 2015-4-8
 comments: true
 image:
-  feature: 
-  credit: 
+  feature:
+  credit:
   creditlink:
 ---
 

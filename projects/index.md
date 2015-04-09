@@ -18,7 +18,7 @@ A todo list application I wrote from scratch as part the [bloc](https://www.bloc
 ###  Bloccit
 A reddit clone I wrote as part of the [bloc](https://www.bloc.io) bootcamp.
 <br>
-[site](https://github.com/smcabrera/bloccit) | [source](http://smcabrera-bloccit.herokuapp.com/)
+[site](http://smcabrera-bloccit.herokuapp.com/) | [source](https://github.com/smcabrera/bloccit)
 <hr />
 
 ### Job Scrape
