@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Blogging for Hackers--Introduction to Jekyll
-excerpt: "A presentation for Ruby Peru"
+title: Ruby Peru April 2015
+excerpt: "minimalist gems, metaprogramming and a static-site generator"
 modified: 2015-4-16
-tags: [ruby, tools, blogging]
+tags: [ruby, tools, blogging, gems, metaprogramming]
 comments: true
 image:
   feature: ruby-peru_2015-4-16.jpg
@@ -13,7 +13,7 @@ image:
 
 This month Ruby Peru was hosted by La Laboratoria, the non-profit arm of Peruvian software consultancy AyuInc that trains young economically-disadvantaged women to be junior developers in a five-month program. They have a great new space that was a pleasure to hang out in. Thanks! Hopefully they'll let us use ths space for more events in the future!
 
-Julio Lopez gave a talk on a few of the gems, [fabricas](https://github.com/TheBlasfem/fabricas), [garfio](https://github.com/TheBlasfem/garfio) and [ate](https://github.com/TheBlasfem/ate) he's put together recently, minimalist reworkings of test factories (a la FactoryGirl), rails callbacks and templating engines (a la erb) respectively. In his talk we went through some of the metaprogramming behind creating the fabricas gem, and showed just how little code is necessary in ruby to achieve some powerful results and how by creating a minimalist implementation we can better understand some of the libraries we use everyday.
+[Julio Lopez](https://twitter.com/TheBlasfem) gave a talk on a few of the gems, [fabricas](https://github.com/TheBlasfem/fabricas), [garfio](https://github.com/TheBlasfem/garfio) and [ate](https://github.com/TheBlasfem/ate) he's put together recently, minimalist reworkings of test factories (a la FactoryGirl), rails callbacks and templating engines (a la erb) respectively. In his talk we went through some of the metaprogramming behind creating the fabricas gem, and showed just how little code is necessary in ruby to achieve some powerful results and how by creating a minimalist implementation we can better understand some of the libraries we use everyday.
 
 I gave a presentation on Jekyll the engine behind this blog, explaining some of the things I mentioned in a [previous post](../whats-jekyll). You can find my slides below.
 
