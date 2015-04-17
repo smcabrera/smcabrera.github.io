@@ -14,7 +14,7 @@ image:
 A presentation for the Ruby Peru monthly meetup group on using the ```jekyll``` gem to quickly put together simple cms-free blogs or sites for open-source projects.
 <br><br>
 At some point soon I'll be following [this guide](https://developmentseed.org/blog/multilingual-jekyll-sites/) to making my site bilingual. Until then here are the slides in English and in Spanish on the same page.
-<br><br>
+<hr>
 Una presentación para Ruby Peru grupo de meetup sobre usar la gema ```jekyll``` para rápidamente armar un sencillo blog sin cms o un sitio para proyectos open-source.
 <br><br>
 En algún momento voy a seguir [este post](https://developmentseed.org/blog/multilingual-jekyll-sites/) para hacer el sitio blingue. Hasta entonces incluyo aqui los slides en inglés y en español en la misma página.
