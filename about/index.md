@@ -13,7 +13,7 @@ image:
 My name's Stephen Mariano. I go by Stephen in North America and Mariano in South America. Take your pick.
 
 <br>
-I'm an American expat living in Peru. I love writing, learning and [building things](/projects/). Right now I'm building things with Ruby. I hope to use this site to share some of that love.
+Right now I'm based out of my hometown of sunny Cleveland, Ohio. I love writing, learning and [building things](/projects/). Right now I'm building things with Ruby. I hope to use this site to share some of that love.
 <br>
 
 ## How I got here
