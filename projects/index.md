@@ -9,6 +9,13 @@ image:
   feature:
 ---
 
+### Get Freaky
+Wrapper for the confreaks API that permits browsing and downloading convention videos from the command line. Written as a ruby gem using the excellent commander and httparty gems for the command line interface and interacting with confreaks public api respectively.
+<br>
+[site](https://rubygems.org/gems/get_freaky) | [source](https://github.com/smcabrera/get_freaky)
+
+<br />
+
 ###  Blocitoff
 A todo list application I wrote from scratch as part the [bloc](https://www.bloc.io) bootcamp. It has the additional feature that todos that you don't finish within a week self-destruct (via a rake task triggered by a cron job). Stop procrastinating!
 <br>
