@@ -1,6 +1,8 @@
-# Today I learned Why You Should Actually Bother Learning Haml
+# Why You Should Actually Bother Learning Haml
 
-I've been playing around with haml in some of my views. I still use erb sometimes, and if it ever becomes a pain in the ass I just erb.
+haml is an alternative to erb for rendering html and running ruby code in your views. I've been playing around with it recently and I'd like to share some initial impressions.
+
+I've been playing around with haml in some of my views. Ocasionally I've had some difficulty with the syntax and I've wondered if this is worth it.
 
 As an aside, I think this is an excellent model for adding new technologies to your workflow. Don't be extreme about it, just start introducing gradually, in areas where the costs are lower. This is basically what I did to learn vim--I was doing a course and during the introductory (easy ) part of the course I decided to do it using vim to make it a little more interesting.
 
