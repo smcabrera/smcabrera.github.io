@@ -6,13 +6,12 @@ modified: 2015-6-14
 tags: [ruby, gems, cli]
 comments: true
 image:
-  feature: keep-calm-and-get-freaky-6.png
-  credit: The Keep Calm-O-Matic
-  creditlink: http://www.keepcalm-o-matic.co.uk/p/keep-calm-and-get-freaky-6/
+  feature:
+  credit:
+  creditlink:
 ---
 
-I made a thing. I'm a big fan of command line applications--sometimes I just don't want to get distracted by everything that comes with using a web app (before you know it you've spent an hour and a half on twitter) and I just want a simple command line interface to do what I want to get done. As a bonus if there's some part of the process you want to automate command line apps make this much easier to do.
-
+I made a thing. I'm a big fan of command line applications--sometimes I just don't want to get distracted by everything that comes with using a web app (before you know it you've spent an hour and a half on twitter) and I just want a simple command line interface to do what I want to get done. As a bonus if there's some part of the process you want to automate command line apps make this much easier to do.<br>
 So when I was checking out conference vieos on confreaks.tv and discovered that they have a public api I thought I'd take the opportunity to build a little ruby command line app to consume its API and automatically download videos taking advantage a few excellent gems that simplified matters a great deal and which I highly recommend:
 
 - [viddl-rb](https://github.com/rb2k/viddl-rb): gem for providing a simple interface for downloading videos from various sites (youtube, vimeo) as well as the
