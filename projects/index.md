@@ -11,7 +11,7 @@ image:
 ---
 
 ### Get Freaky
-Wrapper for the confreaks API that permits browsing and downloading convention videos from the command line. Written as a ruby gem using the excellent commander and httparty gems for the command line interface and interacting with confreaks public api respectively. I write about this in greater detail in [this post]()<br>
+Wrapper for the confreaks API that permits browsing and downloading convention videos from the command line. Written as a ruby gem using the excellent commander and httparty gems for the command line interface and interacting with confreaks public api respectively. I write about this in greater detail in [this post](/get-freaky/)<br>
 [site](https://rubygems.org/gems/get_freaky) | [source](https://github.com/smcabrera/get_freaky)
 <hr />
 
