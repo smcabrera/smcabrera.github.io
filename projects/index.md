@@ -11,8 +11,18 @@ image:
 ---
 
 ### Get Freaky
-Wrapper for the confreaks API that permits browsing and downloading convention videos from the command line. Written as a ruby gem using the excellent commander and httparty gems for the command line interface and interacting with confreaks public api respectively.<br>
+Wrapper for the confreaks API that permits browsing and downloading convention videos from the command line. Written as a ruby gem using the excellent commander and httparty gems for the command line interface and interacting with confreaks public api respectively. I write about this in greater detail in [this post]()<br>
 [site](https://rubygems.org/gems/get_freaky) | [source](https://github.com/smcabrera/get_freaky)
+<hr />
+
+### CodeCamino
+Create lists of tutorials to organize learning web development concepts.
+[site](http://code-camino.herokuapp.com/) | [source](https://github.com/smcabrera/bloccit)
+<hr />
+
+###  Blocipedia
+A wiki SaaS app written from scratch as part the [bloc](https://www.bloc.io) bootcamp. Allows for private and public wikis and paid subscriptions with payments processed with stripe.<br>
+[source](https://github.com/smcabrera/blocipedia)
 <hr />
 
 ###  Blocitoff
