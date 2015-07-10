@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Duck Typing and Case Statements
+date: 2015-07-10T11:56:18-04:00
 excerpt: "A few options for accepting different types of parameters in your ruby methods"
 modified: 2015-6-14
 tags: [ruby]

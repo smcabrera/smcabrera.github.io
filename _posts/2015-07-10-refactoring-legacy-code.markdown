@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Refactoring Legacy Code"
+date: 2015-07-10T11:58:13-04:00
 excerpt: ""
 modified: 2015-7-9
 tags: [refactoring, rails]
