@@ -2,7 +2,7 @@
 layout: post
 title: "Refactoring Legacy Code"
 date: 2015-07-10T11:58:13-04:00
-excerpt: ""
+excerpt: "A first foray into improving someone else's messy untested code"
 modified: 2015-7-9
 tags: [refactoring, rails]
 comments: true
@@ -11,8 +11,6 @@ image:
   credit:
   creditlink:
 ---
-
-# First Foray into Legacy Code: A Refactoring Case Study
 
 In his book, *Working Effectively with Legacy Code*, Michael Feathers writes "To me, legacy code is simply code without tests." This isn't just because tests are nice and let you make changes without breaking things. It's also because of the truism that code that's easy to test tends to be easier to reason about and easier to maintain.
 
