@@ -5,7 +5,7 @@ date:
 modified:
 excerpt:
 tags: []
-image: 
+image:
   feature: santa_lucia_santiago_crop_bw.jpg
   credit: Me
 ---
@@ -16,22 +16,22 @@ Wrapper for the confreaks API that permits browsing and downloading convention v
 <hr />
 
 ### CodeCamino
-Create lists of tutorials to organize learning web development concepts.
-[site](http://code-camino.herokuapp.com/) | [source](https://github.com/smcabrera/bloccit)
+Create lists of tutorials to organize learning web development concepts. Begun as the capstone for [bloc](https://www.bloc.io) apprenticeship.
+[site](http://code-camino.herokuapp.com/) | [source](https://github.com/smcabrera/code-camino)
 <hr />
 
 ###  Blocipedia
-A wiki SaaS app written from scratch as part the [bloc](https://www.bloc.io) bootcamp. Allows for private and public wikis and paid subscriptions with payments processed with stripe.<br>
+A wiki SaaS app written from scratch as part of the [bloc](https://www.bloc.io) apprenticeship. Allows for private and public wikis and paid subscriptions with payments processed with stripe.<br>
 [source](https://github.com/smcabrera/blocipedia)
 <hr />
 
 ###  Blocitoff
-A todo list application I wrote from scratch as part the [bloc](https://www.bloc.io) bootcamp. It has the additional feature that todos that you don't finish within a week self-destruct (via a rake task triggered by a cron job). Stop procrastinating!<br>
+A todo list application I wrote from scratch as part of the [bloc](https://www.bloc.io) apprenticeship. It has the additional feature that todos that you don't finish within a week self-destruct (via a rake task triggered by a cron job). Stop procrastinating!<br>
 [source](https://github.com/smcabrera/blocitoff)
 <hr />
 
 ###  Bloccit
-A reddit clone I wrote as part of the [bloc](https://www.bloc.io) bootcamp.<br> 
+A reddit clone I wrote as part of the [bloc](https://www.bloc.io) apprenticeship.<br>
 [site](http://smcabrera-bloccit.herokuapp.com/) | [source](https://github.com/smcabrera/bloccit)
 <hr />
 

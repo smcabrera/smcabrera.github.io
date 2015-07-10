@@ -51,7 +51,7 @@ The last thing you want to do when refactoring is break existing functionality a
 
 I did change one thing from the start though--I copied the method into the user class. This maps what I eventually intended to do with the method but it also gives me the advantage that I no longer have to worry about who the ```current_user``` is (a method from devise that requires me to have a signed in user). Also instead of writing an integration test I can just add a unit test to my user test suite:
 
-```
+```ruby
 describe "set_net_worth" do
   it "sets user's net worth to the sum of the value of their items" do
     user = create(:user)
@@ -75,7 +75,8 @@ Here we see another advantage of writing tests for current functionality before 
 
 I wrote the production code in two steps:
 
-1. Copied the code from the old set_net_worth method to the user class and change it to make its test suite pass.
+### Move set_net_worth to user class
+Copied the code from the old set_net_worth method to the user class and change it to make its test suite pass.
 
 This enabled me to gradually simplify the method, while ensuring that at no point did any of my changes make the test suite fail. The resulting method looked like this:
 
@@ -87,7 +88,16 @@ end
 
 Even if we stopped here we'd have brought this method from 15 lines in two places to 1 line in the user class (of course we'd have to update all those set_net_worth calls to current_user.set_net_worth).
 
-2. Drop the ```net_worth``` field from the database and change the name of user#set_net_worth to simply user#net_worth. This way we never need to call ```set_net_worth``` at all and the existing references to the ```net_worth``` attribute will work without modification since they'll just call my ```net_worth``` method instead of the ActiveRecord getter method.
+### Change set_net_worth to net_worth
+Drop the ```net_worth``` field from the database and change the name of ```user#set_net_worth``` to simply ```user#net_worth```. This way we never need to call ```set_net_worth``` at all and the existing references to the ```net_worth``` attribute will work without modification since they'll just call my ```net_worth``` method instead of the ActiveRecord getter method.
+
+Our method then looks like this:
+
+```ruby
+def net_worth
+  items.map { |i| i.value }.compact.sum
+end
+```
 
 ## Alternatives
 It's worth noting that there's a potential tradeoff by calculating net worth on the fly as opposed to saving it in the database. By calculating on the fly you risk a performance hit if doing so involves accessing many model objects (we have to access all of the user's items and all of their value attributes albeit with map which I think is faster than iterating over them with each). If this calculation became more complicated for some reason (if it involved more than just a sum maybe). I suppose this could turn into a lot of computation every time you wanted to display a user's ```net_worth```.
