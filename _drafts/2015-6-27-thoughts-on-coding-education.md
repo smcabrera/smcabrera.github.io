@@ -29,6 +29,17 @@ One newer resource in the technical education space is the Coding Bootcamp. Ther
 
 Many people have come across a coding bootcamp or two and don't realize that it is far from their only option for learning web development--there's actually a *ton* of them now. [Course Report](https://www.coursereport.com/) is a comprehensive guide to coding bootcamps all over the world, providing information on the different technologies they teach, teaching methodologies, locations, job placement and pricing.
 
+## What to Learn?
+Something should be said about what technology stack(s) you should learn. It's worth taking a moment here to note the kind of technologies you can learn and how they map to the market.  On the other hand you have proprietary/legacy technologies; microsoft's .net framework,
+
+### Modern Open Source Technologies
+These are generally newer frameworks and programming languages which are open source and are popular among startups as well as in tech companies in major cities like San Francisco, New York and Boston. Examples include Ruby and the Rails framework, python and its django framework or full stack javascript with nodejs and angular. In general bootcamps tend to teach these newer technologies. These are open source languages that are considered more modern and are generally very popular in startups and in companies in the nation's tech hubs generally and will afford you a greater chance of getting a job (and likely with higher pay) in San Francisco, New York City or Boston. In the rest of the country there seem to be fewer jobs with these technologies although they are slowly growing in popularity.
+
+### Proprietary/Legacy Technologies
+These are tech stacks owned by large corporations that have been around for a while and continue to be used in areas like banking and enterprise systems or other large institutions that are slow to change. Examples include Oracle's Java programming language and microsoft's .net framework and C# programming language. These technologies are less popular in the major tech hubs as they've been replaced by newer technologies but they still remain in legacy systems. The programming bootcamps that have been cropping up around the country tend to teach the open source technologies.
+
+I´m not sure which one I´d recommend to someone looking for a job in the Midwest.
+
 
 ## Online bootcamps
 The traditional bootcamp that you'll find listed on Course Report is in person, costs around $10k and requires you to live in a big expensive city in the U.S. This turns into a LOT of money at the end of the day and it can be really hard to get your hands on that much money in the first place, especially if you've got student debt.
@@ -50,7 +61,7 @@ Check out this line from their website:
 
 We are 100% incentivized to get you the most successful software engineering job possible... We do not charge tuition. Instead, you pay a fee equal to 18% of your first year's salary when you get a job.
 
-I heard about this when they first started offering it and I thought it was incredible. They are essentially putting their money where their mouth is and betting that 
+I heard about this when they first started offering it and I thought it was incredible. They are essentially putting their money where their mouth is and betting that
 
 Now, keep in mind, that rate could very well make the program than, bloc, the course I took. I paid $5000 grand upfront and was able to get a scholarship for $500 for belonging to a demographic that's under-represented among software developers, bringing the cost down to $4500. By contrast, the average salary for a junior Ruby on Rails Developer is around $76k or so. Even if you made $10k less than you're still looking at paying $12k in that first year of working.
 
