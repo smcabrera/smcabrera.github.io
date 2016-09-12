@@ -1,0 +1,264 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>The Slow Web &#8211; Stephen Mariano Cabrera</title>
+<meta name="description" content="What the "slow web" movement is about and why I find it compelling.">
+<meta name="keywords" content="">
+
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:title" content="The Slow Web">
+<meta name="twitter:description" content="What the "slow web" movement is about and why I find it compelling.">
+<meta name="twitter:site" content="@stephenmarian0">
+<meta name="twitter:creator" content="@stephenmarian0">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="/images/default-thumb.png">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Slow Web">
+<meta property="og:description" content="What the "slow web" movement is about and why I find it compelling.">
+<meta property="og:url" content="/the-slow-web/">
+<meta property="og:site_name" content="Stephen Mariano Cabrera">
+
+
+
+
+
+<link rel="canonical" href="/the-slow-web/">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Stephen Mariano Cabrera Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- HTML5 Shiv and Media Query Support -->
+<!--[if lt IE 9]>
+	<script src="/assets/js/vendor/html5shiv.min.js"></script>
+	<script src="/assets/js/vendor/respond.min.js"></script>
+<![endif]-->
+
+<!-- Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.7.1.custom.min.js"></script>
+
+<link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700%7CPT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+<script src="https://carnivalapp.io/sites/29/init.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", Carnival.init);
+</script>
+
+
+</head>
+
+<body class="post">
+
+<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+
+<div class="navigation-wrapper">
+	<div class="site-name">
+		<a href="/">Stephen Mariano Cabrera</a>
+	</div><!-- /.site-name -->
+	<div class="top-navigation">
+		<nav role="navigation" id="site-nav" class="nav">
+		    <ul>
+		        
+				    
+				        
+				    
+				    <li><a href="/about/" >About</a></li>
+				
+				    
+				        
+				    
+				    <li><a href="/projects/" >Projects</a></li>
+				
+				    
+				        
+				    
+				    <li><a href="/posts/" >Blog</a></li>
+				
+		    </ul>
+		</nav>
+	</div><!-- /.top-navigation -->
+</div><!-- /.navigation-wrapper -->
+
+
+
+<div id="main" role="main">
+  <div class="article-author-side">
+    
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+
+	<img src="/images/bio-photo.jpg" class="bio-photo" alt="Stephen Mariano Cabrera bio photo">
+
+
+  <h3 itemprop="name">Stephen Mariano Cabrera</h3>
+  <p>Rails Developer</p>
+  <a href="mailto:stephen.m.cabrera@gmail.com" class="author-social" target="_blank"><i class="fa fa-fw fa-envelope-square"></i> Email</a>
+  <a href="http://twitter.com/stephenmarian0" class="author-social" target="_blank"><i class="fa fa-fw fa-twitter-square"></i> Twitter</a>
+  
+  
+  <a href="http://linkedin.com/in/smcabrera" class="author-social" target="_blank"><i class="fa fa-fw fa-linkedin-square"></i> LinkedIn</a>
+  
+  
+  
+  <a href="http://github.com/smcabrera" class="author-social" target="_blank"><i class="fa fa-fw fa-github"></i> Github</a>
+  <a href="http://stackoverflow.com/users/2181217/stephen-mariano-cabrera" class="author-social" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i> Stackoverflow</a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </div>
+  <article class="post">
+    <div class="headline-wrap">
+      
+        <h1><a href="/the-slow-web/" rel="bookmark" title="The Slow Web">The Slow Web</a></h1>
+      
+    </div><!--/ .headline-wrap -->
+    <div class="article-wrap">
+      <p>I just read <a href="http://jackcheng.com/the-slow-web">this article</a> on the Slow Web movement and I found it deeply inspiring. Read that article. It, and the movement it describes, is a deeply critical look at what has become typical in the way we use the internet today and a way to do things differently based on a focus on simplicity.</p>
+
+<p>What makes the idea so powerful for me though is how it unites disparate lines of thinking I’ve had on software both as a producer and a consumer. It fits in with my gradual movement toward bare-bones tools, getting as much of my work done as I can in a terminal working with simple text files where possible.</p>
+
+<p>Take the tools I use to write this blog. The application I’m using to write these words right now is called <em>Journey</em> and does exactly what I need it to do–it automatically assigns dates to new entries that I write. That’s it. Its simplicity makes it feel more like a diary encouraging me to just write and not get distracted by bells and whistles. And lets me write and read everything in markdown. Markdown itself I believe is an expression of this notion–a simple document formatting that is readable as you’re writing it and can easily be converted to html. Then once it comes time to lift a potential blog post from my “diary” to the world I use jekyll. Jekyll is an uber-simple blogging engine that stores all your posts as text files in a folder and then compiles the files together to create your blog’s static files. No relational database required. Everything is just text.</p>
+
+<h2 id="the-paradox-of-choice">The Paradox of Choice</h2>
+<p>This preference for simplicity also a brings to mind a phenomenon I read about once and which I’ve seen endless applications of in my life–the paradox of choice. The idea is that we  (particularly economists–my former field of study) tend to think that people are always made strictly better off by having more choice. But the evidence refutes this notion. In a study where they give people 25 options for mutual funds in which to invest for their retirement, they did not  appear to be 5 times better off than when they just had five. Instead, it turned out that they were significantly <em>less</em> likely to invest anything at all. And that’s for their <em>retirement</em>. Kind of important!</p>
+
+<p>Similarly, I think many of the best web apps are the ones that use algorithms to <em>reduce</em> the number of choices you need to make rather than increase them. Coming back to the app I’m using right now, it defaults to dating all entries with the current date and time. You can edit this later if you want but that’s the default. Posts are then automatically organized (again without you making choices about how you’d like to do this) according to date. While it may seem trivial, this has actually proved as a barrier to my attempts at keeping up writing habits in the past. This simple default has lowered the barrier to writing for me and I’ve found myself writing <em>way</em> more than in the past as a result.</p>
+
+<p>There’s a lot more to this movement than what I just discussed so it’s definitely something I’m going to read into more. Also if folks are interested, much of what I now think about software was inspired by the excellent book <a href="https://gettingreal.37signals.com/">Getting Real</a> by 37 signals (now basecamp), which has a lot of similar ideas about simplicity in software development.</p>
+
+      <hr />
+      <footer role="contentinfo">
+        <div class="social-share">
+  <h4>Share on</h4>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=/the-slow-web/" class="twitter" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=/the-slow-web/" class="facebook" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=/the-slow-web/" class="google-plus" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+  </ul>
+</div><!-- /.social-share -->
+        <p class="byline"><strong>The Slow Web</strong> was published on <time datetime="2014-11-18T00:00:00-05:00">November 18, 2014</time> and last modified on <time datetime="2014-11-18">November 18, 2014</time>.</p>
+      </footer>
+    </div><!-- /.article-wrap -->
+  
+    <section id="disqus_thread"></section><!-- /#disqus_thread -->
+  
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrap">
+  <div class="related-articles">
+  <h4>You might also enjoy <small class="pull-right">(<a href="/posts/">View all posts</a>)</small></h4>
+    <ul>
+    
+      <li><a href="/refactoring-legacy-code/" title="Refactoring Legacy Code">Refactoring Legacy Code</a></li>
+    
+      <li><a href="/get-freaky/" title="Get Freaky">Get Freaky</a></li>
+    
+      <li><a href="/ruby-peru-april-2015/" title="Ruby Peru April 2015">Ruby Peru April 2015</a></li>
+    
+    </ul>
+    <hr />
+  </div><!-- /.related-articles -->
+  <footer>
+    
+
+<span>&copy; 2016 Stephen Mariano Cabrera. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a> theme.</span>
+
+  </footer>
+</div><!-- /.footer-wrap -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  var _gaq = _gaq || [];
+  var pluginUrl = 
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'stephen.m.cabrera']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+  
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'smcabreragithubio'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+	        
+
+</body>
+</html>

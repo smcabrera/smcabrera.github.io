@@ -1,0 +1,296 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>REPL Driven Development with pry &#8211; Stephen Mariano Cabrera</title>
+<meta name="description" content="Slides and notes for a talk I gave for Ruby Peru on REPL Driven development">
+<meta name="keywords" content="ruby, learning, tools">
+
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:title" content="REPL Driven Development with pry">
+<meta name="twitter:description" content="Slides and notes for a talk I gave for Ruby Peru on REPL Driven development">
+<meta name="twitter:site" content="@stephenmarian0">
+<meta name="twitter:creator" content="@stephenmarian0">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="/images/default-thumb.png">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="REPL Driven Development with pry">
+<meta property="og:description" content="Slides and notes for a talk I gave for Ruby Peru on REPL Driven development">
+<meta property="og:url" content="/REPL-Driven-Development/">
+<meta property="og:site_name" content="Stephen Mariano Cabrera">
+
+
+
+
+
+<link rel="canonical" href="/REPL-Driven-Development/">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Stephen Mariano Cabrera Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- HTML5 Shiv and Media Query Support -->
+<!--[if lt IE 9]>
+	<script src="/assets/js/vendor/html5shiv.min.js"></script>
+	<script src="/assets/js/vendor/respond.min.js"></script>
+<![endif]-->
+
+<!-- Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.7.1.custom.min.js"></script>
+
+<link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700%7CPT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+<script src="https://carnivalapp.io/sites/29/init.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", Carnival.init);
+</script>
+
+
+</head>
+
+<body class="post">
+
+<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+
+<div class="navigation-wrapper">
+	<div class="site-name">
+		<a href="/">Stephen Mariano Cabrera</a>
+	</div><!-- /.site-name -->
+	<div class="top-navigation">
+		<nav role="navigation" id="site-nav" class="nav">
+		    <ul>
+		        
+				    
+				        
+				    
+				    <li><a href="/about/" >About</a></li>
+				
+				    
+				        
+				    
+				    <li><a href="/projects/" >Projects</a></li>
+				
+				    
+				        
+				    
+				    <li><a href="/posts/" >Blog</a></li>
+				
+		    </ul>
+		</nav>
+	</div><!-- /.top-navigation -->
+</div><!-- /.navigation-wrapper -->
+
+
+
+<div id="main" role="main">
+  <div class="article-author-side">
+    
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+
+	<img src="/images/bio-photo.jpg" class="bio-photo" alt="Stephen Mariano Cabrera bio photo">
+
+
+  <h3 itemprop="name">Stephen Mariano Cabrera</h3>
+  <p>Rails Developer</p>
+  <a href="mailto:stephen.m.cabrera@gmail.com" class="author-social" target="_blank"><i class="fa fa-fw fa-envelope-square"></i> Email</a>
+  <a href="http://twitter.com/stephenmarian0" class="author-social" target="_blank"><i class="fa fa-fw fa-twitter-square"></i> Twitter</a>
+  
+  
+  <a href="http://linkedin.com/in/smcabrera" class="author-social" target="_blank"><i class="fa fa-fw fa-linkedin-square"></i> LinkedIn</a>
+  
+  
+  
+  <a href="http://github.com/smcabrera" class="author-social" target="_blank"><i class="fa fa-fw fa-github"></i> Github</a>
+  <a href="http://stackoverflow.com/users/2181217/stephen-mariano-cabrera" class="author-social" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i> Stackoverflow</a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </div>
+  <article class="post">
+    <div class="headline-wrap">
+      
+        <h1><a href="/REPL-Driven-Development/" rel="bookmark" title="REPL Driven Development with pry">REPL Driven Development with pry</a></h1>
+      
+    </div><!--/ .headline-wrap -->
+    <div class="article-wrap">
+      <p>In English at the bottom–to be cleaned up as soon as I make this blog bilingual.</p>
+
+<p>Aqui pueden ver mis slides de la charla sobre REPL driven development con pry:</p>
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/40098358" width="476" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+
+<p>También aqui estan los links a los recursos y charlas que mencionaba:</p>
+
+<ul>
+  <li><a href="pryrepl.org">Pry</a>: Aprender más sobre pry y si eres muy fan, hasta te puedes comprar un polo.</li>
+  <li>pry-rails (gem ‘pry-rails’ en tu Gemfile)</li>
+  <li><a href="github.com/epeli/slimux/">slimux</a>: Plugin para vim que te permita mandar texto a otra ventana tmux (sirve con pry pero también para rspec por ejemplo).</li>
+</ul>
+
+<p>Otras Charlas muy buenas que me inspiraron bastante:</p>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=D9j_Mf91M0I">Ruby Conf 2013: REPL driven development with pry</a></li>
+  <li><a href="https://www.youtube.com/watch?v=D9j_Mf91M0I">Rails Conf 2013 Pry–The Good Parts!</a></li>
+  <li><a href="https://www.youtube.com/watch?v=4hfMUP5iTq8">Rails Conf 2014 Debugger driven development with pry</a></li>
+</ul>
+
+<hr />
+
+<p>Below you can see my slides for the talk I gave for Ruby Peru on REPL driven development with pry.</p>
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/40098358" width="476" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+
+<p>Also below are the links and resources that I mentioned in the talk:</p>
+
+<ul>
+  <li><a href="pryrepl.org">Pry</a>: Learn more about pry and if you’re a big fan you can even buy a t-shirt to support the project.</li>
+  <li>pry-rails (gem ‘pry-rails’ en tu Gemfile)</li>
+  <li><a href="github.com/epeli/slimux/">slimux</a>: A vim plugin that allows you to send text to a separate tmux window. This can be useful to send rspec tests but also for writing code in a file and then testing its lines one by one by sending them to pry.</li>
+</ul>
+
+<p>Excellent conference talks which inspired me:</p>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=D9j_Mf91M0I">Ruby Conf 2013: REPL driven development with pry</a></li>
+  <li><a href="https://www.youtube.com/watch?v=D9j_Mf91M0I">Rails Conf 2013 Pry–The Good Parts!</a></li>
+  <li><a href="https://www.youtube.com/watch?v=4hfMUP5iTq8">Rails Conf 2014 Debugger driven development with pry</a></li>
+</ul>
+
+
+      <hr />
+      <footer role="contentinfo">
+        <div class="social-share">
+  <h4>Share on</h4>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=/REPL-Driven-Development/" class="twitter" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=/REPL-Driven-Development/" class="facebook" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=/REPL-Driven-Development/" class="google-plus" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+  </ul>
+</div><!-- /.social-share -->
+        <p class="byline"><strong>REPL Driven Development with pry</strong> was published on <time datetime="2014-10-10T00:00:00-04:00">October 10, 2014</time> and last modified on <time datetime="2015-04-07">April 07, 2015</time>.</p>
+      </footer>
+    </div><!-- /.article-wrap -->
+  
+    <section id="disqus_thread"></section><!-- /#disqus_thread -->
+  
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrap">
+  <div class="related-articles">
+  <h4>You might also enjoy <small class="pull-right">(<a href="/posts/">View all posts</a>)</small></h4>
+    <ul>
+    
+      <li><a href="/refactoring-legacy-code/" title="Refactoring Legacy Code">Refactoring Legacy Code</a></li>
+    
+      <li><a href="/get-freaky/" title="Get Freaky">Get Freaky</a></li>
+    
+      <li><a href="/ruby-peru-april-2015/" title="Ruby Peru April 2015">Ruby Peru April 2015</a></li>
+    
+    </ul>
+    <hr />
+  </div><!-- /.related-articles -->
+  <footer>
+    
+
+<span>&copy; 2016 Stephen Mariano Cabrera. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a> theme.</span>
+
+  </footer>
+</div><!-- /.footer-wrap -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  var _gaq = _gaq || [];
+  var pluginUrl = 
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'stephen.m.cabrera']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+  
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'smcabreragithubio'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+	        
+
+</body>
+</html>

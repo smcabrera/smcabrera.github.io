@@ -1,0 +1,364 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Refactoring Legacy Code &#8211; Stephen Mariano Cabrera</title>
+<meta name="description" content="A first foray into improving someone else's messy untested code">
+<meta name="keywords" content="refactoring, rails">
+
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:title" content="Refactoring Legacy Code">
+<meta name="twitter:description" content="A first foray into improving someone else's messy untested code">
+<meta name="twitter:site" content="@stephenmarian0">
+<meta name="twitter:creator" content="@stephenmarian0">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="/images/default-thumb.png">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Refactoring Legacy Code">
+<meta property="og:description" content="A first foray into improving someone else's messy untested code">
+<meta property="og:url" content="/refactoring-legacy-code/">
+<meta property="og:site_name" content="Stephen Mariano Cabrera">
+
+
+
+
+
+<link rel="canonical" href="/refactoring-legacy-code/">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Stephen Mariano Cabrera Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- HTML5 Shiv and Media Query Support -->
+<!--[if lt IE 9]>
+	<script src="/assets/js/vendor/html5shiv.min.js"></script>
+	<script src="/assets/js/vendor/respond.min.js"></script>
+<![endif]-->
+
+<!-- Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.7.1.custom.min.js"></script>
+
+<link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700%7CPT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+<script src="https://carnivalapp.io/sites/29/init.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", Carnival.init);
+</script>
+
+
+</head>
+
+<body class="post">
+
+<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+
+<div class="navigation-wrapper">
+	<div class="site-name">
+		<a href="/">Stephen Mariano Cabrera</a>
+	</div><!-- /.site-name -->
+	<div class="top-navigation">
+		<nav role="navigation" id="site-nav" class="nav">
+		    <ul>
+		        
+				    
+				        
+				    
+				    <li><a href="/about/" >About</a></li>
+				
+				    
+				        
+				    
+				    <li><a href="/projects/" >Projects</a></li>
+				
+				    
+				        
+				    
+				    <li><a href="/posts/" >Blog</a></li>
+				
+		    </ul>
+		</nav>
+	</div><!-- /.top-navigation -->
+</div><!-- /.navigation-wrapper -->
+
+
+
+<div id="main" role="main">
+  <div class="article-author-side">
+    
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+
+	<img src="/images/bio-photo.jpg" class="bio-photo" alt="Stephen Mariano Cabrera bio photo">
+
+
+  <h3 itemprop="name">Stephen Mariano Cabrera</h3>
+  <p>Rails Developer</p>
+  <a href="mailto:stephen.m.cabrera@gmail.com" class="author-social" target="_blank"><i class="fa fa-fw fa-envelope-square"></i> Email</a>
+  <a href="http://twitter.com/stephenmarian0" class="author-social" target="_blank"><i class="fa fa-fw fa-twitter-square"></i> Twitter</a>
+  
+  
+  <a href="http://linkedin.com/in/smcabrera" class="author-social" target="_blank"><i class="fa fa-fw fa-linkedin-square"></i> LinkedIn</a>
+  
+  
+  
+  <a href="http://github.com/smcabrera" class="author-social" target="_blank"><i class="fa fa-fw fa-github"></i> Github</a>
+  <a href="http://stackoverflow.com/users/2181217/stephen-mariano-cabrera" class="author-social" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i> Stackoverflow</a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </div>
+  <article class="post">
+    <div class="headline-wrap">
+      
+        <h1><a href="/refactoring-legacy-code/" rel="bookmark" title="Refactoring Legacy Code">Refactoring Legacy Code</a></h1>
+      
+    </div><!--/ .headline-wrap -->
+    <div class="article-wrap">
+      <p>In his book, <em>Working Effectively with Legacy Code</em>, Michael Feathers writes “To me, legacy code is simply code without tests.” This isn’t just because tests are nice and let you make changes without breaking things. It’s also because of the truism that code that’s easy to test tends to be easier to reason about and easier to maintain.</p>
+
+<p>For a recent client project I have been working with code that has no tests and, unsurpisingly if Mr. Feathers is to be believed, some less than ideal production code too. What follows is a look at one example of how I went about trying to make a marginal to the codebase by adding tests and then refactoring.</p>
+
+<h2 id="context">Context</h2>
+<p>In this application we have <code class="highlighter-rouge">users</code> and these users have <code class="highlighter-rouge">items</code> with monetary values associated with them. We need to display the “Net worth” of users, which is defined (currently!) as the total value of the user’s items.</p>
+
+<p>Right now this data is persisted on the user with an attribute called <code class="highlighter-rouge">net_worth</code>. This attriute is then updated as needed. As is, “as needed” just means “when the user accesses his dashboard and the other view templates that use this data. Several view templates make a call to a <code class="highlighter-rouge">set_net_worth</code> a method defined both in the <code class="highlighter-rouge">application_controller</code> and <code class="highlighter-rouge">application_helper</code>. Here is that method:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">set_net_worth</span>
+  <span class="k">if</span> <span class="n">current_user</span>
+    <span class="k">if</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">net_worth</span> <span class="o">==</span> <span class="kp">nil</span>
+      <span class="n">current_user</span><span class="p">.</span><span class="nf">net_worth</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">current_user</span><span class="p">.</span><span class="nf">save</span>
+    <span class="k">else</span>
+      <span class="vi">@item_values</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">current_user</span><span class="p">.</span><span class="nf">items</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span>
+        <span class="k">if</span> <span class="n">item</span><span class="p">.</span><span class="nf">value</span> <span class="o">!=</span> <span class="kp">nil</span>
+          <span class="vi">@item_values</span> <span class="o">+=</span> <span class="n">item</span><span class="p">.</span><span class="nf">value</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+   <span class="n">current_user</span><span class="p">.</span><span class="nf">net_worth</span> <span class="o">=</span> <span class="vi">@item_values</span>
+   <span class="n">current_user</span><span class="p">.</span><span class="nf">save</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<h2 id="the-problem">The Problem</h2>
+<p>You may have noticed a few potential problems with what I’ve just mentioned. Mutating our user object from the presentation layer violates the MVC separation of concerns, duplicates the <em>exact</em> same method in two places violates DRY and the method itself is pretty large. However, my policy is to wait to refactor something until doing so would ease another change I’m trying to make. I’m not going to spend my time, and therefore my client’s money, to change something just because it gives me migraines.</p>
+
+<p>In this case the issue arose when I wanted to show my client a version of the app populated with seed data (using the excellent <code class="highlighter-rouge">Faker</code> gem) to give a sense of what it would look like populated with users. When I did this I was surprised to find that the users were all displayed with a net worth of 0. This is because set_net_worth doesn’t get called until the user visits one of the pages where it gets called. I wasn’t about to log in as each user and visit all the pages nor was I going to double down on what I already consider to be bad design by calling set_net_worth in more places. It was time to fix the cludge starting with some test coverage.</p>
+
+<h2 id="starting-with-a-test">Starting with a test</h2>
+<p>The last thing you want to do when refactoring is break existing functionality and have to tell your client that you’re charging him for two hours of your work that you spent breaking the app you were given. By starting with a test I know that if nothing else we’ll have a bit better test coverage when this is all done. So I started by writing a test for the set_net_worth method I already had.</p>
+
+<p>I did change one thing from the start though–I copied the method into the user class. This maps what I eventually intended to do with the method but it also gives me the advantage that I no longer have to worry about who the <code class="highlighter-rouge">current_user</code> is (a method from devise that requires me to have a signed in user). Also instead of writing an integration test I can just add a unit test to my user test suite:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">describe</span> <span class="s2">"set_net_worth"</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s2">"sets user's net worth to the sum of the value of their items"</span> <span class="k">do</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span>
+    <span class="mi">3</span><span class="p">.</span><span class="nf">times</span> <span class="p">{</span> <span class="n">user</span><span class="p">.</span><span class="nf">items</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">value: </span><span class="mi">1000</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">user</span><span class="p">.</span><span class="nf">items</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">value: </span><span class="kp">nil</span><span class="p">)</span>
+
+    <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">set_net_worth</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"set user's net worth to zero if they have no items"</span> <span class="k">do</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span>
+
+    <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">set_net_worth</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>Here we see another advantage of writing tests for current functionality before refactoring. Looking at the current <code class="highlighter-rouge">set_net_worth</code> method I noticed that it checks for items having a value of nil. This tells me that items can have a value of nil (as it stands–this may be a bad idea in the long run, but we work with what we have). Any refactoring of set_net_worth will have to take this fact into account. To make sure I do I include a nil value for an item in my test case so that the suite will only pass if my new method is able to handle this possibility. Had I just rewritten the method from scratch I likely wouldn’t have thought of this and would have had to chase down nil-related bugs later on.</p>
+
+<h2 id="my-solution">My Solution</h2>
+
+<p>I wrote the production code in two steps:</p>
+
+<h3 id="move-setnetworth-to-user-class">Move set_net_worth to user class</h3>
+<p>Copied the code from the old set_net_worth method to the user class and change it to make its test suite pass.</p>
+
+<p>This enabled me to gradually simplify the method, while ensuring that at no point did any of my changes make the test suite fail. The resulting method looked like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">set_net_worth</span>
+  <span class="n">net_worth</span> <span class="o">=</span> <span class="n">items</span><span class="p">.</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="p">.</span><span class="nf">value</span> <span class="p">}.</span><span class="nf">compact</span><span class="p">.</span><span class="nf">sum</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>Even if we stopped here we’d have brought this method from 15 lines in two places to 1 line in the user class (of course we’d have to update all those set_net_worth calls to current_user.set_net_worth).</p>
+
+<h3 id="change-setnetworth-to-networth">Change set_net_worth to net_worth</h3>
+<p>Drop the <code class="highlighter-rouge">net_worth</code> field from the database and change the name of <code class="highlighter-rouge">user#set_net_worth</code> to simply <code class="highlighter-rouge">user#net_worth</code>. This way we never need to call <code class="highlighter-rouge">set_net_worth</code> at all and the existing references to the <code class="highlighter-rouge">net_worth</code> attribute will work without modification since they’ll just call my <code class="highlighter-rouge">net_worth</code> method instead of the ActiveRecord getter method.</p>
+
+<p>Our method then looks like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">net_worth</span>
+  <span class="n">items</span><span class="p">.</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="p">.</span><span class="nf">value</span> <span class="p">}.</span><span class="nf">compact</span><span class="p">.</span><span class="nf">sum</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<h2 id="alternatives">Alternatives</h2>
+<p>It’s worth noting that there’s a potential tradeoff by calculating net worth on the fly as opposed to saving it in the database. By calculating on the fly you risk a performance hit if doing so involves accessing many model objects (we have to access all of the user’s items and all of their value attributes albeit with map which I think is faster than iterating over them with each). If this calculation became more complicated for some reason (if it involved more than just a sum maybe). I suppose this could turn into a lot of computation every time you wanted to display a user’s <code class="highlighter-rouge">net_worth</code>.</p>
+
+<p>If you thought that you were going to do slow computations a lot and that you weren’t going to have to recalculate net worth very often you could keep <code class="highlighter-rouge">net_worth</code> in the database. Instead of the view templates though, you’d want to move calls to set_net_worth to controllers or to a callback like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Item</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+  <span class="nf">after_save</span> <span class="n">update_net_worth</span>
+  <span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+
+  <span class="nf">private</span>
+
+  <span class="k">def</span> <span class="nf">update_net_worth</span>
+    <span class="n">user</span><span class="p">.</span><span class="nf">net_worth</span> <span class="o">=</span> <span class="n">user</span><span class="p">.</span><span class="nf">items</span><span class="p">.</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="p">.</span><span class="nf">value</span> <span class="p">}.</span><span class="nf">compact</span><span class="p">.</span><span class="nf">sum</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>I considered this, but it seems like a worse idea. There’s been a lot written about <a href="http://samuelmullen.com/2013/05/the-problem-with-rails-callbacks/">the danger of callbacks</a>. Some argue that, while tempting, you should just never resort to callbacks, while others take the stance that <a href="https://www.bignerdranch.com/blog/the-only-acceptable-use-for-callbacks-in-rails-ever/">callbacks should only be used without any external dependencies</a> something which my quick example clearly violates, mutating the item’s parent user when it is saved. I like to think of the problem as simply one of obfuscation–at some point in the future you’re going to get behavior you don’t expect when you’re updating something and other objects change without you’re having asked them to and even without.</p>
+
+<p>Either way, our virtual attribute solution is clearly better than the status quo which calculates <code class="highlighter-rouge">net_worth</code> <em>every time the view loads</em>. Also if I do need to change things later it’s way more transparent to another developer or a future me–I can see that the user’s net worth is being displayed by a call to user#net_worth and if I go to the class definition the <code class="highlighter-rouge">net_worth</code> method is right there, its logic not hidden away in two different helpers and various view layers.</p>
+
+<p>I love discussing the sorts of tradeoffs that different solutions require so if you’ve got any ideas about my process or my solutions to problems I’d love to hear about them in the comments.</p>
+
+
+      <hr />
+      <footer role="contentinfo">
+        <div class="social-share">
+  <h4>Share on</h4>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=/refactoring-legacy-code/" class="twitter" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=/refactoring-legacy-code/" class="facebook" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=/refactoring-legacy-code/" class="google-plus" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+  </ul>
+</div><!-- /.social-share -->
+        <p class="byline"><strong>Refactoring Legacy Code</strong> was published on <time datetime="2015-07-10T11:58:13-04:00">July 10, 2015</time> and last modified on <time datetime="2015-07-09">July 09, 2015</time>.</p>
+      </footer>
+    </div><!-- /.article-wrap -->
+  
+    <section id="disqus_thread"></section><!-- /#disqus_thread -->
+  
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrap">
+  <div class="related-articles">
+  <h4>You might also enjoy <small class="pull-right">(<a href="/posts/">View all posts</a>)</small></h4>
+    <ul>
+    
+      <li><a href="/get-freaky/" title="Get Freaky">Get Freaky</a></li>
+    
+      <li><a href="/ruby-peru-april-2015/" title="Ruby Peru April 2015">Ruby Peru April 2015</a></li>
+    
+      <li><a href="/whats-jekyll/" title="Powered by Jekyll...what's Jekyll?">Powered by Jekyll...what's Jekyll?</a></li>
+    
+    </ul>
+    <hr />
+  </div><!-- /.related-articles -->
+  <footer>
+    
+
+<span>&copy; 2016 Stephen Mariano Cabrera. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a> theme.</span>
+
+  </footer>
+</div><!-- /.footer-wrap -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  var _gaq = _gaq || [];
+  var pluginUrl = 
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'stephen.m.cabrera']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+  
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'smcabreragithubio'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+	        
+
+</body>
+</html>

@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+<title type="text">Stephen Mariano Cabrera</title>
+<generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
+<link rel="self" type="application/atom+xml" href="/feed.xml" />
+<link rel="alternate" type="text/html" href="" />
+<updated>2016-06-21T17:30:27-04:00</updated>
+<id>/</id>
+<author>
+  <name>Stephen Mariano Cabrera</name>
+  <uri>/</uri>
+  <email>stephen.m.cabrera@gmail.com</email>
+</author>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[Refactoring Legacy Code]]></title>
+  <link rel="alternate" type="text/html" href="/refactoring-legacy-code/" />
+  <id>/refactoring-legacy-code</id>
+  <updated>2015-7-9T00:00:00-00:00</updated>
+  <published>2015-07-10T11:58:13-04:00</published>
+  
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri></uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;In his book, &lt;em&gt;Working Effectively with Legacy Code&lt;/em&gt;, Michael Feathers writes “To me, legacy code is simply code without tests.” This isn’t just because tests are nice and let you make changes without breaking things. It’s also because of the truism that code that’s easy to test tends to be easier to reason about and easier to maintain.&lt;/p&gt;
+
+&lt;p&gt;For a recent client project I have been working with code that has no tests and, unsurpisingly if Mr. Feathers is to be believed, some less than ideal production code too. What follows is a look at one example of how I went about trying to make a marginal to the codebase by adding tests and then refactoring.&lt;/p&gt;
+
+&lt;h2 id=&quot;context&quot;&gt;Context&lt;/h2&gt;
+&lt;p&gt;In this application we have &lt;code class=&quot;highlighter-rouge&quot;&gt;users&lt;/code&gt; and these users have &lt;code class=&quot;highlighter-rouge&quot;&gt;items&lt;/code&gt; with monetary values associated with them. We need to display the “Net worth” of users, which is defined (currently!) as the total value of the user’s items.&lt;/p&gt;
+
+&lt;p&gt;Right now this data is persisted on the user with an attribute called &lt;code class=&quot;highlighter-rouge&quot;&gt;net_worth&lt;/code&gt;. This attriute is then updated as needed. As is, “as needed” just means “when the user accesses his dashboard and the other view templates that use this data. Several view templates make a call to a &lt;code class=&quot;highlighter-rouge&quot;&gt;set_net_worth&lt;/code&gt; a method defined both in the &lt;code class=&quot;highlighter-rouge&quot;&gt;application_controller&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;application_helper&lt;/code&gt;. Here is that method:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set_net_worth&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current_user&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;net_worth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;current_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;net_worth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;current_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;save&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+      &lt;span class=&quot;vi&quot;&gt;@item_values&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;current_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;each&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;
+          &lt;span class=&quot;vi&quot;&gt;@item_values&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;value&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;current_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;net_worth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@item_values&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;current_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;save&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;the-problem&quot;&gt;The Problem&lt;/h2&gt;
+&lt;p&gt;You may have noticed a few potential problems with what I’ve just mentioned. Mutating our user object from the presentation layer violates the MVC separation of concerns, duplicates the &lt;em&gt;exact&lt;/em&gt; same method in two places violates DRY and the method itself is pretty large. However, my policy is to wait to refactor something until doing so would ease another change I’m trying to make. I’m not going to spend my time, and therefore my client’s money, to change something just because it gives me migraines.&lt;/p&gt;
+
+&lt;p&gt;In this case the issue arose when I wanted to show my client a version of the app populated with seed data (using the excellent &lt;code class=&quot;highlighter-rouge&quot;&gt;Faker&lt;/code&gt; gem) to give a sense of what it would look like populated with users. When I did this I was surprised to find that the users were all displayed with a net worth of 0. This is because set_net_worth doesn’t get called until the user visits one of the pages where it gets called. I wasn’t about to log in as each user and visit all the pages nor was I going to double down on what I already consider to be bad design by calling set_net_worth in more places. It was time to fix the cludge starting with some test coverage.&lt;/p&gt;
+
+&lt;h2 id=&quot;starting-with-a-test&quot;&gt;Starting with a test&lt;/h2&gt;
+&lt;p&gt;The last thing you want to do when refactoring is break existing functionality and have to tell your client that you’re charging him for two hours of your work that you spent breaking the app you were given. By starting with a test I know that if nothing else we’ll have a bit better test coverage when this is all done. So I started by writing a test for the set_net_worth method I already had.&lt;/p&gt;
+
+&lt;p&gt;I did change one thing from the start though–I copied the method into the user class. This maps what I eventually intended to do with the method but it also gives me the advantage that I no longer have to worry about who the &lt;code class=&quot;highlighter-rouge&quot;&gt;current_user&lt;/code&gt; is (a method from devise that requires me to have a signed in user). Also instead of writing an integration test I can just add a unit test to my user test suite:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;set_net_worth&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;sets user&#39;s net worth to the sum of the value of their items&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;times&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;value: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;value: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set_net_worth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;set user&#39;s net worth to zero if they have no items&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set_net_worth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here we see another advantage of writing tests for current functionality before refactoring. Looking at the current &lt;code class=&quot;highlighter-rouge&quot;&gt;set_net_worth&lt;/code&gt; method I noticed that it checks for items having a value of nil. This tells me that items can have a value of nil (as it stands–this may be a bad idea in the long run, but we work with what we have). Any refactoring of set_net_worth will have to take this fact into account. To make sure I do I include a nil value for an item in my test case so that the suite will only pass if my new method is able to handle this possibility. Had I just rewritten the method from scratch I likely wouldn’t have thought of this and would have had to chase down nil-related bugs later on.&lt;/p&gt;
+
+&lt;h2 id=&quot;my-solution&quot;&gt;My Solution&lt;/h2&gt;
+
+&lt;p&gt;I wrote the production code in two steps:&lt;/p&gt;
+
+&lt;h3 id=&quot;move-setnetworth-to-user-class&quot;&gt;Move set_net_worth to user class&lt;/h3&gt;
+&lt;p&gt;Copied the code from the old set_net_worth method to the user class and change it to make its test suite pass.&lt;/p&gt;
+
+&lt;p&gt;This enabled me to gradually simplify the method, while ensuring that at no point did any of my changes make the test suite fail. The resulting method looked like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set_net_worth&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;net_worth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;compact&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Even if we stopped here we’d have brought this method from 15 lines in two places to 1 line in the user class (of course we’d have to update all those set_net_worth calls to current_user.set_net_worth).&lt;/p&gt;
+
+&lt;h3 id=&quot;change-setnetworth-to-networth&quot;&gt;Change set_net_worth to net_worth&lt;/h3&gt;
+&lt;p&gt;Drop the &lt;code class=&quot;highlighter-rouge&quot;&gt;net_worth&lt;/code&gt; field from the database and change the name of &lt;code class=&quot;highlighter-rouge&quot;&gt;user#set_net_worth&lt;/code&gt; to simply &lt;code class=&quot;highlighter-rouge&quot;&gt;user#net_worth&lt;/code&gt;. This way we never need to call &lt;code class=&quot;highlighter-rouge&quot;&gt;set_net_worth&lt;/code&gt; at all and the existing references to the &lt;code class=&quot;highlighter-rouge&quot;&gt;net_worth&lt;/code&gt; attribute will work without modification since they’ll just call my &lt;code class=&quot;highlighter-rouge&quot;&gt;net_worth&lt;/code&gt; method instead of the ActiveRecord getter method.&lt;/p&gt;
+
+&lt;p&gt;Our method then looks like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;net_worth&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;compact&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;alternatives&quot;&gt;Alternatives&lt;/h2&gt;
+&lt;p&gt;It’s worth noting that there’s a potential tradeoff by calculating net worth on the fly as opposed to saving it in the database. By calculating on the fly you risk a performance hit if doing so involves accessing many model objects (we have to access all of the user’s items and all of their value attributes albeit with map which I think is faster than iterating over them with each). If this calculation became more complicated for some reason (if it involved more than just a sum maybe). I suppose this could turn into a lot of computation every time you wanted to display a user’s &lt;code class=&quot;highlighter-rouge&quot;&gt;net_worth&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you thought that you were going to do slow computations a lot and that you weren’t going to have to recalculate net worth very often you could keep &lt;code class=&quot;highlighter-rouge&quot;&gt;net_worth&lt;/code&gt; in the database. Instead of the view templates though, you’d want to move calls to set_net_worth to controllers or to a callback like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Item&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;after_save&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;update_net_worth&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+
+  &lt;span class=&quot;nf&quot;&gt;private&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;update_net_worth&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;net_worth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;compact&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I considered this, but it seems like a worse idea. There’s been a lot written about &lt;a href=&quot;http://samuelmullen.com/2013/05/the-problem-with-rails-callbacks/&quot;&gt;the danger of callbacks&lt;/a&gt;. Some argue that, while tempting, you should just never resort to callbacks, while others take the stance that &lt;a href=&quot;https://www.bignerdranch.com/blog/the-only-acceptable-use-for-callbacks-in-rails-ever/&quot;&gt;callbacks should only be used without any external dependencies&lt;/a&gt; something which my quick example clearly violates, mutating the item’s parent user when it is saved. I like to think of the problem as simply one of obfuscation–at some point in the future you’re going to get behavior you don’t expect when you’re updating something and other objects change without you’re having asked them to and even without.&lt;/p&gt;
+
+&lt;p&gt;Either way, our virtual attribute solution is clearly better than the status quo which calculates &lt;code class=&quot;highlighter-rouge&quot;&gt;net_worth&lt;/code&gt; &lt;em&gt;every time the view loads&lt;/em&gt;. Also if I do need to change things later it’s way more transparent to another developer or a future me–I can see that the user’s net worth is being displayed by a call to user#net_worth and if I go to the class definition the &lt;code class=&quot;highlighter-rouge&quot;&gt;net_worth&lt;/code&gt; method is right there, its logic not hidden away in two different helpers and various view layers.&lt;/p&gt;
+
+&lt;p&gt;I love discussing the sorts of tradeoffs that different solutions require so if you’ve got any ideas about my process or my solutions to problems I’d love to hear about them in the comments.&lt;/p&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/refactoring-legacy-code/&quot;&gt;Refactoring Legacy Code&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on July 10, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[Get Freaky]]></title>
+  <link rel="alternate" type="text/html" href="/get-freaky/" />
+  <id>/get-freaky</id>
+  <updated>2015-6-14T00:00:00-00:00</updated>
+  <published>2015-06-14T00:00:00-04:00</published>
+  
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri></uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;I made a thing. I’m a big fan of command line applications–sometimes I just don’t want to get distracted by everything that comes with using a web app (before you know it you’ve spent an hour and a half on twitter) and I just want a simple command line interface to do what I want to get done. As a bonus if there’s some part of the process you want to automate command line apps make this much easier to do.&lt;br /&gt;&lt;br /&gt;
+So when I was checking out conference vieos on confreaks.tv and discovered that they have a public api I thought I’d take the opportunity to build a little ruby command line app to consume its API and automatically download videos taking advantage a few excellent gems that simplified matters a great deal and which I highly recommend:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/rb2k/viddl-rb&quot;&gt;viddl-rb&lt;/a&gt;: gem for providing a simple interface for downloading videos from various sites (youtube, vimeo) as well as the&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://johnnunemaker.com/httparty/&quot;&gt;httparty&lt;/a&gt;: gem which makes working with public APIs via HTTP a total cinch.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/tj/commander&quot;&gt;commander&lt;/a&gt;: Greatly simplifies spinning up interactive command line apps of the &lt;code class=&quot;highlighter-rouge&quot;&gt;appname subcommand --options&lt;/code&gt; form.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;usage&quot;&gt;Usage&lt;/h2&gt;
+&lt;p&gt;Complete documentation on the &lt;a href=&quot;https://github.com/smcabrera/get_freaky&quot;&gt;github page&lt;/a&gt; but you can get some useful value out of the gem right away like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ gem install get_freaky
+$ get_freaky
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;get_freaky by itself is aliased to the help which will give you all your options. If you’re not picky about which conference video you’d like to watch or just wanna make sure it works you can download the featured video like this&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ get_freaky featured
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;This will show you the featured video from confreaks, with its title and description and then ask you if you’d like to download the video.&lt;/p&gt;
+
+&lt;p&gt;Check it out! If there’s something or there’s another feature you’d like please let me know and I’ll try to fix/build it. I’m open to any feedback for improving it and am open to pull requests or anyone who’d like to pair with me on a new feature.&lt;/p&gt;
+
+&lt;h2 id=&quot;build-your-own&quot;&gt;Build your own!&lt;/h2&gt;
+&lt;p&gt;Finally I highly recommend this process as a learning experience. I had a lot of fun and I think learned a lot, not just for building apps that consume APIs but also I think I’ve gotten a sense of what makes good interface design. It’s always nice if you’re going to build software to first know what it’s like to be a user of that software.&lt;/p&gt;
+
+&lt;p&gt;If people are interested I could see if I can bang out a tutorial for how to build something like this.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/get-freaky/&quot;&gt;Get Freaky&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 14, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[Ruby Peru April 2015]]></title>
+  <link rel="alternate" type="text/html" href="/ruby-peru-april-2015/" />
+  <id>/ruby-peru-april-2015</id>
+  <updated>2015-4-16T00:00:00-00:00</updated>
+  <published>2015-04-16T00:00:00-04:00</published>
+  
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri></uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;(english at the bottom)&lt;br /&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+Este mes Ruby Peru fue auspiciado en la oficina de La Laboratoria, la rama ONG de la consultoría AyuInc, que entrena mujeres jovenes de pocos recursos a ser desarrolladores junior en un programa de cinco meses (más sobre ellos &lt;a href=&quot;http://laboratoria.la/&quot;&gt;aqui&lt;/a&gt;). Tienen un neuvo espacio hermoso que fue un placer poder usar. ¡Gracias! Ojalá que nos pueda prestar su espacio para más eventos en el futuro.&lt;br /&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;a href=&quot;https://twitter.com/TheBlasfem&quot;&gt;Julio Lopez&lt;/a&gt; dió una charla sobre algunas de las gemas, &lt;a href=&quot;https://github.com/TheBlasfem/fabricas&quot;&gt;fabricas&lt;/a&gt;, &lt;a href=&quot;https://github.com/TheBlasfem/garfio&quot;&gt;garfio&lt;/a&gt; and &lt;a href=&quot;https://github.com/TheBlasfem/ate&quot;&gt;ate&lt;/a&gt; que ha estado trabajando recién. Son implementaciones minimalistas de fábricas para tests (así como FactoryGirl), rails callbacks and templating engines (así como erb) respectivamente. En su charla repasó la the metaprogramación atás de la creación de &lt;code class=&quot;highlighter-rouge&quot;&gt;fabricas&lt;/code&gt;, y nos mostró lo poco de código que se necesita en ruby para lograr unos resultados impresionantes y como creando una implementación minimalista podemos entender mejor las librerías que usamos todos los días.&lt;br /&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+Yo presenté sobre la gema &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll&lt;/code&gt;, el motor detrás de este blog y como usar la para rápidamente armar un sencillo blog sin cms y como usarlo para hacer un sitio para un proyecto open-source.&lt;br /&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+En algún momento voy a seguir &lt;a href=&quot;https://developmentseed.org/blog/multilingual-jekyll-sites/&quot;&gt;este post&lt;/a&gt; para hacer el sitio blingue. Hasta entonces incluyo aqui los slides en inglés y en español en la misma página.&lt;/p&gt;
+
+&lt;iframe src=&quot;https://www.slideshare.net/slideshow/embed_code/key/qb8pP9z55BRscI&quot; width=&quot;476&quot; height=&quot;400&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;This month Ruby Peru was hosted by La Laboratoria, the non-profit arm of Peruvian software consultancy AyuInc that trains young economically-disadvantaged women to be junior developers in a five-month program. They have a great new space that was a pleasure to hang out in. Thanks! Hopefully they’ll let us use ths space for more events in the future!&lt;br /&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;a href=&quot;https://twitter.com/TheBlasfem&quot;&gt;Julio Lopez&lt;/a&gt; gave a talk on a few of the gems, &lt;a href=&quot;https://github.com/TheBlasfem/fabricas&quot;&gt;fabricas&lt;/a&gt;, &lt;a href=&quot;https://github.com/TheBlasfem/garfio&quot;&gt;garfio&lt;/a&gt; and &lt;a href=&quot;https://github.com/TheBlasfem/ate&quot;&gt;ate&lt;/a&gt; he’s put together recently, minimalist reworkings of test factories (a la FactoryGirl), rails callbacks and templating engines (a la erb) respectively. In his talk we went through some of the metaprogramming behind creating the fabricas gem, and showed just how little code is necessary in ruby to achieve some powerful results and how by creating a minimalist implementation we can better understand some of the libraries we use everyday.&lt;br /&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+I gave a presentation on Jekyll the engine behind this blog, explaining some of the things I mentioned in a &lt;a href=&quot;../whats-jekyll&quot;&gt;previous post&lt;/a&gt;. You can find my slides below.&lt;br /&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+At some point soon I’ll be following &lt;a href=&quot;https://developmentseed.org/blog/multilingual-jekyll-sites/&quot;&gt;this guide&lt;/a&gt; to making my site bilingual. Until then here are the slides in English and in Spanish on the same page.&lt;/p&gt;
+
+&lt;iframe src=&quot;https://www.slideshare.net/slideshow/embed_code/key/qjy7XWGxvasg3t&quot; width=&quot;476&quot; height=&quot;400&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/ruby-peru-april-2015/&quot;&gt;Ruby Peru April 2015&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 16, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[Powered by Jekyll...what's Jekyll?]]></title>
+  <link rel="alternate" type="text/html" href="/whats-jekyll/" />
+  <id>/whats-jekyll</id>
+  <updated>2015-4-7T00:00:00-00:00</updated>
+  <published>2015-04-08T00:00:00-04:00</published>
+  
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri></uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;I host this site using an open-source ruby project called &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt;. From &lt;a href=&quot;https://github.com/mojombo/jekyll/blob/master/README.markdown&quot;&gt;the project’s readme&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Jekyll is a simple, blog aware, static site generator. It takes a template directory […] and spits out a complete, static website suitable for serving with Apache or your favorite web server. This is also the engine behind GitHub Pages, which you can use to host your project’s page or blog right here from GitHub.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;static-site-generator&quot;&gt;Static Site generator?&lt;/h1&gt;
+
+&lt;p&gt;“Static site generator” means that rather than having server-side code (like ruby or PHP) dynamically create html and serve up database records based on user (HTTP) requests, Jekyll will use the code you give it to create a website that’s pure html, css and javascript. What you end up deploying will be a static site, meaning it runs no server-side code at all. No database either. All the posts you write are just markdown files that Jekyll will compile into the finished static stie.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-not-just-use-wordpress&quot;&gt;Why not just use wordpress?&lt;/h2&gt;
+&lt;p&gt;So what advantages does this setup have over a traditional database-backed setup like Wordpress? For me the difference comes down to simplicity. Your whole site is just a bunch of files that you can peruse in your text editor. You can keep your whole blog in a git repo and never have to setup a database. Deployment is literally just &lt;code class=&quot;highlighter-rouge&quot;&gt;git push&lt;/code&gt;. If you’re on a different machine you just need to clone the repo and you have the same site.&lt;/p&gt;
+
+&lt;p&gt;For me personally the whole “my posts are just markdown files” thing is the biggest advantage. I find that it’s much easier to focus on writing when I’m not in a browser. I don’t need to have internet to write or edit posts. I get to use vim. That might have been enough by itself.&lt;/p&gt;
+
+&lt;p&gt;Also markdown is a great format to write in. It’s the perfect way to let you create the formatting you need to while getting out of your way. In general, I’m moving more towards keeping everything I write in text files (sorry evernote). The fact that I can easily just open a new tab in vim and jot down some notes that could later be turned into a blog post is huge.&lt;/p&gt;
+
+&lt;p&gt;I’ve been having a blast blogging with Jekyll; I highly recommend it. I also recommend checking out &lt;a href=&quot;jekyllthemes.org&quot;&gt;Jekyll Themes&lt;/a&gt; a repository of free themes for use with Jekyll. They’re really easy to get started with. If you have any trouble hit me up via email or twitter.&lt;/p&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/whats-jekyll/&quot;&gt;Powered by Jekyll...what&#39;s Jekyll?&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 08, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[How to lose your fear of regular expressions]]></title>
+  <link rel="alternate" type="text/html" href="/how-to-lose-your-fear-of-regular-expressions/" />
+  <id>/how-to-lose-your-fear-of-regular-expressions</id>
+  <updated>2015-4-8T00:00:00-00:00</updated>
+  <published>2015-04-01T00:00:00-04:00</published>
+  
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri></uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;I’m not a champ at regular expressions. But I used to be downright intimidated by them. I mean just looking at one when you’re not used to is super intimidating by itself–it looks like complete giberish. Pretty soon though you realize they’re important so it becomes something that you “really should learn at some point”. And then don’t.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;
+I’ve found two ways of solving this problem. The first is that Steve Losh has a free book called &lt;em&gt;Regular Expressions the Hard Way&lt;/em&gt;. You can work through the chapters gradually, maybe doing one every day so it seeps in slowly.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;
+Perhaps an even better way to learn regular expressions is to just start writing them. This is what helped me to feel more confident with regular expressions. I was working on a code kata (an exercise from the excellent &lt;a href=&quot;exercism.io&quot;&gt;exercism.io&lt;/a&gt; platform) and realized that the problem I was working on would be a mess without a regex. After a bit of digging I found this tool &lt;a href=&quot;www.rubular.com&quot;&gt;Rubular&lt;/a&gt; which helps you test out regular expressions in the browser and has a reference at the bottom. I cannot emphasize enough how helpful this is. Being able to experiment and test things out I think is one of the best ways to learn anything, and it’s a great way to learn regular expressions.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;
+The next time you need to write a regular expression check out Rubular. It’s meant for regular expressions in ruby, but they tend not to be super different between languages.&lt;/p&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/how-to-lose-your-fear-of-regular-expressions/&quot;&gt;How to lose your fear of regular expressions&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 01, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[Specify Gem Versions in your Gemfile]]></title>
+  <link rel="alternate" type="text/html" href="/specify-gem-versions-in-your-gemfile/" />
+  <id>/specify-gem-versions-in-your-gemfile</id>
+  <published>2015-03-24T00:00:00-04:00</published>
+  <updated>2015-03-24T00:00:00-04:00</updated>
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri></uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;Previously I’ve always just added a new gem by going to my gemfile and adding the line:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem &#39;gemname&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;to the bottom. I got as far as grouping development specific gems together but that’s about it. I knew that it was possible to use specific versions of gems but I didn’t know why you’d want to do that.&lt;/p&gt;
+
+&lt;p&gt;Then recently I encountered problems when I started working on something I hadn’t worked on in a while and my gems suddenly stopped working. It wasn’t a nightmare, but it was a slight hassle as I had to go figure out what versions of each gem I needed in order to keep everybody happy. This hassle could (possibly) have been avoided by locking down gem versions when I first add them. If everything works when you set it up, and you’re always using the same versions of a gem, then subsequent bundle installs won’t install versions of gems that are incompatible with each other.&lt;/p&gt;
+
+&lt;p&gt;For instance if you’re using rspec you can add it like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  gem &#39;rspec-rails&#39;, &#39;~&amp;gt; 3.1.0&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;and the little squiggly arrow will say “go grab the latest version of rspec that’s greater than or equal to 3.1.0 but less than version 3.2.0”. Now sure maybe at some point you want the latest version of this gem, and obviously you want minor bug fixes but this is a good compromise for making sure that you’ll get the newest version that isn’t likely to break your setup. Because of the way versions are set, they’re basically set so that within the second number things shouldn’t break.&lt;/p&gt;
+
+&lt;p&gt;So if you just add the latest version of the gem when you first add it you can be confident that it will keep working in the future. If you want an upgraded version you can always do that, but this is a sensible default. The &lt;a href=&quot;http://www.rubygems.org&quot;&gt;rubygems&lt;/a&gt; site makes this easy since you can just type in the name of a gem and it will give you something you can click on and automatically copy the code for adding the latest version of the gem to your gemfile. Nice and easy.&lt;/p&gt;
+
+&lt;h2 id=&quot;gemrat&quot;&gt;Gemrat&lt;/h2&gt;
+&lt;p&gt;In case you’re lazy there’s actually a gem called gemrat which will do this for you. Install it with &lt;code class=&quot;highlighter-rouge&quot;&gt;gem install gemrat&lt;/code&gt; and then when you need to add a new gem to your project you just call &lt;code class=&quot;highlighter-rouge&quot;&gt;gemrat gemname&lt;/code&gt; and you’ll get the latest version. You can specify options to make it pessimistic (the setting I used above) or optimistic. Upon running the command the gem will be added to your gemfile and bundle will be run so that the gem will automatically be installed.&lt;/p&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/specify-gem-versions-in-your-gemfile/&quot;&gt;Specify Gem Versions in your Gemfile&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on March 24, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[Details to keep in Mind Setting up your Laravel App]]></title>
+  <link rel="alternate" type="text/html" href="/things-to-keep-in-mind-setting-up-laravel-app/" />
+  <id>/things-to-keep-in-mind-setting-up-laravel-app</id>
+  <updated>2015-04-06T00:00:00-00:00</updated>
+  <published>2014-11-21T00:00:00-05:00</published>
+  
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri></uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;h3 id=&quot;dealing-with-different-database-passwords&quot;&gt;Dealing with Different Database Passwords&lt;/h3&gt;
+&lt;p&gt;There are two crucial points that I dug out of the laravel documentation today about setting up environments. I didn’t find this stuff right away when I looked for it because I didn’t quite know where to look for. I figured there might be others in a similar predicament so I thought I’d write about it here.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-problem-two-or-more-developers-multiple-developers-with-different-database-passwords-working-on-the-same-repository&quot;&gt;The problem: two or more developers multiple developers with different database passwords working on the same repository&lt;/h3&gt;
+&lt;p&gt;So the initial problem I ran into was that every time I  pulled down changes from my colleague, the connection to the database would fail, because he had a different database password. This seems like a common enough issue, but amazingly it took me a while to figure out what to do. Initially I just edited the config file (app/db/config.php I believe) to fit the password that I was using. I suppose that I could have just changed my password to be the same as his, but I was reluctant to do this for a couple reasons. Firstly, I had the sense that I shouldn’t get in the habit of passing database passwords around on git, for now the repository was a private one on bitbucket, but what if in the future I wanted to do an open source project with laravel–there ought to be a way to do that. Also, my digital ocean box shows me my database password every time I logged in and otherwise I’d be unlikely to remember what it was (poor practice? Probably).&lt;/p&gt;
+
+&lt;p&gt;As is often the case the solution was to read the docs, which, although they took me a minute to find, turned out to be pretty clear on the subject. The documentation &lt;a href=&quot;http://laravel.com/docs/4.2/configuration#environment-configuration&quot;&gt;here&lt;/a&gt; describes very effectively how to setup your laravel installation to automatically recognize what machine you’re on and then apply the right configuration. Basically you give it the name of the server in one file and then tell it to apply certain configurations if you’re using that server. So you make a folder called mariano-do and put all your info for your digital ocean droplet in there. Then in order to apply that configuration, Laravel just looks in your config folder for a folder named the same thing as the configuration you just told it and then overrides any configuration with what it finds, leaving anything you haven’t overriden the same. So for instance if all you need to do is change the database password but nothing else about the application configuration you would just add a database.php file with the relevant information–just like the original one in the default configuration (“production” is the default environment–makes sense).&lt;/p&gt;
+
+&lt;p&gt;Then you’re going to want to be safe about all this sensitive information so you don’t find yourself passing it around on a public repository. &lt;a href=&quot;http://laravel.com/docs/4.2/configuration#protecting-sensitive-configuration&quot;&gt;Further down the page&lt;/a&gt; the docs describe how to do just that. It’s reasonably straightforward.&lt;/p&gt;
+
+&lt;p&gt;Those two docs pages above are also helpfully translated to Spanish &lt;a href=&quot;http://laraveles.com/docs/4.1/configuration#protecting-sensitive-configuration&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/things-to-keep-in-mind-setting-up-laravel-app/&quot;&gt;Details to keep in Mind Setting up your Laravel App&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on November 21, 2014.&lt;/p&gt;
+  </content>
+</entry>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[The Slow Web]]></title>
+  <link rel="alternate" type="text/html" href="/the-slow-web/" />
+  <id>/the-slow-web</id>
+  <updated>2014-11-18T00:00:00-00:00</updated>
+  <published>2014-11-18T00:00:00-05:00</published>
+  
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri></uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;I just read &lt;a href=&quot;http://jackcheng.com/the-slow-web&quot;&gt;this article&lt;/a&gt; on the Slow Web movement and I found it deeply inspiring. Read that article. It, and the movement it describes, is a deeply critical look at what has become typical in the way we use the internet today and a way to do things differently based on a focus on simplicity.&lt;/p&gt;
+
+&lt;p&gt;What makes the idea so powerful for me though is how it unites disparate lines of thinking I’ve had on software both as a producer and a consumer. It fits in with my gradual movement toward bare-bones tools, getting as much of my work done as I can in a terminal working with simple text files where possible.&lt;/p&gt;
+
+&lt;p&gt;Take the tools I use to write this blog. The application I’m using to write these words right now is called &lt;em&gt;Journey&lt;/em&gt; and does exactly what I need it to do–it automatically assigns dates to new entries that I write. That’s it. Its simplicity makes it feel more like a diary encouraging me to just write and not get distracted by bells and whistles. And lets me write and read everything in markdown. Markdown itself I believe is an expression of this notion–a simple document formatting that is readable as you’re writing it and can easily be converted to html. Then once it comes time to lift a potential blog post from my “diary” to the world I use jekyll. Jekyll is an uber-simple blogging engine that stores all your posts as text files in a folder and then compiles the files together to create your blog’s static files. No relational database required. Everything is just text.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-paradox-of-choice&quot;&gt;The Paradox of Choice&lt;/h2&gt;
+&lt;p&gt;This preference for simplicity also a brings to mind a phenomenon I read about once and which I’ve seen endless applications of in my life–the paradox of choice. The idea is that we  (particularly economists–my former field of study) tend to think that people are always made strictly better off by having more choice. But the evidence refutes this notion. In a study where they give people 25 options for mutual funds in which to invest for their retirement, they did not  appear to be 5 times better off than when they just had five. Instead, it turned out that they were significantly &lt;em&gt;less&lt;/em&gt; likely to invest anything at all. And that’s for their &lt;em&gt;retirement&lt;/em&gt;. Kind of important!&lt;/p&gt;
+
+&lt;p&gt;Similarly, I think many of the best web apps are the ones that use algorithms to &lt;em&gt;reduce&lt;/em&gt; the number of choices you need to make rather than increase them. Coming back to the app I’m using right now, it defaults to dating all entries with the current date and time. You can edit this later if you want but that’s the default. Posts are then automatically organized (again without you making choices about how you’d like to do this) according to date. While it may seem trivial, this has actually proved as a barrier to my attempts at keeping up writing habits in the past. This simple default has lowered the barrier to writing for me and I’ve found myself writing &lt;em&gt;way&lt;/em&gt; more than in the past as a result.&lt;/p&gt;
+
+&lt;p&gt;There’s a lot more to this movement than what I just discussed so it’s definitely something I’m going to read into more. Also if folks are interested, much of what I now think about software was inspired by the excellent book &lt;a href=&quot;https://gettingreal.37signals.com/&quot;&gt;Getting Real&lt;/a&gt; by 37 signals (now basecamp), which has a lot of similar ideas about simplicity in software development.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/the-slow-web/&quot;&gt;The Slow Web&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on November 18, 2014.&lt;/p&gt;
+  </content>
+</entry>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[To learn--a Christmas List]]></title>
+  <link rel="alternate" type="text/html" href="/christmas-list-of-learning/" />
+  <id>/christmas-list-of-learning</id>
+  <updated>2014-10-30T00:00:00-00:00</updated>
+  <published>2014-10-30T00:00:00-04:00</published>
+  
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri></uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;When I was a kid, like many kids I made lists of stuff I really wanted and hoped I could get for Christmas. And while I’m not completely beyond that stage (I’d really love to get a folding bike that I could take with me on my travels!) the wish lists I make these days are things I want to &lt;em&gt;learn&lt;/em&gt;. So for the sake of organizing my thinking a bit and sharing and/or getting back from the world, I give you my learning wish list, followed by &lt;em&gt;why&lt;/em&gt; I want to learn each one and the resources. Hopefully this can be helpful to others and/or I can inspire people to share their own lists. I’d love to read them!&lt;/p&gt;
+
+&lt;p&gt;Here’s my list &lt;em&gt;roughly&lt;/em&gt; in order of priority/urgency)&lt;br /&gt;
+- TDD in Rails&lt;br /&gt;
+- Rails APIs&lt;br /&gt;
+- Angular JS&lt;br /&gt;
+- Design Patterns&lt;br /&gt;
+- Node JS&lt;br /&gt;
+- Command Line Application Development&lt;br /&gt;
+- Grape/Cuba/other ruby microframework&lt;br /&gt;
+- Servers / DevOps&lt;br /&gt;
+- Algorithms&lt;br /&gt;
+- Machine Learning&lt;br /&gt;
+- Assembling Desktop Computers&lt;/p&gt;
+
+&lt;p&gt;Now the breakdown of the &lt;strong&gt;why&lt;/strong&gt; and &lt;strong&gt;how&lt;/strong&gt;.&lt;br /&gt;
+### TDD in Rails&lt;br /&gt;
+Testing is important. It just is. I’ve really drunk the cool-aid on this one from the many podcasts, and articles and blog posts and educational material and everything else, it’s really sunk in. It’s getting to the point where it’s getting to be something as basic as version control. And unfortunately it’s something that I’ve put off prioritizing other things. This needs to stuff.&lt;/p&gt;
+
+&lt;p&gt;Getting into the specifics of why it’s so important is a post for another time, but I can say that if you listen to podcasts check out the ones from thoughtbot–testing is a topic they mention a lot. As far as resources for how to learn it, I’m already familiar with the basic idea and I’ve got Rspec basics down it’s just a matter of being sure to dig up the documentation and have it at my side for the next project I do and make sure I do it full on TDD. I haven’t tried it yet but Code School has a course on Testing in Rails that looks promising.&lt;/p&gt;
+
+&lt;h3 id=&quot;rails-apis&quot;&gt;Rails APIs&lt;/h3&gt;
+&lt;p&gt;What with the increasing popularity of angularjs and other frontend frameworks, and mobile being really important it seems like everywhere I look there’s somewhere a RESTful API can be plugged in and used as the backend for an application. It seems to me that as a Rails developer, knowing how to create well-structured APIs is a really important skill that’s only going to become more important as time goes on. This is probably of equally high priority for me as TDD and one that I’m looking to work on as soon as possible. I’ve started on the Surviving APIs with rails course with Code School and it seems pretty solid so far, so I’m likely going to continue there.&lt;/p&gt;
+
+&lt;h3 id=&quot;angularjs&quot;&gt;AngularJS&lt;/h3&gt;
+&lt;p&gt;The tricky part about the proliferation of javascript frameworks is picking a winning horse. You don’t want to spend lots of time learning a framework only to find out in a few years that no one’s using it.  So how did I settle on Angular? Pretty much the same reason I picked rails–I was seeing lots of educational resources that looked good, and a community around them that seemed really positive. I’ve got a friend who’s willing to look over my code. That’s good enough criteria for me to give it a shot. Also as the proud new owner of a chromebook (more thoughts on that elsewhere) I’m interested in the direction google is taking application development.&lt;/p&gt;
+
+&lt;p&gt;As far as resources I’m looking into thinkster.io, with &lt;a href=&quot;https://thinkster.io/angulartutorial/a-better-way-to-learn-angularjs/&quot;&gt;this&lt;/a&gt; introduction to AngularJS in particular because of its integration with their other courses on rails and MEAN stack. As part of the sort of “curriculum” they outline they suggest the screencasts at egghead.io which look really solid. Code school also has a basic (and free!) introduction to AngularJS &lt;a href=&quot;https://www.codeschool.com/courses/shaping-up-with-angular-js&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Well, I don’t have time to get into all of them right now, but that’s a good start. Hopefully I can come back later and flesh out this list. I’d be interested to hear what’s on other people’s learning wish list and why.&lt;/p&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/christmas-list-of-learning/&quot;&gt;To learn--a Christmas List&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on October 30, 2014.&lt;/p&gt;
+  </content>
+</entry>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[REPL Driven Development with pry]]></title>
+  <link rel="alternate" type="text/html" href="/REPL-Driven-Development/" />
+  <id>/REPL-Driven-Development</id>
+  <updated>2015-4-7T00:00:00-00:00</updated>
+  <published>2014-10-10T00:00:00-04:00</published>
+  
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri></uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;In English at the bottom–to be cleaned up as soon as I make this blog bilingual.&lt;/p&gt;
+
+&lt;p&gt;Aqui pueden ver mis slides de la charla sobre REPL driven development con pry:&lt;/p&gt;
+
+&lt;iframe src=&quot;//www.slideshare.net/slideshow/embed_code/40098358&quot; width=&quot;476&quot; height=&quot;400&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;También aqui estan los links a los recursos y charlas que mencionaba:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;pryrepl.org&quot;&gt;Pry&lt;/a&gt;: Aprender más sobre pry y si eres muy fan, hasta te puedes comprar un polo.&lt;/li&gt;
+  &lt;li&gt;pry-rails (gem ‘pry-rails’ en tu Gemfile)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;github.com/epeli/slimux/&quot;&gt;slimux&lt;/a&gt;: Plugin para vim que te permita mandar texto a otra ventana tmux (sirve con pry pero también para rspec por ejemplo).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Otras Charlas muy buenas que me inspiraron bastante:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=D9j_Mf91M0I&quot;&gt;Ruby Conf 2013: REPL driven development with pry&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=D9j_Mf91M0I&quot;&gt;Rails Conf 2013 Pry–The Good Parts!&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=4hfMUP5iTq8&quot;&gt;Rails Conf 2014 Debugger driven development with pry&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Below you can see my slides for the talk I gave for Ruby Peru on REPL driven development with pry.&lt;/p&gt;
+
+&lt;iframe src=&quot;//www.slideshare.net/slideshow/embed_code/40098358&quot; width=&quot;476&quot; height=&quot;400&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Also below are the links and resources that I mentioned in the talk:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;pryrepl.org&quot;&gt;Pry&lt;/a&gt;: Learn more about pry and if you’re a big fan you can even buy a t-shirt to support the project.&lt;/li&gt;
+  &lt;li&gt;pry-rails (gem ‘pry-rails’ en tu Gemfile)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;github.com/epeli/slimux/&quot;&gt;slimux&lt;/a&gt;: A vim plugin that allows you to send text to a separate tmux window. This can be useful to send rspec tests but also for writing code in a file and then testing its lines one by one by sending them to pry.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Excellent conference talks which inspired me:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=D9j_Mf91M0I&quot;&gt;Ruby Conf 2013: REPL driven development with pry&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=D9j_Mf91M0I&quot;&gt;Rails Conf 2013 Pry–The Good Parts!&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=4hfMUP5iTq8&quot;&gt;Rails Conf 2014 Debugger driven development with pry&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/REPL-Driven-Development/&quot;&gt;REPL Driven Development with pry&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on October 10, 2014.&lt;/p&gt;
+  </content>
+</entry>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[Remote Pairing Tools]]></title>
+  <link rel="alternate" type="text/html" href="/remote-pairing-tools/" />
+  <id>/remote-pairing-tools</id>
+  <published>2014-06-20T00:00:00-04:00</published>
+  <updated>2014-06-20T00:00:00-04:00</updated>
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri></uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;I’ve recently been on the lookout for tools to make remote pair&lt;br /&gt;
+programming easier. My main motivations are the following&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Pair programming, particularly with someone better than you (most&lt;br /&gt;
+programmers at this point!) is the best way to learn&lt;/li&gt;
+  &lt;li&gt;My goal is to work remotely as a developer so I want to get a good&lt;br /&gt;
+comfortable remote setup.&lt;/li&gt;
+  &lt;li&gt;I’m currently engaged in an &lt;a href=&quot;www.bloc.io&quot;&gt;apprenticeship&lt;/a&gt; heavily focused on remote&lt;br /&gt;
+pair programming. So now it’s urgent.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here’s what I’ve found.&lt;/p&gt;
+
+&lt;h3 id=&quot;remote-server-with-ssh-and-tmux&quot;&gt;remote server with ssh and tmux&lt;/h3&gt;
+
+&lt;p&gt;tmux, short for terminal multiplexer lets you run multiple terminals&lt;br /&gt;
+within one environment. It’s sort of like browser tabs for your&lt;br /&gt;
+terminal. For remote pairing you can use it to connect to a remote&lt;br /&gt;
+server via a secure shell or ssh.&lt;/p&gt;
+
+&lt;p&gt;There’s a pretty detailed description of the process &lt;a href=&quot;http://www.zeespencer.com/articles/building-a-remote-pairing-setup/&quot;&gt;here&lt;/a&gt; using prgmr.com as the remote server. I haven’t tried it so I won’t go into the process here but needless to say that setting it up is pretty involved. There’s a description of something similar in the book from a book on the topic from the &lt;a href=&quot;http://pragprog.com/book/jkrp/remote-pairing&quot;&gt;Pragmatic Bookshelf&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;####Pros:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Works great on linux&lt;/li&gt;
+  &lt;li&gt;Works great with vim&lt;/li&gt;
+  &lt;li&gt;Works great on &lt;em&gt;*low-bandwidth*&lt;/em&gt;. This is huge for me.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;####Cons&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Pair needs to be using a console editor like vim or emacs&lt;/li&gt;
+  &lt;li&gt;Corllary to above–if you use vim and they use emacs, not so great&lt;/li&gt;
+  &lt;li&gt;You may want to maniuplate the browser console together or do other&lt;br /&gt;
+screen sharing that doesn’t involve the console.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I’ll have to find other solutions for when tmux isn’t an option (screen sharing for when we want to look at what something looks like in a browser for instance) but I think that most of the time some kind of a tmux session solution is going to be the way to go (the prag programmers book also talks about different ways to do this).&lt;/p&gt;
+
+&lt;h3 id=&quot;a-simpler-solution-tmate&quot;&gt;A Simpler Solution: tmate&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://tmate.io/&quot;&gt;tmate&lt;/a&gt;: A fork of tmux, designed to do the&lt;br /&gt;
+above configuration automatically. As far as I can tell:&lt;/p&gt;
+
+&lt;p&gt;####Pros:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Much easier setup–most of the work is already done for you.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;####Cons:&lt;br /&gt;
+  - The other person has to use your tmux configurations&lt;br /&gt;
+  - You’re stuck using ssh, instead of mosh (which is apparently faster than ssh).&lt;br /&gt;
+  - I’m not sure if you’d be able to use tmux plugins like tmuxinator.&lt;/p&gt;
+
+&lt;h3 id=&quot;other-tools-to-investigate&quot;&gt;Other Tools to investigate&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://mosh.mit.edu/&quot;&gt;mosh&lt;/a&gt; SSH alternative. Uses less bandwidth and thus faster than ssh.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/zolrath/wemux&quot;&gt;wemux&lt;/a&gt;: tmux plugin for remote&lt;/li&gt;
+  &lt;li&gt;pairing–need to check it out and see what kind of features.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/benmills/vimux&quot;&gt;vimux&lt;/a&gt;: ditto.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/tmuxinator/tmuxinator&quot;&gt;tmuxinator&lt;/a&gt;: Looks like it&lt;br /&gt;
+can be useful for saving a lot of settings (for a project) without&lt;br /&gt;
+having to restart it each time.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I haven’t tried any of this yet, but I’ll be giving these a shot and write about how it goes.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/remote-pairing-tools/&quot;&gt;Remote Pairing Tools&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 20, 2014.&lt;/p&gt;
+  </content>
+</entry>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[Starting Bloc]]></title>
+  <link rel="alternate" type="text/html" href="/starting%20bloc/" />
+  <id>/starting bloc</id>
+  <updated>2015-4-7T00:00:00-00:00</updated>
+  <published>2014-06-15T00:00:00-04:00</published>
+  
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri></uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;Tomorrow I officially begin my apprenticeship with &lt;a href=&quot;bloc.io&quot;&gt;Bloc&lt;/a&gt;. I’m pretty excited.&lt;/p&gt;
+
+&lt;p&gt;So what is Bloc? It’s an intensive course for learning the skills to be a professional web developer. Its part of a movement of companies designed to give people the professional skills to find employment in the tech industry via short but intensive study in immediately marketable skills, rather than the traditional multi-year degree-based educational model. Typically these programming “bootcamps” involve dropping $12,000 for three months of studying 40 to 50 hours a week in a classroom in a major urban tech hub like San Francisco or New York. It sounds kind of crazy on the surface of it, but it seems to be working. There’s a huge demand for people with the skills these bootcamps are offering in a field where degrees matter less than ability and experience.&lt;/p&gt;
+
+&lt;p&gt;Meanwhile ever since the aborted start of my career in economic development I’ve been trying to forge a new career path studying online. I first fell in love with programming with a coursera course I took called &lt;a href=&quot;http://www.coursera.org/course/interactivepython&quot;&gt;Introduction to Interactive Programming in Python&lt;/a&gt; and the rest is history. But after a year of studying on my own, I finally decided that I’d like to do something more intensive and get a little more guidance.&lt;/p&gt;
+
+&lt;p&gt;Enter Bloc. Bloc takes this idea of intensive professional courses and moves them to the web. Instead of sitting in a classroom for 8 hours a day, the instruction takes place on an online platform. The human element takes place through the use of mentors–professional developers who dedicate time each week to meeting one-on-one with each of their students and providing some guidance for the process. The advantage of this setup is that I can do it right where I am now, from Lima Peru. This means a much lower cost both in terms of the cost of the program and in the costs of quitting my job and moving to an (expensive) North American city.&lt;/p&gt;
+
+&lt;p&gt;I also suspect the mentor format might just be better than the traditional classroom format.  Learning, particularly learning development, takes place by doing. Compared to university education, thie teacher role in this setting seems less like a college lecturer and more like your thesis advisor–you meet periodically to go over your work and receive feedback and then you go back to your desk and work on your own. Being more independent and less structured is definitely challenging, but when I think back upon my experience in writing my senior thesis, I remember it as one of the times where I learned the most in all my time in college and was the most useful when applying for jobs. So I’m optimistic.&lt;/p&gt;
+
+&lt;p&gt;Education and &lt;em&gt;learning&lt;/em&gt; generally are areas that interest me a great deal. I’m very excited to see the ways that technology can transform education, so I expect I’ll have quite a bit to comment on as I go through Bloc. Stay tuned.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/starting%20bloc/&quot;&gt;Starting Bloc&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 15, 2014.&lt;/p&gt;
+  </content>
+</entry>
+
+</feed>
