@@ -5,15 +5,15 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>Remote Pairing Tools &#8211; Stephen Mariano Cabrera</title>
-<meta name="description" content="How do you code with another programmer when you're not in the same room--or even the same country?">
-<meta name="keywords" content="pairing, agile, remote, tools">
+<title>Enter...enter &#8211; Stephen Mariano Cabrera</title>
+<meta name="description" content="A simple command line tool and convention to make working with projects in tmux a little easier">
+<meta name="keywords" content="learning">
 
 
 
 <!-- Twitter Cards -->
-<meta name="twitter:title" content="Remote Pairing Tools">
-<meta name="twitter:description" content="How do you code with another programmer when you're not in the same room--or even the same country?">
+<meta name="twitter:title" content="Enter...enter">
+<meta name="twitter:description" content="A simple command line tool and convention to make working with projects in tmux a little easier">
 <meta name="twitter:site" content="@stephenmarian0">
 <meta name="twitter:creator" content="@stephenmarian0">
 
@@ -23,16 +23,16 @@
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Remote Pairing Tools">
-<meta property="og:description" content="How do you code with another programmer when you're not in the same room--or even the same country?">
-<meta property="og:url" content="/remote-pairing-tools/">
+<meta property="og:title" content="Enter...enter">
+<meta property="og:description" content="A simple command line tool and convention to make working with projects in tmux a little easier">
+<meta property="og:url" content="/enter-enter/">
 <meta property="og:site_name" content="Stephen Mariano Cabrera">
 
 
 
 
 
-<link rel="canonical" href="/remote-pairing-tools/">
+<link rel="canonical" href="/enter-enter/">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Stephen Mariano Cabrera Feed">
 
 <!-- http://t.co/dKP3o1e -->
@@ -150,81 +150,59 @@
   <article class="post">
     <div class="headline-wrap">
       
-        <h1><a href="/remote-pairing-tools/" rel="bookmark" title="Remote Pairing Tools">Remote Pairing Tools</a></h1>
+        <h1><a href="/enter-enter/" rel="bookmark" title="Enter...enter">Enter...enter</a></h1>
       
     </div><!--/ .headline-wrap -->
     <div class="article-wrap">
-      <p>I’ve recently been on the lookout for tools to make remote pair<br />
-programming easier. My main motivations are the following<br /></p>
+      <p>I made a thing. A simple command line utility I call <a href="https://gist.github.com/smcabrera/bfbcecadb984ce8c37696247533b51d5">enter</a>. <br /><br />
+I wrote it a while back and I’ve found to be tremendously convenient. This was made more clear to me when briefly I was working on a machine that didn’t have it and I was reminded of how nice it was.  I thought I’d share it and the workflow that makes it so darn convenient.</p>
+
+<h3 id="a-tmux-workflow">A Tmux Workflow</h3>
+<p>I found myself following a pretty similar pattern:</p>
 
 <ul>
-  <li>Pair programming, particularly with someone better than you (most<br />
-programmers at this point!) is the best way to learn</li>
-  <li>My goal is to work remotely as a developer so I want to get a good<br />
-comfortable remote setup.</li>
-  <li>I’m currently engaged in an <a href="www.bloc.io">apprenticeship</a> heavily focused on remote<br />
-pair programming. So now it’s urgent.</li>
+  <li>Decide to start work on a project, let’s call it <code class="highlighter-rouge">awesome_blog</code>.</li>
+  <li>Start a new tmux session and call it <code class="highlighter-rouge">awesome_blog</code></li>
 </ul>
 
-<p>Here’s what I’ve found.</p>
-
-<h3 id="remote-server-with-ssh-and-tmux">remote server with ssh and tmux</h3>
-
-<p>tmux, short for terminal multiplexer lets you run multiple terminals<br />
-within one environment. It’s sort of like browser tabs for your<br />
-terminal. For remote pairing you can use it to connect to a remote<br />
-server via a secure shell or ssh.</p>
-
-<p>There’s a pretty detailed description of the process <a href="http://www.zeespencer.com/articles/building-a-remote-pairing-setup/">here</a> using prgmr.com as the remote server. I haven’t tried it so I won’t go into the process here but needless to say that setting it up is pretty involved. There’s a description of something similar in the book from a book on the topic from the <a href="http://pragprog.com/book/jkrp/remote-pairing">Pragmatic Bookshelf</a>.</p>
-
-<p>####Pros:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>  <span class="nv">$ </span>tmux new -s awesome_blog
+</code></pre>
+</div>
 
 <ul>
-  <li>Works great on linux</li>
-  <li>Works great with vim</li>
-  <li>Works great on <em>*low-bandwidth*</em>. This is huge for me.</li>
+  <li>Open up a new tmux window.</li>
+  <li>try to start a rails server in that window.</li>
+  <li>Watch as my terminal yells at me for being in my home folder or whatever folder I was working in before I decided to switch to this folder</li>
+  <li>Gradually get more and more annoyed as this keeps happening and I keep having to cd into my project folder before doing anything and wishing that I’d just started the tmux session in the correct folder.</li>
+  <li>blowing up this tmux session and all its windows just so I can start it again from the right project folder</li>
 </ul>
 
-<p>####Cons</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>   <span class="nv">$ </span>tmux destroy-session -t awesome_blog
+   <span class="nv">$ </span><span class="nb">cd</span> ~/workspace/awesome_blog
+   <span class="nv">$ </span>tmux new -s awesome_blog
+</code></pre>
+</div>
+
+<h3 id="a-better-way">A better way</h3>
+
+<p><img src="http://imgs.xkcd.com/comics/is_it_worth_the_time.png" /></p>
+
+<p><br /><br />
+I don’t know about you but that seems like an awful lot of unnecessary typing. Maybe the math doesn’t add up (see above) but I am a profoundly lazy person so naturally I decided it made sense to spend several hours figuring out how to resume being lazy.<br />
+<br /><br />
+So I wrote this little shell script. Now instead of the above, whenever I want to work on a new project I just go</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>   enter awesome_blog
+</code></pre>
+</div>
 
 <ul>
-  <li>Pair needs to be using a console editor like vim or emacs</li>
-  <li>Corllary to above–if you use vim and they use emacs, not so great</li>
-  <li>You may want to maniuplate the browser console together or do other<br />
-screen sharing that doesn’t involve the console.</li>
+  <li>If I’ve already created the tmux session with that name and I’d just forgotten about it, no worries, it just moves me into that tmux session.</li>
+  <li>If I haven’t created it yet it’ll cd into the appropriate folder and create the session from there</li>
+  <li>Once I’m done and want to leave tmux, whether to start a new project or just do whatever I was doing before, I’m back in the same folder I was when I ran the command.</li>
 </ul>
 
-<p>I’ll have to find other solutions for when tmux isn’t an option (screen sharing for when we want to look at what something looks like in a browser for instance) but I think that most of the time some kind of a tmux session solution is going to be the way to go (the prag programmers book also talks about different ways to do this).</p>
-
-<h3 id="a-simpler-solution-tmate">A Simpler Solution: tmate</h3>
-
-<p><a href="http://tmate.io/">tmate</a>: A fork of tmux, designed to do the<br />
-above configuration automatically. As far as I can tell:</p>
-
-<p>####Pros:</p>
-
-<ul>
-  <li>Much easier setup–most of the work is already done for you.</li>
-</ul>
-
-<p>####Cons:<br />
-  - The other person has to use your tmux configurations<br />
-  - You’re stuck using ssh, instead of mosh (which is apparently faster than ssh).<br />
-  - I’m not sure if you’d be able to use tmux plugins like tmuxinator.</p>
-
-<h3 id="other-tools-to-investigate">Other Tools to investigate</h3>
-
-<ul>
-  <li><a href="http://mosh.mit.edu/">mosh</a> SSH alternative. Uses less bandwidth and thus faster than ssh.</li>
-  <li><a href="https://github.com/zolrath/wemux">wemux</a>: tmux plugin for remote</li>
-  <li>pairing–need to check it out and see what kind of features.</li>
-  <li><a href="https://github.com/benmills/vimux">vimux</a>: ditto.</li>
-  <li><a href="https://github.com/tmuxinator/tmuxinator">tmuxinator</a>: Looks like it<br />
-can be useful for saving a lot of settings (for a project) without<br />
-having to restart it each time.</li>
-</ul>
-
-<p>I haven’t tried any of this yet, but I’ll be giving these a shot and write about how it goes.</p>
+<p>If people like the tool or the workflow and have suggestions on how to make it better I’m all ears :)</p>
 
       <hr />
       <footer role="contentinfo">
@@ -232,17 +210,17 @@ having to restart it each time.</li>
   <h4>Share on</h4>
   <ul>
     <li>
-      <a href="https://twitter.com/intent/tweet?text=/remote-pairing-tools/" class="twitter" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+      <a href="https://twitter.com/intent/tweet?text=/enter-enter/" class="twitter" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
     </li>
     <li>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=/remote-pairing-tools/" class="facebook" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=/enter-enter/" class="facebook" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
     </li>
     <li>
-      <a href="https://plus.google.com/share?url=/remote-pairing-tools/" class="google-plus" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+      <a href="https://plus.google.com/share?url=/enter-enter/" class="google-plus" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
     </li>
   </ul>
 </div><!-- /.social-share -->
-        <p class="byline"><strong>Remote Pairing Tools</strong> was published on <time datetime="2014-06-20T00:00:00-04:00">June 20, 2014</time>.</p>
+        <p class="byline"><strong>Enter...enter</strong> was published on <time datetime="2016-09-12T00:00:00-04:00">September 12, 2016</time> and last modified on <time datetime="2015-04-07">April 07, 2015</time>.</p>
       </footer>
     </div><!-- /.article-wrap -->
   
@@ -256,11 +234,11 @@ having to restart it each time.</li>
   <h4>You might also enjoy <small class="pull-right">(<a href="/posts/">View all posts</a>)</small></h4>
     <ul>
     
-      <li><a href="/enter-enter/" title="Enter...enter">Enter...enter</a></li>
-    
       <li><a href="/refactoring-legacy-code/" title="Refactoring Legacy Code">Refactoring Legacy Code</a></li>
     
       <li><a href="/get-freaky/" title="Get Freaky">Get Freaky</a></li>
+    
+      <li><a href="/ruby-peru-april-2015/" title="Ruby Peru April 2015">Ruby Peru April 2015</a></li>
     
     </ul>
     <hr />

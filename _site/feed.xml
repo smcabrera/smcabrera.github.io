@@ -4,13 +4,83 @@
 <generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2016-09-12T15:56:29-04:00</updated>
+<updated>2016-09-12T19:43:53-04:00</updated>
 <id>/</id>
 <author>
   <name>Stephen Mariano Cabrera</name>
   <uri>/</uri>
   <email>stephen.m.cabrera@gmail.com</email>
 </author>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[Enter...enter]]></title>
+  <link rel="alternate" type="text/html" href="/enter-enter/" />
+  <id>/enter-enter</id>
+  <updated>2015-4-7T00:00:00-00:00</updated>
+  <published>2016-09-12T00:00:00-04:00</published>
+  
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri></uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;I made a thing. A simple command line utility I call &lt;a href=&quot;https://gist.github.com/smcabrera/bfbcecadb984ce8c37696247533b51d5&quot;&gt;enter&lt;/a&gt;. &lt;br /&gt;&lt;br /&gt;
+I wrote it a while back and I’ve found to be tremendously convenient. This was made more clear to me when briefly I was working on a machine that didn’t have it and I was reminded of how nice it was.  I thought I’d share it and the workflow that makes it so darn convenient.&lt;/p&gt;
+
+&lt;h3 id=&quot;a-tmux-workflow&quot;&gt;A Tmux Workflow&lt;/h3&gt;
+&lt;p&gt;I found myself following a pretty similar pattern:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Decide to start work on a project, let’s call it &lt;code class=&quot;highlighter-rouge&quot;&gt;awesome_blog&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Start a new tmux session and call it &lt;code class=&quot;highlighter-rouge&quot;&gt;awesome_blog&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tmux new -s awesome_blog
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Open up a new tmux window.&lt;/li&gt;
+  &lt;li&gt;try to start a rails server in that window.&lt;/li&gt;
+  &lt;li&gt;Watch as my terminal yells at me for being in my home folder or whatever folder I was working in before I decided to switch to this folder&lt;/li&gt;
+  &lt;li&gt;Gradually get more and more annoyed as this keeps happening and I keep having to cd into my project folder before doing anything and wishing that I’d just started the tmux session in the correct folder.&lt;/li&gt;
+  &lt;li&gt;blowing up this tmux session and all its windows just so I can start it again from the right project folder&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tmux destroy-session -t awesome_blog
+   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/workspace/awesome_blog
+   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tmux new -s awesome_blog
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;a-better-way&quot;&gt;A better way&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://imgs.xkcd.com/comics/is_it_worth_the_time.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;
+I don’t know about you but that seems like an awful lot of unnecessary typing. Maybe the math doesn’t add up (see above) but I am a profoundly lazy person so naturally I decided it made sense to spend several hours figuring out how to resume being lazy.&lt;br /&gt;
+&lt;br /&gt;&lt;br /&gt;
+So I wrote this little shell script. Now instead of the above, whenever I want to work on a new project I just go&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   enter awesome_blog
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;If I’ve already created the tmux session with that name and I’d just forgotten about it, no worries, it just moves me into that tmux session.&lt;/li&gt;
+  &lt;li&gt;If I haven’t created it yet it’ll cd into the appropriate folder and create the session from there&lt;/li&gt;
+  &lt;li&gt;Once I’m done and want to leave tmux, whether to start a new project or just do whatever I was doing before, I’m back in the same folder I was when I ran the command.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If people like the tool or the workflow and have suggestions on how to make it better I’m all ears :)&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/enter-enter/&quot;&gt;Enter...enter&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on September 12, 2016.&lt;/p&gt;
+  </content>
+</entry>
 
 
   
