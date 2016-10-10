@@ -155,6 +155,9 @@
     </div><!--/ .headline-wrap -->
     <div class="article-wrap">
       <p>I made a thing. A simple command line utility I call <a href="https://gist.github.com/smcabrera/bfbcecadb984ce8c37696247533b51d5">enter</a>. <br /><br />
+<br /><br />
+<img src="../images/enter_screencast.gif" alt="usage" /><br />
+<br /><br />
 I wrote it a while back and I’ve found to be tremendously convenient. This was made more clear to me when briefly I was working on a machine that didn’t have it and I was reminded of how nice it was.  I thought I’d share it and the workflow that makes it so darn convenient.</p>
 
 <h3 id="a-tmux-workflow">A Tmux Workflow</h3>
@@ -190,17 +193,21 @@ I wrote it a while back and I’ve found to be tremendously convenient. This was
 <p><br /><br />
 I don’t know about you but that seems like an awful lot of unnecessary typing. Maybe the math doesn’t add up (see above) but I am a profoundly lazy person so naturally I decided it made sense to spend several hours figuring out how to resume being lazy.<br />
 <br /><br />
-So I wrote this little shell script. Now instead of the above, whenever I want to work on a new project I just go</p>
+So I wrote this little shell script. Now instead of the above, whenever I want to work on a new project I just type</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>   enter awesome_blog
+<div class="highlighter-rouge"><pre class="highlight"><code>   enter
 </code></pre>
 </div>
+
+<p>And I get a list of all the projects in my projects folder.</p>
 
 <ul>
   <li>If I’ve already created the tmux session with that name and I’d just forgotten about it, no worries, it just moves me into that tmux session.</li>
   <li>If I haven’t created it yet it’ll cd into the appropriate folder and create the session from there</li>
   <li>Once I’m done and want to leave tmux, whether to start a new project or just do whatever I was doing before, I’m back in the same folder I was when I ran the command.</li>
 </ul>
+
+<p>Check it out! The source and README is on <a href="https://www.github.com/smcabrera/enter">github</a> and can be installed via brew.</p>
 
 <p>If people like the tool or the workflow and have suggestions on how to make it better I’m all ears :)</p>
 

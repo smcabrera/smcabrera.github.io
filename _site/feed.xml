@@ -4,7 +4,7 @@
 <generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2016-10-07T16:08:20-04:00</updated>
+<updated>2016-10-10T17:27:20-04:00</updated>
 <id>/</id>
 <author>
   <name>Stephen Mariano Cabrera</name>
@@ -29,6 +29,9 @@
   </author>
   <content type="html">
     &lt;p&gt;I made a thing. A simple command line utility I call &lt;a href=&quot;https://gist.github.com/smcabrera/bfbcecadb984ce8c37696247533b51d5&quot;&gt;enter&lt;/a&gt;. &lt;br /&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;br /&gt;
+&lt;img src=&quot;../images/enter_screencast.gif&quot; alt=&quot;usage&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;br /&gt;
 I wrote it a while back and I’ve found to be tremendously convenient. This was made more clear to me when briefly I was working on a machine that didn’t have it and I was reminded of how nice it was.  I thought I’d share it and the workflow that makes it so darn convenient.&lt;/p&gt;
 
 &lt;h3 id=&quot;a-tmux-workflow&quot;&gt;A Tmux Workflow&lt;/h3&gt;
@@ -64,17 +67,21 @@ I wrote it a while back and I’ve found to be tremendously convenient. This was
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;
 I don’t know about you but that seems like an awful lot of unnecessary typing. Maybe the math doesn’t add up (see above) but I am a profoundly lazy person so naturally I decided it made sense to spend several hours figuring out how to resume being lazy.&lt;br /&gt;
 &lt;br /&gt;&lt;br /&gt;
-So I wrote this little shell script. Now instead of the above, whenever I want to work on a new project I just go&lt;/p&gt;
+So I wrote this little shell script. Now instead of the above, whenever I want to work on a new project I just type&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   enter awesome_blog
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   enter
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;p&gt;And I get a list of all the projects in my projects folder.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;If I’ve already created the tmux session with that name and I’d just forgotten about it, no worries, it just moves me into that tmux session.&lt;/li&gt;
   &lt;li&gt;If I haven’t created it yet it’ll cd into the appropriate folder and create the session from there&lt;/li&gt;
   &lt;li&gt;Once I’m done and want to leave tmux, whether to start a new project or just do whatever I was doing before, I’m back in the same folder I was when I ran the command.&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;Check it out! The source and README is on &lt;a href=&quot;https://www.github.com/smcabrera/enter&quot;&gt;github&lt;/a&gt; and can be installed via brew.&lt;/p&gt;
 
 &lt;p&gt;If people like the tool or the workflow and have suggestions on how to make it better I’m all ears :)&lt;/p&gt;
 
