@@ -1,6 +1,6 @@
 ---
 layout: home
-excerpt: "The Professional Site of Stephen Mariano Cabrera, Rails Developer."
+excerpt: "The Professional Site of Stephen Mariano Cabrera, Software Developer."
 tags: []
 image:
   feature: cleveland-skyline-bridge_bw.jpg
