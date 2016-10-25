@@ -13,7 +13,8 @@ image:
 
 When I was a kid, like many kids I made lists of stuff I really wanted and hoped I could get for Christmas. And while I'm not completely beyond that stage (I'd really love to get a folding bike that I could take with me on my travels!) the wish lists I make these days are things I want to *learn*. So for the sake of organizing my thinking a bit and sharing and/or getting back from the world, I give you my learning wish list, followed by *why* I want to learn each one and the resources. Hopefully this can be helpful to others and/or I can inspire people to share their own lists. I'd love to read them!
 
-Here's my list *roughly* in order of priority/urgency)
+Here's my list *roughly* in order of priority/urgency):
+
 - TDD in Rails
 - Rails APIs
 - Angular JS
@@ -27,7 +28,9 @@ Here's my list *roughly* in order of priority/urgency)
 - Assembling Desktop Computers
 
 Now the breakdown of the **why** and **how**.
+
 ### TDD in Rails
+
 Testing is important. It just is. I've really drunk the cool-aid on this one from the many podcasts, and articles and blog posts and educational material and everything else, it's really sunk in. It's getting to the point where it's getting to be something as basic as version control. And unfortunately it's something that I've put off prioritizing other things. This needs to stuff.
 
 Getting into the specifics of why it's so important is a post for another time, but I can say that if you listen to podcasts check out the ones from thoughtbot--testing is a topic they mention a lot. As far as resources for how to learn it, I'm already familiar with the basic idea and I've got Rspec basics down it's just a matter of being sure to dig up the documentation and have it at my side for the next project I do and make sure I do it full on TDD. I haven't tried it yet but Code School has a course on Testing in Rails that looks promising.
@@ -41,4 +44,5 @@ The tricky part about the proliferation of javascript frameworks is picking a wi
 As far as resources I'm looking into thinkster.io, with [this](https://thinkster.io/angulartutorial/a-better-way-to-learn-angularjs/) introduction to AngularJS in particular because of its integration with their other courses on rails and MEAN stack. As part of the sort of "curriculum" they outline they suggest the screencasts at egghead.io which look really solid. Code school also has a basic (and free!) introduction to AngularJS [here](https://www.codeschool.com/courses/shaping-up-with-angular-js).
 
 Well, I don't have time to get into all of them right now, but that's a good start. Hopefully I can come back later and flesh out this list. I'd be interested to hear what's on other people's learning wish list and why.
+
 
