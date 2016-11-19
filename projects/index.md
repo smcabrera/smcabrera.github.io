@@ -26,5 +26,5 @@ Very simple command line tool to make navigating projects with tmux easier.
 <hr />
 
 ###  dotfiles
-The name smcabrera/dotfiles is already taken up by my fork of thoughtbot/dotfiles. "Castillo" is spanish for castle, and this is the home directory that comes with me from machine to machine.<br>
+The name smcabrera/dotfiles is already taken up by my fork of thoughtbot/dotfiles. They say a man's home is his castle; "Castillo" is Spanish for "castle", and this repo is my portable home directory that I've taken with me from machine to machine.<br>
 [source](https://github.com/smcabrera/castillo-cabrera)
