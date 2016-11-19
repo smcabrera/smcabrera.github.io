@@ -2,7 +2,8 @@
 
 title:            Stephen Mariano Cabrera
 locale:           en_US
-url: https://fullstackalchemy.io
+url:
+#url: https://www.fullstackalchemy.io
 
 # Jekyll configuration
 
