@@ -17,6 +17,7 @@ Worked alongside the team at [Velocis LLC](http://velocis.us/)  from June to Sep
 
 - Refactoring and performance tuning of CSV exports for the administrative site
 - Creating a messaging system for routing emails to and from user's personal email accounts.
+<hr />
 
 ### [Groupize](https://groupize.com/)
 Worked as part of groupize distributed development team from December 2015 to May 2016. Groupize has a pair of rails apps which provide group travel sourcing for travel planners at firms and corporate travel departments and lead management software for group sales teams at hotels. Main tasks included:
@@ -24,6 +25,7 @@ Worked as part of groupize distributed development team from December 2015 to Ma
 - Adding and maintaining hotel user interface using ruby on rails and emberjs
 - Creating a dashboard and email routing system for travel planner users using backbone js and ruby on rails.
 - Keeping data in sync from the hotel and planner applications
+<hr />
 
 ### [RiskPool](http://riskpool.co/)
 Built out a beta version of a rails app for a peer-to-peer insurance platform. Worked as a solo contractor as well as on a small distributed team of contractors between Cleveland and New York. Main tasks:
@@ -32,6 +34,7 @@ Built out a beta version of a rails app for a peer-to-peer insurance platform. W
 - Tool for estimating premiums using react
 - Domain logic for premiums, how much user's pay versus how much they have to keep etc.
 - Administrative dashboard
+<hr />
 
 ## Open Source
 On my github I have several open source projects, mainly tools to simplify common tasks.
