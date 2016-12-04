@@ -13,22 +13,28 @@ image:
 ## Client Work
 
 ### [Student Success Agency](http://studentsuccess.co/)
+![student-success-agency](../images/student-success-agency.png)
+<br />
 Worked alongside the team at [Velocis LLC](http://velocis.us/)  from June to September 2016. The rails app uses twilio to route calls and text messages between high school students and college aged mentors who guide them through the college admissions process. Main tasks:
 
 - Refactoring and performance tuning of CSV exports for the administrative site
 - Creating a messaging system for routing emails to and from user's personal email accounts.
 <hr />
 
-### [Groupize](https://groupize.com/)
-Worked as part of groupize distributed development team from December 2015 to May 2016. Groupize has a pair of rails apps which provide group travel sourcing for travel planners at firms and corporate travel departments and lead management software for group sales teams at hotels. Main tasks included:
 
-- Adding and maintaining hotel user interface using ruby on rails and emberjs
-- Creating a dashboard and email routing system for travel planner users using backbone js and ruby on rails.
-- Keeping data in sync from the hotel and planner applications
+### [Groupize](https://groupize.com/)
+![groupize](../images/groupize.png)
+<br />
+Worked as part of the distributed development team at Groupize from December 2015 to May 2016. Groupize has a pair of rails apps which provide group travel sourcing for travel planners at firms and corporate travel departments and lead management software for group sales teams at hotels. Main tasks included:
+
+- Adding and maintaining hotel user interface using Ruby on Rails and emberjs
+- Creating a dashboard and email routing system for travel planner users using backbone js and Ruby on Rails.
+- Keeping data in sync from the hotel and planner applications via their respective APIs
 <hr />
 
 ### [RiskPool](http://riskpool.co/)
-Built out a beta version of a rails app for a peer-to-peer insurance platform. Worked as a solo contractor as well as on a small distributed team of contractors between Cleveland and New York. Main tasks:
+![riskpool](../images/riskpool.png)
+Built out a beta version of a rails app for a peer-to-peer insurance platform. Worked as a solo contractor as well as on a small distributed team of contractors between Cleveland and New York. Main tasks included:
 
 - Workflow for creation of self-insurance groups (pools) from user invitation to, petitioning to join a pool to acceptance into the pool and attendant permissions for these different user states/roles
 - Tool for estimating premiums using react
