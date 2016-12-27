@@ -12,6 +12,17 @@ image:
 
 ## Client Work
 
+### Referrio
+![referrio](../images/referrio.png)
+<br />
+Worked directly with the founder and alongside another solo contractor on features and bug fixes from November to December 2016. The rails app interfaces with the [typeform](typeform.com) to allow the semi-technical founder to engage in rapid prototyping of the user interface.  Main tasks: 
+
+- Fixing bugs related to communication between typeform and rails backend.
+- Fixing bugs related to checkout flow with Stripe
+- Implementing coupon codes to be used on kickstarter campaign
+- Moving hosting from heroku to AWS Lightsail and setting up automated deployment with capistrano.
+<hr />
+
 ### [Student Success Agency](http://studentsuccess.co/)
 ![student-success-agency](../images/student-success-agency.png)
 <br />
@@ -61,5 +72,5 @@ Very simple command line tool to make navigating projects with tmux easier.
 <hr />
 
 ###  dotfiles
-The name smcabrera/dotfiles is already taken up by my fork of thoughtbot/dotfiles. They say a man's home is his castle; "Castillo" is Spanish for "castle", and this repo is my portable home directory that I've taken with me from machine to machine.<br>
-[source](https://github.com/smcabrera/castillo-cabrera)
+Dotfiles kept in sync using thoughtbot's [rcm](https://github.com/thoughtbot/rcm) utility.
+[source](https://github.com/smcabrera/dotfiles)
