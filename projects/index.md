@@ -57,7 +57,7 @@ Built out a beta version of a rails app for a peer-to-peer insurance platform. W
 On my github I have several open source projects. Nothing major just various command line tools to simplify common tasks and experiment.
 
 ### dossh
-CLI written in elixir uses the digital ocean API to return a list of droplet names and ip addresses to make sshing into them easier. Gave me a good excuse to solve a real problem (the digital ocean UI is very friendly so I use the term "problem" loosely) and practice releasing an elixir package.
+CLI written in elixir uses the digital ocean API to return a list of droplet names and ip addresses to make sshing into them easier. Gave me a good excuse to solve a real problem (the digital ocean UI is very friendly so I use the term "problem" loosely) and practice releasing an elixir package.<br>
 [site](https://hex.pm/packages/dossh) | [source](https://github.com/smcabrera/dossh)
 <hr />
 
