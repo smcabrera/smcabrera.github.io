@@ -27,3 +27,5 @@ You can see find out more about my client work in [projects](/projects).
 
 When I'm not working on client work I'm studying ruby and rails resources to deepen my expertise and learning new skills like react and elixir to complement my rails toolset. I've also built some open source tools to simplify some common tasks which I've open sourced and can be found [here](/projects/) or [on my github](https://www.github.com/smcabrera).
 
+### To the city by the bay
+In early 2017 I moved to the San Francisco bay area to work for Bright Funds, a startup with the ambitious goal of changing the way that people donate to charitable causes they care about. 
