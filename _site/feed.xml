@@ -2,40 +2,226 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 <title type="text">Stephen Mariano Cabrera</title>
 <generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
-<link rel="self" type="application/atom+xml" href="/feed.xml" />
-<link rel="alternate" type="text/html" href="" />
-<updated>2017-01-17T17:14:13-05:00</updated>
-<id>/</id>
+<link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml" />
+<link rel="alternate" type="text/html" href="http://localhost:4000" />
+<updated>2019-07-29T16:49:51-07:00</updated>
+<id>http://localhost:4000/</id>
 <author>
   <name>Stephen Mariano Cabrera</name>
-  <uri>/</uri>
+  <uri>http://localhost:4000/</uri>
   <email>stephen.m.cabrera@gmail.com</email>
 </author>
 
 
-  
-
 <entry>
-  <title type="html"><![CDATA[Five Things I Learned Working on Remote Teams]]></title>
-  <link rel="alternate" type="text/html" href="/things-i-learned-working-on-remote-teams/" />
-  <id>/things-i-learned-working-on-remote-teams</id>
-  <updated>2017-1-17T00:00:00-00:00</updated>
-  <published>2017-01-17T00:00:00-05:00</published>
+  <title type="html"><![CDATA[Flaky tests]]></title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/flaky-rspec-specs/" />
+  <id>http://localhost:4000/flaky-rspec-specs</id>
+  <updated>2019-7-25T00:00:00-00:00</updated>
+  <published>2019-07-25T00:00:00-07:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;hr /&gt;
+&lt;p&gt;layout: post
+title: Flaky rspec specs
+modified: 2019-7-25
+tags: [testing]
+comments: true
+image:
+  feature:
+  credit:
+  creditlink:
+—&lt;/p&gt;
+
+&lt;p&gt;I recently got fed up with intermittent test failures piling up in our rails app and decided to do something about it. If you’ve been writing tests using CI for long enough you’re bound to have encountered the problem of intermittent test failures. We’ve all been there, you push up your code to CI and find that your changes have broken the build. Upon investigation you find that it was a test that has nothing to do with your changes.&lt;/p&gt;
+
+&lt;p&gt;It’s easy to consider them an annoyance–rebuild the build and see if it passes this time. Flaky tests are worse than a small annoyance though, and when not addressed in a timely way can lead to plunging productivity and morale problems. In this post I’d like to motivate why eliminating intermittent test failures is important and arm the reader with the tools to do so.&lt;/p&gt;
+
+&lt;p&gt;Upon finishing this, you should feel empowered by gaining a very particular set of skills&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/particular-set-of-skills.jpg&quot; alt=&quot;skills&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;why-are-flaky-tests-a-problem&quot;&gt;Why are flaky tests a problem?&lt;/h3&gt;
+&lt;p&gt;This seems obvious. Of course flaky tests are bad—they keep breaking my build! That’s so annoying!&lt;/p&gt;
+
+&lt;p&gt;But I think we can do better than that. We live with small annoyances all the time and that by itself isn’t necessarily a reason to put engineering resources towards something. But is that all it really is?&lt;/p&gt;
+
+&lt;p&gt;In fact flaky tests in fact pose more serious problems if left unaddressed for too long:&lt;/p&gt;
+
+&lt;h4 id=&quot;team-morale&quot;&gt;Team morale&lt;/h4&gt;
+&lt;p&gt;It doesn’t just cost us a few seconds of time when we hit rebuild on that failing test suite, it also just feels crappy. You were excited about getting to deploy your thing but now you need to wait for the build to pass (or you cheat and push it anyway). At Canvas we take pride in our work. We engage in rigorous code reviews and perform refactorings based on thoughtful feedback. We write tests. We ship high-quality code. Hitting a flaky test failure is a reminder that we’re not holding ourselves to that same high standard.&lt;/p&gt;
+
+&lt;h4 id=&quot;slow-feedback-loops&quot;&gt;Slow Feedback Loops&lt;/h4&gt;
+&lt;p&gt;Let’s face it, it really doesn’t take that much time to hit the “rebuild” button in Travis. That’s why we do it. But let’s look at what else happens when you hit that button. Maybe you were making small commits to Travis to see that each of your changes keeps the tests passing (as Carrick recommended a few weeks ago). Well, now you’re going to have to wait another 20 minutes to get that feedback. In that 20 minutes, you could get out of the flow of what you’re doing, be forced to switch to another task or find yourself reading some weird question that you saw a link to on StackExchange. Keeping developer productivity high is not just about preserving engineering time but also about preserving focus.&lt;/p&gt;
+
+&lt;h4 id=&quot;lack-of-trust-in-tests&quot;&gt;Lack of Trust in tests&lt;/h4&gt;
+&lt;p&gt;In a test suite free of flaky tests, your first thought upon seeing a test failure is “hey, looks like something’s broken—we should fix it right away!”. Flaky tests erode that trust and replace it with the assumption that if a test is failing it’s probably just a flake. This starts to subtly change your perception of what those red and green colors mean. See something merged to master that’s got a failing test? When your test is full of flaky tests, it’s less of a big deal. Our minds are always trying to sort signal from noise and flaky tests make it so that test failures become noise rather than signal—and that’s a dangerous outcome in the long run.&lt;/p&gt;
+
+&lt;h4 id=&quot;vicious-cycle&quot;&gt;Vicious Cycle&lt;/h4&gt;
+&lt;p&gt;To top it all off flaky tests beget flaky tests. Once you have some tests that you’ve gotten used to just rebuilding the build for when they come up, you’ll start doing that with more tests, and it will become increasingly difficult to address them.&lt;/p&gt;
+
+&lt;p&gt;Think of a flaky test as a dirty plate in your kitchen. Just one plate doesn’t really make that much of a difference or take up that much space. It can be worked around. But by having one, it’s easy to add more, and then the job of cleaning up keeps getting harder and nobody wants to do it, and before you know it, it starts to be disheartening to look around and realize you live in a messy house.&lt;/p&gt;
+
+&lt;p&gt;The solution? When you see something, say something. And better yet, clean the plate yourself.&lt;/p&gt;
+
+&lt;p&gt;So how do you do that? By knowing the kinds of things that cause flaky tests you can make it both less likely that you write them in the first place and make it so that you yourself can fix flaky tests when they come up, rather than waiting for someone else to fix a bunch of them. That makes it easier to do and more likely to get done. It’s worth the effort, and it’ll never be easier to do than it is today.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-causes-flaky-tests&quot;&gt;What causes flaky tests&lt;/h3&gt;
+&lt;p&gt;The internet has some great ruby and rails specific examples that I’ll link to at the end. But aside from specific cases, I think it’s instructive to think about what the sources of test failures are in general. And it all boils down to one source.&lt;/p&gt;
+
+&lt;p&gt;Shared state.&lt;/p&gt;
+
+&lt;p&gt;Let’s take a very simple function and what that functions tests might look like. Imagine the following function:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;double&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;double&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If we ran this function a million times would it ever return something different than 6 when given 3 as an argument? Of course not. To make it return something different than 6 we’re either going to have to give it different arguments, or, more likely, we’re going to have to have it refer to something outside itself.&lt;/p&gt;
+
+&lt;p&gt;If you’ve ever heard functional programming advocates talk about “referential integrity” this is the basic concept we’re dealing with. A function is said to have referential integrity if every time you call it with the same arguments you get the same return value. Imagine if we changed this function to reference something outside of itself:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;double&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;vi&quot;&gt;@num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;
+  &lt;span class=&quot;vi&quot;&gt;@num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now the first time we call double it’ll double the number. But the next time, it’ll double whatever the last number you input was regardless of what argument you supply this time).&lt;/p&gt;
+
+&lt;p&gt;We would say that this function does not have referential integrity, because you can call it with the same arguments repeatedly and you will get a different answer each time. Now if that seems too contrived consider a function like the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create_car&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:car&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;count&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The first time we call this it will create a car and return one. But the second time it will create a car and return &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; and so forth. In fact this will be the case with pretty much anything that has side effects…and a lot of our code has side effects.&lt;/p&gt;
+
+&lt;p&gt;What these have in common is that all of them &lt;em&gt;refer to global state&lt;/em&gt;. Generally if you have a flaky test it has to do with a failure to clean up global state in some way. Whether it’s arguments being passed in differently each time based on the state or whether a function with side effects having different state inside it each time.&lt;/p&gt;
+
+&lt;h4 id=&quot;some-common-sources-of-state-in-rails-apps&quot;&gt;Some common sources of state in rails apps&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Postgres&lt;/li&gt;
+  &lt;li&gt;Redis&lt;/li&gt;
+  &lt;li&gt;Time&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For each of these we have some basic way of isolating, stubbing out or otherwise removing the variability so that they’ll always do the same thing. So if a test fails intermittently for one of these reasons it will either be that the cleanup was not done properly or that it has failed for some reason. That’s gonna be your culprit most of the time.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Postgres: database cleaner&lt;/li&gt;
+  &lt;li&gt;Reids: Fake Redis&lt;/li&gt;
+  &lt;li&gt;Time: Timecop&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;what-can-we-do-about-it&quot;&gt;What can we do about it?&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;“If you see something, say something”: Don’t just rebuild without looking. Take note of the test that failed &lt;em&gt;and the seed&lt;/em&gt;. The seed is very important for this next bit. Even if you’re not going to fix the flaky test, reporting it to the rest of the team gives &lt;em&gt;someone&lt;/em&gt; the ability to look into it, and ensures that we have to put up with the flaky test for as little as possible.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Rspec’s bisect option: This is a game changer. Basically what this does is you run it once with the seed from the test and then it’ll keep running tests until it can find the quickest way to reproduce the failures with that seed. It will give you this super long command that you can put in a file and then run repeatedly to get your test failures to show up. Now you can finally get those pesky flaky tests to show up locally.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/where-to-find-the-seed.png&quot; alt=&quot;where to find the seed in CI&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# where 1234 is the seed that you copied from CI. This part will take a while&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rspec spec &lt;span class=&quot;nt&quot;&gt;--bisect&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--seed&lt;/span&gt; 1234 &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; tmp/flaky_tests
+
+&lt;span class=&quot;c&quot;&gt;# Now you've got a temporary file that contains the commands needed to reproduce your flaky specs&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# All you need to do now is make it executable and run&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;chmod&lt;/span&gt; +x tmp/flaky_tests
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./tmp/flaky_tests
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;See the &lt;a href=&quot;https://relishapp.com/rspec/rspec-core/docs/command-line/bisect&quot;&gt;docs&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;--bisect&lt;/code&gt; for more details&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Test your assumptions about state: Remember that the flaky test failure probably has to do with some kind of global state. Check your assumptions for how things should be at the start of the test and at the end and see if those assumptions hold.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;case-study-failing-database-cleaner&quot;&gt;Case study: failing database cleaner&lt;/h3&gt;
+&lt;p&gt;The particular issue that I ran into that prompted me to write this post had to do with records created in the test database failing to be cleaned up between test runs. This meant that depending on which tests you ran and the order you ran them in, you could get failures based on records violating uniqueness constraints or similar.&lt;/p&gt;
+
+&lt;p&gt;The way this is &lt;em&gt;supposed&lt;/em&gt; to work when using RSpec with a Rails app is that you configure a strategy around isolating the test database, such that it gets cleaned up in between runs. The way that we’d been doing this had to do with running each test case in its own postgres transaction. The problem is…we also had a lot of the code that was being tested create its own transaction. This meant that without realizing it our tests were running with nested transactions, which meant that in some cases transactions weren’t being rolled back and we were persisting test data within runs. I discovered this by identifying where I was expecting the database to get cleaned up and then verifying that this was in fact not happening.&lt;/p&gt;
+
+&lt;p&gt;The lesson here is that if you already know that your culprit for flaky tests is likely some kind of shared state (postgres in this case) you can narrow down your search and hone in what that shared state might be (which can save you some amount of throwing your hands up saying “What on earth is happening here!”)&lt;/p&gt;
+
+&lt;h3 id=&quot;what-can-we-do-about-it-1&quot;&gt;What can we do about it?&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;“If you see something, say something”: Report flaky tests to the rest of the team, so that at least we know about them. Report the test that failed &lt;em&gt;and the seed&lt;/em&gt;. The seed is very important for this next bit. Even if you’re not going to fix the flaky test, reporting it to the rest of the team gives &lt;em&gt;someone&lt;/em&gt; the ability to look into it, and ensures that we have to put up with the flaky test for as little as possible.&lt;/li&gt;
+  &lt;li&gt;Rspec’s bisect option: This is a game changer if you’re in rails-land and I’d encourage others to see if there are equivalents. Basically what this does is you run it once with the seed from the test and then it’ll keep running tests until it can find the quickest way to reproduce the failures with that seed. Now you have a way to (hopefully) have a consistent way to see if your fixes work.&lt;/li&gt;
+  &lt;li&gt;Test the state: Remember the advice above—the flaky test failure probably has to do with some kind of global state. Check your assumptions for how things should be at the start of the test and at the end and do some debugging to see if that’s true.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;conclusions&quot;&gt;Conclusions?&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;../images/smokey-the-bear-flaky-tests.jpg&quot; alt=&quot;only you can prevent flaky tests&quot; /&gt;
+￼ ￼&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;It’s a team effort. Get in the habit of reporting failures early and involve more people on your team in fixing them. Make it everyone’s responsibility. The closer you fix a failing test to when it’s introduced the easier it will be.&lt;/li&gt;
+  &lt;li&gt;rspec bisect is your friend: &lt;code class=&quot;highlighter-rouge&quot;&gt;rspec spec --bisect --seed 1234&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;avoid nesting transactions at all costs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;notes--resources&quot;&gt;Notes / Resources&lt;/h3&gt;
+&lt;p&gt;This one has a good list of anti-patterns including many related to flaky tests&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.stackbuilders.com/news/common-rails-testing-mistakes&quot;&gt;Common Rails Testing Mistakes&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The particular problem I ran into at work had to do with test database setup and tear down, here’s some resources I found helpful in dealing with that (this probably deserves its own post)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://makandracards.com/makandra/13045-understanding-database-cleaning-strategies-in-tests&quot;&gt;Understanding database cleaning strategies in tests - makandra dev&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;[Configuring database_cleaner with Rails, RSpec, Capybara, and Selenium&lt;/td&gt;
+          &lt;td&gt;Virtuous Code](http://www.virtuouscode.com/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/)&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/DatabaseCleaner/database_cleaner&quot;&gt;GitHub - DatabaseCleaner/database_cleaner: Strategies for cleaning databases in Ruby.  Can be used to ensure a clean state for testing.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/flaky-rspec-specs/&quot;&gt;Flaky tests&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on July 25, 2019.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Five Things I Learned Working on Remote Teams]]></title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/things-i-learned-working-on-remote-teams/" />
+  <id>http://localhost:4000/things-i-learned-working-on-remote-teams</id>
+  <updated>2017-1-17T00:00:00-00:00</updated>
+  <published>2017-01-17T00:00:00-08:00</published>
+  
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri>http://localhost:4000</uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
     &lt;p&gt;I’ve worked on remote teams both before and after becoming a software developer and I’ve seen things that worked well and things that didn’t work so well. Here are some things I’ve learned:&lt;/p&gt;
 
-&lt;h2 id=&quot;slack-is-your-office&quot;&gt;1. Slack is your office&lt;/h2&gt;
+&lt;h2 id=&quot;1-slack-is-your-office&quot;&gt;1. Slack is your office&lt;/h2&gt;
 &lt;p&gt;Being able to get in touch with your colleagues in a low-friction way plays a big role in creating the feeling of being on the same team and being in the same room. Real time chat applications like slack, hipchat (IRC?) are great for this. You say good morning to everyone when you come, you engage in some random chit chat, you digitally tap people on the shoulder when you have a question or a problem, you crack jokes with people, you congratulate them for their successes.&lt;/p&gt;
 
 &lt;p&gt;And like an office they can be a place for you to have fun and mess around with your coworkers as well. A well-chosen emoji or gif can create the same kind of history of shared inside jokes that people enjoy in a co-located team. Slack’s level of expressiveness through custom emoji, integrations with giphy and support for markdown to convey nuances like italics, bold and strikethrough are actually really important ways of making text based communication feel more human and make your work colleagues feel more like your teammates. The choice to default to including a #Random channel, explicitly for non work-related activity is another acknowledgement of the importance of these shared activities for team building and nowhere is this more true than for a remote team.&lt;/p&gt;
 
-&lt;h2 id=&quot;theres-nothing-like-face-time&quot;&gt;2. There’s nothing like face time&lt;/h2&gt;
+&lt;h2 id=&quot;2-theres-nothing-like-face-time&quot;&gt;2. There’s nothing like face time&lt;/h2&gt;
 &lt;p&gt;That said there’s nothing quite like talking face to face. Video chats are super important for remote teams as they give you the closest approximation of being in the same room that we’ve got so far. Even though video chats make achieving this easier than ever before there is often friction around video chats which keep conversation from being as spontaneous as  on a co-located team. Video chats generally require scheduling in a way that in person conversations do not.&lt;/p&gt;
 
 &lt;p&gt;One way around this is doing a daily standup over video chat. At a minimum you get to see each other’s faces once a day even if there wasn’t anything specific that you would have called a meeting for. Invariably in talking about your work things will surface that you wouldn’t have thought to address in a meeting but now that you’re together you can deal with. If you go too far down any particular rabbit hole you can always table it for another call or pair programming session after the standup is over. Then you get the additional benefit of feeling more like a member of the team.&lt;/p&gt;
@@ -46,7 +232,7 @@
 
 &lt;p&gt;The less people have to install and configure to jump in a call the more people are going to reach for &lt;em&gt;actually talking to each other&lt;/em&gt; instead of wasting a lot of time going back and forth.&lt;/p&gt;
 
-&lt;h2 id=&quot;remote-pair-programming-can-be-just-as-good-as-in-person&quot;&gt;3. Remote Pair Programming can be just as good as in person&lt;/h2&gt;
+&lt;h2 id=&quot;3-remote-pair-programming-can-be-just-as-good-as-in-person&quot;&gt;3. Remote Pair Programming can be just as good as in person&lt;/h2&gt;
 &lt;p&gt;While there are challenges to remote work that require you to do things very differently pair programming is one where once you have the right setup, the experience is nearly identical to doing it in person.&lt;/p&gt;
 
 &lt;p&gt;My experience with remote pairing has been extremely positive. I learned web development with rails through a completely online bootcamp I’ve continued to use pairing as a learning and collaboration tool in all of the remote jobs I’ve had and it hasn’t let me down. While I’ve certainly enjoyed pairing in person at local hack nights, I haven’t noticed much difference between sharing a keyboard and sharing screens over a fast internet connection.&lt;/p&gt;
@@ -55,16 +241,16 @@
 
 &lt;p&gt;Which leads me to…&lt;/p&gt;
 
-&lt;h2 id=&quot;internet-upload-speed-matters&quot;&gt;4. Internet (upload) Speed Matters&lt;/h2&gt;
+&lt;h2 id=&quot;4-internet-upload-speed-matters&quot;&gt;4. Internet (upload) Speed Matters&lt;/h2&gt;
 
-&lt;p&gt;In discussions about remote work it’s common to read things like “work from anywhere with an Internet connection!” For remote developers (and I suspect others as well) should be amended to “work from anywhere with an upload speed of at least 1mbps on average preferably 10mbps or more”.&lt;br /&gt;
+&lt;p&gt;In discussions about remote work it’s common to read things like “work from anywhere with an Internet connection!” For remote developers (and I suspect others as well) should be amended to “work from anywhere with an upload speed of at least 1mbps on average preferably 10mbps or more”.
 We discussed the importance of video calls and screen-sharing. Both of these activities, crucial for a remote developer, require not only high download speeds but also high &lt;em&gt;upload&lt;/em&gt; speeds. This would be fine if the two were always equal, but wifi for consumers rarely is. Basically consumers value download speed more than upload speed so ISPs can get away with offering &lt;em&gt;significantly&lt;/em&gt; slower upload speeds–people want to streaming Game of Thrones but don’t care if it takes an extra second to upload their resume to a job site. As a remote worker upload speed is almost always your bottleneck when comparing internet speed options.&lt;/p&gt;
 
 &lt;p&gt;You can get a pretty good approximation for average internet speed using sites like speedtest.net. The easiest solution is just to work out of a coworking space (where they have strong incentives to make sure you always have fast internet) or make sure your home internet plan has a high enough upload speed–possibly switching to a business plan if not.&lt;/p&gt;
 
 &lt;p&gt;I’ve kept track of internet speeds in various places I have visited and they have varied widely. I’ve found that you can usually get away with internet upload speeds as low as 1 mbps which sounds terrible but you would be surprised how many places that have well over 10mbps of download have upload speeds that don’t break 1mbps.&lt;/p&gt;
 
-&lt;h2 id=&quot;use-the-right-level-of-synchronicity&quot;&gt;5. Use the right level of synchronicity&lt;/h2&gt;
+&lt;h2 id=&quot;5-use-the-right-level-of-synchronicity&quot;&gt;5. Use the right level of synchronicity&lt;/h2&gt;
 &lt;p&gt;Different communication tools have different levels of synchronicity that they tend to expect in their users. Most of the time how real time a communication channel defaults to can be a little subjective. Could you have a real-time back and forth conversation over gmail? Sure you could, gmail will refresh the conversation thread when you get new messages. But it clearly isn’t meant for that and the app isn’t set up to make using it in this way easy.&lt;/p&gt;
 
 &lt;p&gt;In general, project management tools like GitHub projects, Trello and Basecamp tend to be better for  more asynchronous communication while video calls and screensharing are on the other side of the spectrum, they require you to drop everything else you were doing. Real time chat tools like slack or hip chat can end up somewhere in the middle–you can often postpone responding to a message that is less directly relevant to you but then be expected to respond promptly to a direct message (for example).&lt;/p&gt;
@@ -78,30 +264,28 @@ We discussed the importance of video calls and screen-sharing. Both of these act
 &lt;p&gt;Every team has to establish their own mores on when and how to use communication tools and discover what works best for them.&lt;/p&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;/things-i-learned-working-on-remote-teams/&quot;&gt;Five Things I Learned Working on Remote Teams&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on January 17, 2017.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/things-i-learned-working-on-remote-teams/&quot;&gt;Five Things I Learned Working on Remote Teams&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on January 17, 2017.&lt;/p&gt;
   </content>
 </entry>
 
 
-  
-
 <entry>
   <title type="html"><![CDATA[Enter...enter]]></title>
-  <link rel="alternate" type="text/html" href="/enter-enter/" />
-  <id>/enter-enter</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/enter-enter/" />
+  <id>http://localhost:4000/enter-enter</id>
   <updated>2015-4-7T00:00:00-00:00</updated>
-  <published>2016-09-12T00:00:00-04:00</published>
+  <published>2016-09-12T00:00:00-07:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
-    &lt;p&gt;I made a thing. A simple command line utility I call &lt;a href=&quot;https://gist.github.com/smcabrera/bfbcecadb984ce8c37696247533b51d5&quot;&gt;enter&lt;/a&gt;. &lt;br /&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;br /&gt;
-&lt;img src=&quot;../images/enter_screencast.gif&quot; alt=&quot;usage&quot; /&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;br /&gt;
+    &lt;p&gt;I made a thing. A simple command line utility I call &lt;a href=&quot;https://gist.github.com/smcabrera/bfbcecadb984ce8c37696247533b51d5&quot;&gt;enter&lt;/a&gt;. &lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;../images/enter_screencast.gif&quot; alt=&quot;usage&quot; /&gt;
+&lt;br /&gt;
 I wrote it a while back and I’ve found to be tremendously convenient. This was made more clear to me when briefly I was working on a machine that didn’t have it and I was reminded of how nice it was.  I thought I’d share it and the workflow that makes it so darn convenient.&lt;/p&gt;
 
 &lt;h3 id=&quot;a-tmux-workflow&quot;&gt;A Tmux Workflow&lt;/h3&gt;
@@ -112,9 +296,8 @@ I wrote it a while back and I’ve found to be tremendously convenient. This was
   &lt;li&gt;Start a new tmux session and call it &lt;code class=&quot;highlighter-rouge&quot;&gt;awesome_blog&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tmux new -s awesome_blog
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tmux new &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; awesome_blog
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Open up a new tmux window.&lt;/li&gt;
@@ -124,24 +307,22 @@ I wrote it a while back and I’ve found to be tremendously convenient. This was
   &lt;li&gt;blowing up this tmux session and all its windows just so I can start it again from the right project folder&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tmux destroy-session -t awesome_blog
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tmux destroy-session &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; awesome_blog
    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/workspace/awesome_blog
-   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tmux new -s awesome_blog
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tmux new &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; awesome_blog
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;a-better-way&quot;&gt;A better way&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://imgs.xkcd.com/comics/is_it_worth_the_time.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;
-I don’t know about you but that seems like an awful lot of unnecessary typing. Maybe the math doesn’t add up (see above) but I am a profoundly lazy person so naturally I decided it made sense to spend several hours figuring out how to resume being lazy.&lt;br /&gt;
-&lt;br /&gt;&lt;br /&gt;
+&lt;p&gt;&lt;br /&gt;
+I don’t know about you but that seems like an awful lot of unnecessary typing. Maybe the math doesn’t add up (see above) but I am a profoundly lazy person so naturally I decided it made sense to spend several hours figuring out how to resume being lazy.
+&lt;br /&gt;
 So I wrote this little shell script. Now instead of the above, whenever I want to work on a new project I just type&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   enter
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   enter
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;And I get a list of all the projects in my projects folder.&lt;/p&gt;
 
@@ -155,23 +336,21 @@ So I wrote this little shell script. Now instead of the above, whenever I want t
 
 &lt;p&gt;If people like the tool or the workflow and have suggestions on how to make it better I’m all ears :)&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/enter-enter/&quot;&gt;Enter...enter&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on September 12, 2016.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/enter-enter/&quot;&gt;Enter...enter&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on September 12, 2016.&lt;/p&gt;
   </content>
 </entry>
 
 
-  
-
 <entry>
   <title type="html"><![CDATA[Refactoring Legacy Code]]></title>
-  <link rel="alternate" type="text/html" href="/refactoring-legacy-code/" />
-  <id>/refactoring-legacy-code</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/refactoring-legacy-code/" />
+  <id>http://localhost:4000/refactoring-legacy-code</id>
   <updated>2015-7-9T00:00:00-00:00</updated>
-  <published>2015-07-10T11:58:13-04:00</published>
+  <published>2015-07-10T08:58:13-07:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -184,7 +363,7 @@ So I wrote this little shell script. Now instead of the above, whenever I want t
 
 &lt;p&gt;Right now this data is persisted on the user with an attribute called &lt;code class=&quot;highlighter-rouge&quot;&gt;net_worth&lt;/code&gt;. This attriute is then updated as needed. As is, “as needed” just means “when the user accesses his dashboard and the other view templates that use this data. Several view templates make a call to a &lt;code class=&quot;highlighter-rouge&quot;&gt;set_net_worth&lt;/code&gt; a method defined both in the &lt;code class=&quot;highlighter-rouge&quot;&gt;application_controller&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;application_helper&lt;/code&gt;. Here is that method:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set_net_worth&lt;/span&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set_net_worth&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current_user&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;net_worth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;
       &lt;span class=&quot;n&quot;&gt;current_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;net_worth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
@@ -201,8 +380,7 @@ So I wrote this little shell script. Now instead of the above, whenever I want t
    &lt;span class=&quot;n&quot;&gt;current_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;save&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;the-problem&quot;&gt;The Problem&lt;/h2&gt;
 &lt;p&gt;You may have noticed a few potential problems with what I’ve just mentioned. Mutating our user object from the presentation layer violates the MVC separation of concerns, duplicates the &lt;em&gt;exact&lt;/em&gt; same method in two places violates DRY and the method itself is pretty large. However, my policy is to wait to refactor something until doing so would ease another change I’m trying to make. I’m not going to spend my time, and therefore my client’s money, to change something just because it gives me migraines.&lt;/p&gt;
@@ -214,8 +392,8 @@ So I wrote this little shell script. Now instead of the above, whenever I want t
 
 &lt;p&gt;I did change one thing from the start though–I copied the method into the user class. This maps what I eventually intended to do with the method but it also gives me the advantage that I no longer have to worry about who the &lt;code class=&quot;highlighter-rouge&quot;&gt;current_user&lt;/code&gt; is (a method from devise that requires me to have a signed in user). Also instead of writing an integration test I can just add a unit test to my user test suite:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;set_net_worth&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;sets user&#39;s net worth to the sum of the value of their items&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;set_net_worth&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;sets user's net worth to the sum of the value of their items&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;times&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;value: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;value: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -223,14 +401,13 @@ So I wrote this little shell script. Now instead of the above, whenever I want t
     &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set_net_worth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 
-  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;set user&#39;s net worth to zero if they have no items&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;set user's net worth to zero if they have no items&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
     &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set_net_worth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Here we see another advantage of writing tests for current functionality before refactoring. Looking at the current &lt;code class=&quot;highlighter-rouge&quot;&gt;set_net_worth&lt;/code&gt; method I noticed that it checks for items having a value of nil. This tells me that items can have a value of nil (as it stands–this may be a bad idea in the long run, but we work with what we have). Any refactoring of set_net_worth will have to take this fact into account. To make sure I do I include a nil value for an item in my test case so that the suite will only pass if my new method is able to handle this possibility. Had I just rewritten the method from scratch I likely wouldn’t have thought of this and would have had to chase down nil-related bugs later on.&lt;/p&gt;
 
@@ -238,48 +415,45 @@ So I wrote this little shell script. Now instead of the above, whenever I want t
 
 &lt;p&gt;I wrote the production code in two steps:&lt;/p&gt;
 
-&lt;h3 id=&quot;move-setnetworth-to-user-class&quot;&gt;Move set_net_worth to user class&lt;/h3&gt;
+&lt;h3 id=&quot;move-set_net_worth-to-user-class&quot;&gt;Move set_net_worth to user class&lt;/h3&gt;
 &lt;p&gt;Copied the code from the old set_net_worth method to the user class and change it to make its test suite pass.&lt;/p&gt;
 
 &lt;p&gt;This enabled me to gradually simplify the method, while ensuring that at no point did any of my changes make the test suite fail. The resulting method looked like this:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set_net_worth&lt;/span&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set_net_worth&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;net_worth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;compact&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Even if we stopped here we’d have brought this method from 15 lines in two places to 1 line in the user class (of course we’d have to update all those set_net_worth calls to current_user.set_net_worth).&lt;/p&gt;
 
-&lt;h3 id=&quot;change-setnetworth-to-networth&quot;&gt;Change set_net_worth to net_worth&lt;/h3&gt;
+&lt;h3 id=&quot;change-set_net_worth-to-net_worth&quot;&gt;Change set_net_worth to net_worth&lt;/h3&gt;
 &lt;p&gt;Drop the &lt;code class=&quot;highlighter-rouge&quot;&gt;net_worth&lt;/code&gt; field from the database and change the name of &lt;code class=&quot;highlighter-rouge&quot;&gt;user#set_net_worth&lt;/code&gt; to simply &lt;code class=&quot;highlighter-rouge&quot;&gt;user#net_worth&lt;/code&gt;. This way we never need to call &lt;code class=&quot;highlighter-rouge&quot;&gt;set_net_worth&lt;/code&gt; at all and the existing references to the &lt;code class=&quot;highlighter-rouge&quot;&gt;net_worth&lt;/code&gt; attribute will work without modification since they’ll just call my &lt;code class=&quot;highlighter-rouge&quot;&gt;net_worth&lt;/code&gt; method instead of the ActiveRecord getter method.&lt;/p&gt;
 
 &lt;p&gt;Our method then looks like this:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;net_worth&lt;/span&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;net_worth&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;compact&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;alternatives&quot;&gt;Alternatives&lt;/h2&gt;
 &lt;p&gt;It’s worth noting that there’s a potential tradeoff by calculating net worth on the fly as opposed to saving it in the database. By calculating on the fly you risk a performance hit if doing so involves accessing many model objects (we have to access all of the user’s items and all of their value attributes albeit with map which I think is faster than iterating over them with each). If this calculation became more complicated for some reason (if it involved more than just a sum maybe). I suppose this could turn into a lot of computation every time you wanted to display a user’s &lt;code class=&quot;highlighter-rouge&quot;&gt;net_worth&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;If you thought that you were going to do slow computations a lot and that you weren’t going to have to recalculate net worth very often you could keep &lt;code class=&quot;highlighter-rouge&quot;&gt;net_worth&lt;/code&gt; in the database. Instead of the view templates though, you’d want to move calls to set_net_worth to controllers or to a callback like this:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Item&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-  &lt;span class=&quot;nf&quot;&gt;after_save&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;update_net_worth&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Item&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;after_save&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;update_net_worth&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
 
-  &lt;span class=&quot;nf&quot;&gt;private&lt;/span&gt;
+  &lt;span class=&quot;kp&quot;&gt;private&lt;/span&gt;
 
   &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;update_net_worth&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;net_worth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;compact&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;I considered this, but it seems like a worse idea. There’s been a lot written about &lt;a href=&quot;http://samuelmullen.com/2013/05/the-problem-with-rails-callbacks/&quot;&gt;the danger of callbacks&lt;/a&gt;. Some argue that, while tempting, you should just never resort to callbacks, while others take the stance that &lt;a href=&quot;https://www.bignerdranch.com/blog/the-only-acceptable-use-for-callbacks-in-rails-ever/&quot;&gt;callbacks should only be used without any external dependencies&lt;/a&gt; something which my quick example clearly violates, mutating the item’s parent user when it is saved. I like to think of the problem as simply one of obfuscation–at some point in the future you’re going to get behavior you don’t expect when you’re updating something and other objects change without you’re having asked them to and even without.&lt;/p&gt;
 
@@ -288,27 +462,25 @@ So I wrote this little shell script. Now instead of the above, whenever I want t
 &lt;p&gt;I love discussing the sorts of tradeoffs that different solutions require so if you’ve got any ideas about my process or my solutions to problems I’d love to hear about them in the comments.&lt;/p&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;/refactoring-legacy-code/&quot;&gt;Refactoring Legacy Code&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on July 10, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/refactoring-legacy-code/&quot;&gt;Refactoring Legacy Code&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on July 10, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
-  
-
 <entry>
   <title type="html"><![CDATA[Get Freaky]]></title>
-  <link rel="alternate" type="text/html" href="/get-freaky/" />
-  <id>/get-freaky</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/get-freaky/" />
+  <id>http://localhost:4000/get-freaky</id>
   <updated>2015-6-14T00:00:00-00:00</updated>
-  <published>2015-06-14T00:00:00-04:00</published>
+  <published>2015-06-14T00:00:00-07:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
-    &lt;p&gt;I made a thing. I’m a big fan of command line applications–sometimes I just don’t want to get distracted by everything that comes with using a web app (before you know it you’ve spent an hour and a half on twitter) and I just want a simple command line interface to do what I want to get done. As a bonus if there’s some part of the process you want to automate command line apps make this much easier to do.&lt;br /&gt;&lt;br /&gt;
+    &lt;p&gt;I made a thing. I’m a big fan of command line applications–sometimes I just don’t want to get distracted by everything that comes with using a web app (before you know it you’ve spent an hour and a half on twitter) and I just want a simple command line interface to do what I want to get done. As a bonus if there’s some part of the process you want to automate command line apps make this much easier to do.&lt;br /&gt;
 So when I was checking out conference vieos on confreaks.tv and discovered that they have a public api I thought I’d take the opportunity to build a little ruby command line app to consume its API and automatically download videos taking advantage a few excellent gems that simplified matters a great deal and which I highly recommend:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -320,16 +492,14 @@ So when I was checking out conference vieos on confreaks.tv and discovered that 
 &lt;h2 id=&quot;usage&quot;&gt;Usage&lt;/h2&gt;
 &lt;p&gt;Complete documentation on the &lt;a href=&quot;https://github.com/smcabrera/get_freaky&quot;&gt;github page&lt;/a&gt; but you can get some useful value out of the gem right away like this:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ gem install get_freaky
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ gem install get_freaky
 $ get_freaky
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;get_freaky by itself is aliased to the help which will give you all your options. If you’re not picky about which conference video you’d like to watch or just wanna make sure it works you can download the featured video like this&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ get_freaky featured
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ get_freaky featured
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;This will show you the featured video from confreaks, with its title and description and then ask you if you’d like to download the video.&lt;/p&gt;
 
 &lt;p&gt;Check it out! If there’s something or there’s another feature you’d like please let me know and I’ll try to fix/build it. I’m open to any feedback for improving it and am open to pull requests or anyone who’d like to pair with me on a new feature.&lt;/p&gt;
@@ -339,68 +509,64 @@ $ get_freaky
 
 &lt;p&gt;If people are interested I could see if I can bang out a tutorial for how to build something like this.&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/get-freaky/&quot;&gt;Get Freaky&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 14, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/get-freaky/&quot;&gt;Get Freaky&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 14, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
-  
-
 <entry>
   <title type="html"><![CDATA[Ruby Peru April 2015]]></title>
-  <link rel="alternate" type="text/html" href="/ruby-peru-april-2015/" />
-  <id>/ruby-peru-april-2015</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/ruby-peru-april-2015/" />
+  <id>http://localhost:4000/ruby-peru-april-2015</id>
   <updated>2015-4-16T00:00:00-00:00</updated>
-  <published>2015-04-16T00:00:00-04:00</published>
+  <published>2015-04-16T00:00:00-07:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
-    &lt;p&gt;(english at the bottom)&lt;br /&gt;
-&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
-Este mes Ruby Peru fue auspiciado en la oficina de La Laboratoria, la rama ONG de la consultoría AyuInc, que entrena mujeres jovenes de pocos recursos a ser desarrolladores junior en un programa de cinco meses (más sobre ellos &lt;a href=&quot;http://laboratoria.la/&quot;&gt;aqui&lt;/a&gt;). Tienen un neuvo espacio hermoso que fue un placer poder usar. ¡Gracias! Ojalá que nos pueda prestar su espacio para más eventos en el futuro.&lt;br /&gt;
-&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
-&lt;a href=&quot;https://twitter.com/TheBlasfem&quot;&gt;Julio Lopez&lt;/a&gt; dió una charla sobre algunas de las gemas, &lt;a href=&quot;https://github.com/TheBlasfem/fabricas&quot;&gt;fabricas&lt;/a&gt;, &lt;a href=&quot;https://github.com/TheBlasfem/garfio&quot;&gt;garfio&lt;/a&gt; and &lt;a href=&quot;https://github.com/TheBlasfem/ate&quot;&gt;ate&lt;/a&gt; que ha estado trabajando recién. Son implementaciones minimalistas de fábricas para tests (así como FactoryGirl), rails callbacks and templating engines (así como erb) respectivamente. En su charla repasó la the metaprogramación atás de la creación de &lt;code class=&quot;highlighter-rouge&quot;&gt;fabricas&lt;/code&gt;, y nos mostró lo poco de código que se necesita en ruby para lograr unos resultados impresionantes y como creando una implementación minimalista podemos entender mejor las librerías que usamos todos los días.&lt;br /&gt;
-&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
-Yo presenté sobre la gema &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll&lt;/code&gt;, el motor detrás de este blog y como usar la para rápidamente armar un sencillo blog sin cms y como usarlo para hacer un sitio para un proyecto open-source.&lt;br /&gt;
-&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+    &lt;p&gt;(english at the bottom)
+&lt;br /&gt;&lt;br /&gt;
+Este mes Ruby Peru fue auspiciado en la oficina de La Laboratoria, la rama ONG de la consultoría AyuInc, que entrena mujeres jovenes de pocos recursos a ser desarrolladores junior en un programa de cinco meses (más sobre ellos &lt;a href=&quot;http://laboratoria.la/&quot;&gt;aqui&lt;/a&gt;). Tienen un neuvo espacio hermoso que fue un placer poder usar. ¡Gracias! Ojalá que nos pueda prestar su espacio para más eventos en el futuro.
+&lt;br /&gt;&lt;br /&gt;
+&lt;a href=&quot;https://twitter.com/TheBlasfem&quot;&gt;Julio Lopez&lt;/a&gt; dió una charla sobre algunas de las gemas, &lt;a href=&quot;https://github.com/TheBlasfem/fabricas&quot;&gt;fabricas&lt;/a&gt;, &lt;a href=&quot;https://github.com/TheBlasfem/garfio&quot;&gt;garfio&lt;/a&gt; and &lt;a href=&quot;https://github.com/TheBlasfem/ate&quot;&gt;ate&lt;/a&gt; que ha estado trabajando recién. Son implementaciones minimalistas de fábricas para tests (así como FactoryGirl), rails callbacks and templating engines (así como erb) respectivamente. En su charla repasó la the metaprogramación atás de la creación de &lt;code class=&quot;highlighter-rouge&quot;&gt;fabricas&lt;/code&gt;, y nos mostró lo poco de código que se necesita en ruby para lograr unos resultados impresionantes y como creando una implementación minimalista podemos entender mejor las librerías que usamos todos los días.
+&lt;br /&gt;&lt;br /&gt;
+Yo presenté sobre la gema &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll&lt;/code&gt;, el motor detrás de este blog y como usar la para rápidamente armar un sencillo blog sin cms y como usarlo para hacer un sitio para un proyecto open-source.
+&lt;br /&gt;&lt;br /&gt;
 En algún momento voy a seguir &lt;a href=&quot;https://developmentseed.org/blog/multilingual-jekyll-sites/&quot;&gt;este post&lt;/a&gt; para hacer el sitio blingue. Hasta entonces incluyo aqui los slides en inglés y en español en la misma página.&lt;/p&gt;
 
 &lt;iframe src=&quot;https://www.slideshare.net/slideshow/embed_code/key/qb8pP9z55BRscI&quot; width=&quot;476&quot; height=&quot;400&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;This month Ruby Peru was hosted by La Laboratoria, the non-profit arm of Peruvian software consultancy AyuInc that trains young economically-disadvantaged women to be junior developers in a five-month program. They have a great new space that was a pleasure to hang out in. Thanks! Hopefully they’ll let us use ths space for more events in the future!&lt;br /&gt;
-&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
-&lt;a href=&quot;https://twitter.com/TheBlasfem&quot;&gt;Julio Lopez&lt;/a&gt; gave a talk on a few of the gems, &lt;a href=&quot;https://github.com/TheBlasfem/fabricas&quot;&gt;fabricas&lt;/a&gt;, &lt;a href=&quot;https://github.com/TheBlasfem/garfio&quot;&gt;garfio&lt;/a&gt; and &lt;a href=&quot;https://github.com/TheBlasfem/ate&quot;&gt;ate&lt;/a&gt; he’s put together recently, minimalist reworkings of test factories (a la FactoryGirl), rails callbacks and templating engines (a la erb) respectively. In his talk we went through some of the metaprogramming behind creating the fabricas gem, and showed just how little code is necessary in ruby to achieve some powerful results and how by creating a minimalist implementation we can better understand some of the libraries we use everyday.&lt;br /&gt;
-&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
-I gave a presentation on Jekyll the engine behind this blog, explaining some of the things I mentioned in a &lt;a href=&quot;../whats-jekyll&quot;&gt;previous post&lt;/a&gt;. You can find my slides below.&lt;br /&gt;
-&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;p&gt;This month Ruby Peru was hosted by La Laboratoria, the non-profit arm of Peruvian software consultancy AyuInc that trains young economically-disadvantaged women to be junior developers in a five-month program. They have a great new space that was a pleasure to hang out in. Thanks! Hopefully they’ll let us use ths space for more events in the future!
+&lt;br /&gt;&lt;br /&gt;
+&lt;a href=&quot;https://twitter.com/TheBlasfem&quot;&gt;Julio Lopez&lt;/a&gt; gave a talk on a few of the gems, &lt;a href=&quot;https://github.com/TheBlasfem/fabricas&quot;&gt;fabricas&lt;/a&gt;, &lt;a href=&quot;https://github.com/TheBlasfem/garfio&quot;&gt;garfio&lt;/a&gt; and &lt;a href=&quot;https://github.com/TheBlasfem/ate&quot;&gt;ate&lt;/a&gt; he’s put together recently, minimalist reworkings of test factories (a la FactoryGirl), rails callbacks and templating engines (a la erb) respectively. In his talk we went through some of the metaprogramming behind creating the fabricas gem, and showed just how little code is necessary in ruby to achieve some powerful results and how by creating a minimalist implementation we can better understand some of the libraries we use everyday.
+&lt;br /&gt;&lt;br /&gt;
+I gave a presentation on Jekyll the engine behind this blog, explaining some of the things I mentioned in a &lt;a href=&quot;../whats-jekyll&quot;&gt;previous post&lt;/a&gt;. You can find my slides below.
+&lt;br /&gt;&lt;br /&gt;
 At some point soon I’ll be following &lt;a href=&quot;https://developmentseed.org/blog/multilingual-jekyll-sites/&quot;&gt;this guide&lt;/a&gt; to making my site bilingual. Until then here are the slides in English and in Spanish on the same page.&lt;/p&gt;
 
 &lt;iframe src=&quot;https://www.slideshare.net/slideshow/embed_code/key/qjy7XWGxvasg3t&quot; width=&quot;476&quot; height=&quot;400&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;/ruby-peru-april-2015/&quot;&gt;Ruby Peru April 2015&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 16, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/ruby-peru-april-2015/&quot;&gt;Ruby Peru April 2015&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 16, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
-  
-
 <entry>
   <title type="html"><![CDATA[Powered by Jekyll...what's Jekyll?]]></title>
-  <link rel="alternate" type="text/html" href="/whats-jekyll/" />
-  <id>/whats-jekyll</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/whats-jekyll/" />
+  <id>http://localhost:4000/whats-jekyll</id>
   <updated>2015-4-7T00:00:00-00:00</updated>
-  <published>2015-04-08T00:00:00-04:00</published>
+  <published>2015-04-08T00:00:00-07:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -424,62 +590,57 @@ At some point soon I’ll be following &lt;a href=&quot;https://developmentseed.
 &lt;p&gt;I’ve been having a blast blogging with Jekyll; I highly recommend it. I also recommend checking out &lt;a href=&quot;jekyllthemes.org&quot;&gt;Jekyll Themes&lt;/a&gt; a repository of free themes for use with Jekyll. They’re really easy to get started with. If you have any trouble hit me up via email or twitter.&lt;/p&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;/whats-jekyll/&quot;&gt;Powered by Jekyll...what&#39;s Jekyll?&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 08, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/whats-jekyll/&quot;&gt;Powered by Jekyll...what's Jekyll?&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 08, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
-  
-
 <entry>
   <title type="html"><![CDATA[How to lose your fear of regular expressions]]></title>
-  <link rel="alternate" type="text/html" href="/how-to-lose-your-fear-of-regular-expressions/" />
-  <id>/how-to-lose-your-fear-of-regular-expressions</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/how-to-lose-your-fear-of-regular-expressions/" />
+  <id>http://localhost:4000/how-to-lose-your-fear-of-regular-expressions</id>
   <updated>2015-4-8T00:00:00-00:00</updated>
-  <published>2015-04-01T00:00:00-04:00</published>
+  <published>2015-04-01T00:00:00-07:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
     &lt;p&gt;I’m not a champ at regular expressions. But I used to be downright intimidated by them. I mean just looking at one when you’re not used to is super intimidating by itself–it looks like complete giberish. Pretty soon though you realize they’re important so it becomes something that you “really should learn at some point”. And then don’t.&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;p&gt;&lt;br /&gt;
 I’ve found two ways of solving this problem. The first is that Steve Losh has a free book called &lt;em&gt;Regular Expressions the Hard Way&lt;/em&gt;. You can work through the chapters gradually, maybe doing one every day so it seeps in slowly.&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;p&gt;&lt;br /&gt;
 Perhaps an even better way to learn regular expressions is to just start writing them. This is what helped me to feel more confident with regular expressions. I was working on a code kata (an exercise from the excellent &lt;a href=&quot;exercism.io&quot;&gt;exercism.io&lt;/a&gt; platform) and realized that the problem I was working on would be a mess without a regex. After a bit of digging I found this tool &lt;a href=&quot;www.rubular.com&quot;&gt;Rubular&lt;/a&gt; which helps you test out regular expressions in the browser and has a reference at the bottom. I cannot emphasize enough how helpful this is. Being able to experiment and test things out I think is one of the best ways to learn anything, and it’s a great way to learn regular expressions.&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;p&gt;&lt;br /&gt;
 The next time you need to write a regular expression check out Rubular. It’s meant for regular expressions in ruby, but they tend not to be super different between languages.&lt;/p&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;/how-to-lose-your-fear-of-regular-expressions/&quot;&gt;How to lose your fear of regular expressions&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 01, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/how-to-lose-your-fear-of-regular-expressions/&quot;&gt;How to lose your fear of regular expressions&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 01, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
-  
-
 <entry>
   <title type="html"><![CDATA[Specify Gem Versions in your Gemfile]]></title>
-  <link rel="alternate" type="text/html" href="/specify-gem-versions-in-your-gemfile/" />
-  <id>/specify-gem-versions-in-your-gemfile</id>
-  <published>2015-03-24T00:00:00-04:00</published>
-  <updated>2015-03-24T00:00:00-04:00</updated>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/specify-gem-versions-in-your-gemfile/" />
+  <id>http://localhost:4000/specify-gem-versions-in-your-gemfile</id>
+  <published>2015-03-24T00:00:00-07:00</published>
+  <updated>2015-03-24T00:00:00-07:00</updated>
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
     &lt;p&gt;Previously I’ve always just added a new gem by going to my gemfile and adding the line:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem &#39;gemname&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem 'gemname'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;to the bottom. I got as far as grouping development specific gems together but that’s about it. I knew that it was possible to use specific versions of gems but I didn’t know why you’d want to do that.&lt;/p&gt;
 
@@ -487,9 +648,8 @@ The next time you need to write a regular expression check out Rubular. It’s m
 
 &lt;p&gt;For instance if you’re using rspec you can add it like this:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  gem &#39;rspec-rails&#39;, &#39;~&amp;gt; 3.1.0&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  gem 'rspec-rails', '~&amp;gt; 3.1.0'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;and the little squiggly arrow will say “go grab the latest version of rspec that’s greater than or equal to 3.1.0 but less than version 3.2.0”. Now sure maybe at some point you want the latest version of this gem, and obviously you want minor bug fixes but this is a good compromise for making sure that you’ll get the newest version that isn’t likely to break your setup. Because of the way versions are set, they’re basically set so that within the second number things shouldn’t break.&lt;/p&gt;
 
 &lt;p&gt;So if you just add the latest version of the gem when you first add it you can be confident that it will keep working in the future. If you want an upgraded version you can always do that, but this is a sensible default. The &lt;a href=&quot;http://www.rubygems.org&quot;&gt;rubygems&lt;/a&gt; site makes this easy since you can just type in the name of a gem and it will give you something you can click on and automatically copy the code for adding the latest version of the gem to your gemfile. Nice and easy.&lt;/p&gt;
@@ -498,23 +658,21 @@ The next time you need to write a regular expression check out Rubular. It’s m
 &lt;p&gt;In case you’re lazy there’s actually a gem called gemrat which will do this for you. Install it with &lt;code class=&quot;highlighter-rouge&quot;&gt;gem install gemrat&lt;/code&gt; and then when you need to add a new gem to your project you just call &lt;code class=&quot;highlighter-rouge&quot;&gt;gemrat gemname&lt;/code&gt; and you’ll get the latest version. You can specify options to make it pessimistic (the setting I used above) or optimistic. Upon running the command the gem will be added to your gemfile and bundle will be run so that the gem will automatically be installed.&lt;/p&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;/specify-gem-versions-in-your-gemfile/&quot;&gt;Specify Gem Versions in your Gemfile&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on March 24, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/specify-gem-versions-in-your-gemfile/&quot;&gt;Specify Gem Versions in your Gemfile&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on March 24, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
-  
-
 <entry>
   <title type="html"><![CDATA[Details to keep in Mind Setting up your Laravel App]]></title>
-  <link rel="alternate" type="text/html" href="/things-to-keep-in-mind-setting-up-laravel-app/" />
-  <id>/things-to-keep-in-mind-setting-up-laravel-app</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/things-to-keep-in-mind-setting-up-laravel-app/" />
+  <id>http://localhost:4000/things-to-keep-in-mind-setting-up-laravel-app</id>
   <updated>2015-04-06T00:00:00-00:00</updated>
-  <published>2014-11-21T00:00:00-05:00</published>
+  <published>2014-11-21T00:00:00-08:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -530,23 +688,21 @@ The next time you need to write a regular expression check out Rubular. It’s m
 
 &lt;p&gt;Those two docs pages above are also helpfully translated to Spanish &lt;a href=&quot;http://laraveles.com/docs/4.1/configuration#protecting-sensitive-configuration&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/things-to-keep-in-mind-setting-up-laravel-app/&quot;&gt;Details to keep in Mind Setting up your Laravel App&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on November 21, 2014.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/things-to-keep-in-mind-setting-up-laravel-app/&quot;&gt;Details to keep in Mind Setting up your Laravel App&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on November 21, 2014.&lt;/p&gt;
   </content>
 </entry>
 
 
-  
-
 <entry>
   <title type="html"><![CDATA[The Slow Web]]></title>
-  <link rel="alternate" type="text/html" href="/the-slow-web/" />
-  <id>/the-slow-web</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/the-slow-web/" />
+  <id>http://localhost:4000/the-slow-web</id>
   <updated>2014-11-18T00:00:00-00:00</updated>
-  <published>2014-11-18T00:00:00-05:00</published>
+  <published>2014-11-18T00:00:00-08:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -563,23 +719,21 @@ The next time you need to write a regular expression check out Rubular. It’s m
 
 &lt;p&gt;There’s a lot more to this movement than what I just discussed so it’s definitely something I’m going to read into more. Also if folks are interested, much of what I now think about software was inspired by the excellent book &lt;a href=&quot;https://gettingreal.37signals.com/&quot;&gt;Getting Real&lt;/a&gt; by 37 signals (now basecamp), which has a lot of similar ideas about simplicity in software development.&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/the-slow-web/&quot;&gt;The Slow Web&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on November 18, 2014.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/the-slow-web/&quot;&gt;The Slow Web&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on November 18, 2014.&lt;/p&gt;
   </content>
 </entry>
 
 
-  
-
 <entry>
   <title type="html"><![CDATA[To learn--a Christmas List]]></title>
-  <link rel="alternate" type="text/html" href="/christmas-list-of-learning/" />
-  <id>/christmas-list-of-learning</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/christmas-list-of-learning/" />
+  <id>http://localhost:4000/christmas-list-of-learning</id>
   <updated>2014-10-30T00:00:00-00:00</updated>
-  <published>2014-10-30T00:00:00-04:00</published>
+  <published>2014-10-30T00:00:00-07:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -620,23 +774,21 @@ The next time you need to write a regular expression check out Rubular. It’s m
 &lt;p&gt;Well, I don’t have time to get into all of them right now, but that’s a good start. Hopefully I can come back later and flesh out this list. I’d be interested to hear what’s on other people’s learning wish list and why.&lt;/p&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;/christmas-list-of-learning/&quot;&gt;To learn--a Christmas List&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on October 30, 2014.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/christmas-list-of-learning/&quot;&gt;To learn--a Christmas List&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on October 30, 2014.&lt;/p&gt;
   </content>
 </entry>
 
 
-  
-
 <entry>
   <title type="html"><![CDATA[REPL Driven Development with pry]]></title>
-  <link rel="alternate" type="text/html" href="/REPL-Driven-Development/" />
-  <id>/REPL-Driven-Development</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/REPL-Driven-Development/" />
+  <id>http://localhost:4000/REPL-Driven-Development</id>
   <updated>2015-4-7T00:00:00-00:00</updated>
-  <published>2014-10-10T00:00:00-04:00</published>
+  <published>2014-10-10T00:00:00-07:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -685,34 +837,32 @@ The next time you need to write a regular expression check out Rubular. It’s m
 &lt;/ul&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;/REPL-Driven-Development/&quot;&gt;REPL Driven Development with pry&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on October 10, 2014.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/REPL-Driven-Development/&quot;&gt;REPL Driven Development with pry&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on October 10, 2014.&lt;/p&gt;
   </content>
 </entry>
 
 
-  
-
 <entry>
   <title type="html"><![CDATA[Remote Pairing Tools]]></title>
-  <link rel="alternate" type="text/html" href="/remote-pairing-tools/" />
-  <id>/remote-pairing-tools</id>
-  <published>2014-06-20T00:00:00-04:00</published>
-  <updated>2014-06-20T00:00:00-04:00</updated>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/remote-pairing-tools/" />
+  <id>http://localhost:4000/remote-pairing-tools</id>
+  <published>2014-06-20T00:00:00-07:00</published>
+  <updated>2014-06-20T00:00:00-07:00</updated>
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
-    &lt;p&gt;I’ve recently been on the lookout for tools to make remote pair&lt;br /&gt;
+    &lt;p&gt;I’ve recently been on the lookout for tools to make remote pair
 programming easier. My main motivations are the following&lt;br /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Pair programming, particularly with someone better than you (most&lt;br /&gt;
+  &lt;li&gt;Pair programming, particularly with someone better than you (most
 programmers at this point!) is the best way to learn&lt;/li&gt;
-  &lt;li&gt;My goal is to work remotely as a developer so I want to get a good&lt;br /&gt;
+  &lt;li&gt;My goal is to work remotely as a developer so I want to get a good
 comfortable remote setup.&lt;/li&gt;
-  &lt;li&gt;I’m currently engaged in an &lt;a href=&quot;www.bloc.io&quot;&gt;apprenticeship&lt;/a&gt; heavily focused on remote&lt;br /&gt;
+  &lt;li&gt;I’m currently engaged in an &lt;a href=&quot;www.bloc.io&quot;&gt;apprenticeship&lt;/a&gt; heavily focused on remote
 pair programming. So now it’s urgent.&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -720,9 +870,9 @@ pair programming. So now it’s urgent.&lt;/li&gt;
 
 &lt;h3 id=&quot;remote-server-with-ssh-and-tmux&quot;&gt;remote server with ssh and tmux&lt;/h3&gt;
 
-&lt;p&gt;tmux, short for terminal multiplexer lets you run multiple terminals&lt;br /&gt;
-within one environment. It’s sort of like browser tabs for your&lt;br /&gt;
-terminal. For remote pairing you can use it to connect to a remote&lt;br /&gt;
+&lt;p&gt;tmux, short for terminal multiplexer lets you run multiple terminals
+within one environment. It’s sort of like browser tabs for your
+terminal. For remote pairing you can use it to connect to a remote
 server via a secure shell or ssh.&lt;/p&gt;
 
 &lt;p&gt;There’s a pretty detailed description of the process &lt;a href=&quot;http://www.zeespencer.com/articles/building-a-remote-pairing-setup/&quot;&gt;here&lt;/a&gt; using prgmr.com as the remote server. I haven’t tried it so I won’t go into the process here but needless to say that setting it up is pretty involved. There’s a description of something similar in the book from a book on the topic from the &lt;a href=&quot;http://pragprog.com/book/jkrp/remote-pairing&quot;&gt;Pragmatic Bookshelf&lt;/a&gt;.&lt;/p&gt;
@@ -740,7 +890,7 @@ server via a secure shell or ssh.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Pair needs to be using a console editor like vim or emacs&lt;/li&gt;
   &lt;li&gt;Corllary to above–if you use vim and they use emacs, not so great&lt;/li&gt;
-  &lt;li&gt;You may want to maniuplate the browser console together or do other&lt;br /&gt;
+  &lt;li&gt;You may want to maniuplate the browser console together or do other
 screen sharing that doesn’t involve the console.&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -748,7 +898,7 @@ screen sharing that doesn’t involve the console.&lt;/li&gt;
 
 &lt;h3 id=&quot;a-simpler-solution-tmate&quot;&gt;A Simpler Solution: tmate&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://tmate.io/&quot;&gt;tmate&lt;/a&gt;: A fork of tmux, designed to do the&lt;br /&gt;
+&lt;p&gt;&lt;a href=&quot;http://tmate.io/&quot;&gt;tmate&lt;/a&gt;: A fork of tmux, designed to do the
 above configuration automatically. As far as I can tell:&lt;/p&gt;
 
 &lt;p&gt;####Pros:&lt;/p&gt;
@@ -757,10 +907,12 @@ above configuration automatically. As far as I can tell:&lt;/p&gt;
   &lt;li&gt;Much easier setup–most of the work is already done for you.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;####Cons:&lt;br /&gt;
-  - The other person has to use your tmux configurations&lt;br /&gt;
-  - You’re stuck using ssh, instead of mosh (which is apparently faster than ssh).&lt;br /&gt;
-  - I’m not sure if you’d be able to use tmux plugins like tmuxinator.&lt;/p&gt;
+&lt;p&gt;####Cons:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The other person has to use your tmux configurations&lt;/li&gt;
+  &lt;li&gt;You’re stuck using ssh, instead of mosh (which is apparently faster than ssh).&lt;/li&gt;
+  &lt;li&gt;I’m not sure if you’d be able to use tmux plugins like tmuxinator.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;other-tools-to-investigate&quot;&gt;Other Tools to investigate&lt;/h3&gt;
 
@@ -769,30 +921,28 @@ above configuration automatically. As far as I can tell:&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/zolrath/wemux&quot;&gt;wemux&lt;/a&gt;: tmux plugin for remote&lt;/li&gt;
   &lt;li&gt;pairing–need to check it out and see what kind of features.&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/benmills/vimux&quot;&gt;vimux&lt;/a&gt;: ditto.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/tmuxinator/tmuxinator&quot;&gt;tmuxinator&lt;/a&gt;: Looks like it&lt;br /&gt;
-can be useful for saving a lot of settings (for a project) without&lt;br /&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/tmuxinator/tmuxinator&quot;&gt;tmuxinator&lt;/a&gt;: Looks like it
+can be useful for saving a lot of settings (for a project) without
 having to restart it each time.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;I haven’t tried any of this yet, but I’ll be giving these a shot and write about how it goes.&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/remote-pairing-tools/&quot;&gt;Remote Pairing Tools&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 20, 2014.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/remote-pairing-tools/&quot;&gt;Remote Pairing Tools&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 20, 2014.&lt;/p&gt;
   </content>
 </entry>
 
 
-  
-
 <entry>
   <title type="html"><![CDATA[Starting Bloc]]></title>
-  <link rel="alternate" type="text/html" href="/starting%20bloc/" />
-  <id>/starting bloc</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/starting-bloc/" />
+  <id>http://localhost:4000/starting bloc</id>
   <updated>2015-4-7T00:00:00-00:00</updated>
-  <published>2014-06-15T00:00:00-04:00</published>
+  <published>2014-06-15T00:00:00-07:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -808,7 +958,7 @@ having to restart it each time.&lt;/li&gt;
 
 &lt;p&gt;Education and &lt;em&gt;learning&lt;/em&gt; generally are areas that interest me a great deal. I’m very excited to see the ways that technology can transform education, so I expect I’ll have quite a bit to comment on as I go through Bloc. Stay tuned.&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/starting%20bloc/&quot;&gt;Starting Bloc&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 15, 2014.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/starting-bloc/&quot;&gt;Starting Bloc&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 15, 2014.&lt;/p&gt;
   </content>
 </entry>
 

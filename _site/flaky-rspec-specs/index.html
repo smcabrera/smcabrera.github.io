@@ -1,0 +1,461 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Flaky tests &#8211; Stephen Mariano Cabrera</title>
+<meta name="description" content="
+layout: post
+title: Flaky rspec specs
+modified: 2019-7-25
+tags: [testing]
+comments: true
+image:
+  feature:
+  credit:
+  creditlink:
+—
+
+">
+<meta name="keywords" content="testing">
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:title" content="Flaky tests">
+<meta name="twitter:description" content="
+layout: post
+title: Flaky rspec specs
+modified: 2019-7-25
+tags: [testing]
+comments: true
+image:
+  feature:
+  credit:
+  creditlink:
+—
+
+">
+<meta name="twitter:site" content="@stephenmarian0">
+<meta name="twitter:creator" content="@stephenmarian0">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://localhost:4000/images/default-thumb.png">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flaky tests">
+<meta property="og:description" content="
+layout: post
+title: Flaky rspec specs
+modified: 2019-7-25
+tags: [testing]
+comments: true
+image:
+  feature:
+  credit:
+  creditlink:
+—
+
+">
+<meta property="og:url" content="http://localhost:4000/flaky-rspec-specs/">
+<meta property="og:site_name" content="Stephen Mariano Cabrera">
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/flaky-rspec-specs/">
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Stephen Mariano Cabrera Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- HTML5 Shiv and Media Query Support -->
+<!--[if lt IE 9]>
+	<script src="http://localhost:4000/assets/js/vendor/html5shiv.min.js"></script>
+	<script src="http://localhost:4000/assets/js/vendor/respond.min.js"></script>
+<![endif]-->
+
+<!-- Modernizr -->
+<script src="http://localhost:4000/assets/js/vendor/modernizr-2.7.1.custom.min.js"></script>
+
+<link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700%7CPT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://localhost:4000/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://localhost:4000/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144-precomposed.png">
+
+<script src="https://carnivalapp.io/sites/29/init.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", Carnival.init);
+</script>
+
+
+</head>
+
+<style type="text/css" media="all">
+  p {
+    line-height: 1.5; 
+  }
+
+  p+p {
+    margin-top: inherit;
+    text-indent: 0;
+  }
+
+</style>
+
+<body class="post">
+
+<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+
+<div class="navigation-wrapper">
+	<div class="site-name">
+		<a href="http://localhost:4000/">Stephen Mariano Cabrera</a>
+	</div><!-- /.site-name -->
+	<div class="top-navigation">
+		<nav role="navigation" id="site-nav" class="nav">
+		    <ul>
+		        
+				    
+				    <li><a href="http://localhost:4000/about/" >About</a></li>
+				
+				    
+				    <li><a href="http://localhost:4000/projects/" >Projects</a></li>
+				
+				    
+				    <li><a href="http://localhost:4000/posts/" >Blog</a></li>
+				
+		    </ul>
+		</nav>
+	</div><!-- /.top-navigation -->
+</div><!-- /.navigation-wrapper -->
+
+
+
+<div id="main" role="main">
+  <div class="article-author-side">
+    
+
+<div itemscope itemtype="http://schema.org/Person">
+
+
+	<img src="http://localhost:4000/images/bio-photo.jpg" class="bio-photo" alt="Stephen Mariano Cabrera bio photo">
+
+
+  <h3 itemprop="name">Stephen Mariano Cabrera</h3>
+  <p>Software Developer</p>
+  <a href="mailto:stephen.m.cabrera@gmail.com" class="author-social" target="_blank"><i class="fa fa-fw fa-envelope-square"></i> Email</a>
+  <a href="http://twitter.com/stephenmarian0" class="author-social" target="_blank"><i class="fa fa-fw fa-twitter-square"></i> Twitter</a>
+  
+  
+  <a href="http://linkedin.com/in/smcabrera" class="author-social" target="_blank"><i class="fa fa-fw fa-linkedin-square"></i> LinkedIn</a>
+  
+  
+  
+  <a href="http://github.com/smcabrera" class="author-social" target="_blank"><i class="fa fa-fw fa-github"></i> Github</a>
+  <a href="http://stackoverflow.com/users/2181217/stephen-mariano-cabrera" class="author-social" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i> Stackoverflow</a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </div>
+  <article class="post">
+    <div class="headline-wrap">
+      
+        <h1><a href="http://localhost:4000/flaky-rspec-specs/" rel="bookmark" title="Flaky tests">Flaky tests</a></h1>
+      
+    </div><!--/ .headline-wrap -->
+    <div class="article-wrap">
+      <hr />
+<p>layout: post
+title: Flaky rspec specs
+modified: 2019-7-25
+tags: [testing]
+comments: true
+image:
+  feature:
+  credit:
+  creditlink:
+—</p>
+
+<p>I recently got fed up with intermittent test failures piling up in our rails app and decided to do something about it. If you’ve been writing tests using CI for long enough you’re bound to have encountered the problem of intermittent test failures. We’ve all been there, you push up your code to CI and find that your changes have broken the build. Upon investigation you find that it was a test that has nothing to do with your changes.</p>
+
+<p>It’s easy to consider them an annoyance–rebuild the build and see if it passes this time. Flaky tests are worse than a small annoyance though, and when not addressed in a timely way can lead to plunging productivity and morale problems. In this post I’d like to motivate why eliminating intermittent test failures is important and arm the reader with the tools to do so.</p>
+
+<p>Upon finishing this, you should feel empowered by gaining a very particular set of skills</p>
+
+<p><img src="../images/particular-set-of-skills.jpg" alt="skills" /></p>
+
+<h3 id="why-are-flaky-tests-a-problem">Why are flaky tests a problem?</h3>
+<p>This seems obvious. Of course flaky tests are bad—they keep breaking my build! That’s so annoying!</p>
+
+<p>But I think we can do better than that. We live with small annoyances all the time and that by itself isn’t necessarily a reason to put engineering resources towards something. But is that all it really is?</p>
+
+<p>In fact flaky tests in fact pose more serious problems if left unaddressed for too long:</p>
+
+<h4 id="team-morale">Team morale</h4>
+<p>It doesn’t just cost us a few seconds of time when we hit rebuild on that failing test suite, it also just feels crappy. You were excited about getting to deploy your thing but now you need to wait for the build to pass (or you cheat and push it anyway). At Canvas we take pride in our work. We engage in rigorous code reviews and perform refactorings based on thoughtful feedback. We write tests. We ship high-quality code. Hitting a flaky test failure is a reminder that we’re not holding ourselves to that same high standard.</p>
+
+<h4 id="slow-feedback-loops">Slow Feedback Loops</h4>
+<p>Let’s face it, it really doesn’t take that much time to hit the “rebuild” button in Travis. That’s why we do it. But let’s look at what else happens when you hit that button. Maybe you were making small commits to Travis to see that each of your changes keeps the tests passing (as Carrick recommended a few weeks ago). Well, now you’re going to have to wait another 20 minutes to get that feedback. In that 20 minutes, you could get out of the flow of what you’re doing, be forced to switch to another task or find yourself reading some weird question that you saw a link to on StackExchange. Keeping developer productivity high is not just about preserving engineering time but also about preserving focus.</p>
+
+<h4 id="lack-of-trust-in-tests">Lack of Trust in tests</h4>
+<p>In a test suite free of flaky tests, your first thought upon seeing a test failure is “hey, looks like something’s broken—we should fix it right away!”. Flaky tests erode that trust and replace it with the assumption that if a test is failing it’s probably just a flake. This starts to subtly change your perception of what those red and green colors mean. See something merged to master that’s got a failing test? When your test is full of flaky tests, it’s less of a big deal. Our minds are always trying to sort signal from noise and flaky tests make it so that test failures become noise rather than signal—and that’s a dangerous outcome in the long run.</p>
+
+<h4 id="vicious-cycle">Vicious Cycle</h4>
+<p>To top it all off flaky tests beget flaky tests. Once you have some tests that you’ve gotten used to just rebuilding the build for when they come up, you’ll start doing that with more tests, and it will become increasingly difficult to address them.</p>
+
+<p>Think of a flaky test as a dirty plate in your kitchen. Just one plate doesn’t really make that much of a difference or take up that much space. It can be worked around. But by having one, it’s easy to add more, and then the job of cleaning up keeps getting harder and nobody wants to do it, and before you know it, it starts to be disheartening to look around and realize you live in a messy house.</p>
+
+<p>The solution? When you see something, say something. And better yet, clean the plate yourself.</p>
+
+<p>So how do you do that? By knowing the kinds of things that cause flaky tests you can make it both less likely that you write them in the first place and make it so that you yourself can fix flaky tests when they come up, rather than waiting for someone else to fix a bunch of them. That makes it easier to do and more likely to get done. It’s worth the effort, and it’ll never be easier to do than it is today.</p>
+
+<h3 id="what-causes-flaky-tests">What causes flaky tests</h3>
+<p>The internet has some great ruby and rails specific examples that I’ll link to at the end. But aside from specific cases, I think it’s instructive to think about what the sources of test failures are in general. And it all boils down to one source.</p>
+
+<p>Shared state.</p>
+
+<p>Let’s take a very simple function and what that functions tests might look like. Imagine the following function:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">double</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+  <span class="n">num</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="k">end</span>
+<span class="n">double</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="mi">6</span>
+</code></pre></div></div>
+
+<p>If we ran this function a million times would it ever return something different than 6 when given 3 as an argument? Of course not. To make it return something different than 6 we’re either going to have to give it different arguments, or, more likely, we’re going to have to have it refer to something outside itself.</p>
+
+<p>If you’ve ever heard functional programming advocates talk about “referential integrity” this is the basic concept we’re dealing with. A function is said to have referential integrity if every time you call it with the same arguments you get the same return value. Imagine if we changed this function to reference something outside of itself:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">double</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+  <span class="vi">@num</span> <span class="o">||=</span> <span class="n">num</span>
+  <span class="vi">@num</span> <span class="o">*=</span> <span class="mi">2</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now the first time we call double it’ll double the number. But the next time, it’ll double whatever the last number you input was regardless of what argument you supply this time).</p>
+
+<p>We would say that this function does not have referential integrity, because you can call it with the same arguments repeatedly and you will get a different answer each time. Now if that seems too contrived consider a function like the following:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">create_car</span>
+  <span class="n">create</span><span class="p">(</span><span class="ss">:car</span><span class="p">)</span>
+  <span class="no">Car</span><span class="p">.</span><span class="nf">count</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The first time we call this it will create a car and return one. But the second time it will create a car and return <code class="highlighter-rouge">2</code> and so forth. In fact this will be the case with pretty much anything that has side effects…and a lot of our code has side effects.</p>
+
+<p>What these have in common is that all of them <em>refer to global state</em>. Generally if you have a flaky test it has to do with a failure to clean up global state in some way. Whether it’s arguments being passed in differently each time based on the state or whether a function with side effects having different state inside it each time.</p>
+
+<h4 id="some-common-sources-of-state-in-rails-apps">Some common sources of state in rails apps</h4>
+<ul>
+  <li>Postgres</li>
+  <li>Redis</li>
+  <li>Time</li>
+</ul>
+
+<p>For each of these we have some basic way of isolating, stubbing out or otherwise removing the variability so that they’ll always do the same thing. So if a test fails intermittently for one of these reasons it will either be that the cleanup was not done properly or that it has failed for some reason. That’s gonna be your culprit most of the time.</p>
+
+<ul>
+  <li>Postgres: database cleaner</li>
+  <li>Reids: Fake Redis</li>
+  <li>Time: Timecop</li>
+</ul>
+
+<h3 id="what-can-we-do-about-it">What can we do about it?</h3>
+<ul>
+  <li>
+    <p>“If you see something, say something”: Don’t just rebuild without looking. Take note of the test that failed <em>and the seed</em>. The seed is very important for this next bit. Even if you’re not going to fix the flaky test, reporting it to the rest of the team gives <em>someone</em> the ability to look into it, and ensures that we have to put up with the flaky test for as little as possible.</p>
+  </li>
+  <li>
+    <p>Rspec’s bisect option: This is a game changer. Basically what this does is you run it once with the seed from the test and then it’ll keep running tests until it can find the quickest way to reproduce the failures with that seed. It will give you this super long command that you can put in a file and then run repeatedly to get your test failures to show up. Now you can finally get those pesky flaky tests to show up locally.</p>
+  </li>
+</ul>
+
+<p><img src="../images/where-to-find-the-seed.png" alt="where to find the seed in CI" /></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># where 1234 is the seed that you copied from CI. This part will take a while</span>
+<span class="nv">$ </span>rspec spec <span class="nt">--bisect</span> <span class="nt">--seed</span> 1234 <span class="o">&gt;</span> tmp/flaky_tests
+
+<span class="c"># Now you've got a temporary file that contains the commands needed to reproduce your flaky specs</span>
+<span class="c"># All you need to do now is make it executable and run</span>
+<span class="nv">$ </span><span class="nb">chmod</span> +x tmp/flaky_tests
+<span class="nv">$ </span>./tmp/flaky_tests
+</code></pre></div></div>
+
+<p>See the <a href="https://relishapp.com/rspec/rspec-core/docs/command-line/bisect">docs</a> <code class="highlighter-rouge">--bisect</code> for more details</p>
+
+<ul>
+  <li>Test your assumptions about state: Remember that the flaky test failure probably has to do with some kind of global state. Check your assumptions for how things should be at the start of the test and at the end and see if those assumptions hold.</li>
+</ul>
+
+<h3 id="case-study-failing-database-cleaner">Case study: failing database cleaner</h3>
+<p>The particular issue that I ran into that prompted me to write this post had to do with records created in the test database failing to be cleaned up between test runs. This meant that depending on which tests you ran and the order you ran them in, you could get failures based on records violating uniqueness constraints or similar.</p>
+
+<p>The way this is <em>supposed</em> to work when using RSpec with a Rails app is that you configure a strategy around isolating the test database, such that it gets cleaned up in between runs. The way that we’d been doing this had to do with running each test case in its own postgres transaction. The problem is…we also had a lot of the code that was being tested create its own transaction. This meant that without realizing it our tests were running with nested transactions, which meant that in some cases transactions weren’t being rolled back and we were persisting test data within runs. I discovered this by identifying where I was expecting the database to get cleaned up and then verifying that this was in fact not happening.</p>
+
+<p>The lesson here is that if you already know that your culprit for flaky tests is likely some kind of shared state (postgres in this case) you can narrow down your search and hone in what that shared state might be (which can save you some amount of throwing your hands up saying “What on earth is happening here!”)</p>
+
+<h3 id="what-can-we-do-about-it-1">What can we do about it?</h3>
+<ul>
+  <li>“If you see something, say something”: Report flaky tests to the rest of the team, so that at least we know about them. Report the test that failed <em>and the seed</em>. The seed is very important for this next bit. Even if you’re not going to fix the flaky test, reporting it to the rest of the team gives <em>someone</em> the ability to look into it, and ensures that we have to put up with the flaky test for as little as possible.</li>
+  <li>Rspec’s bisect option: This is a game changer if you’re in rails-land and I’d encourage others to see if there are equivalents. Basically what this does is you run it once with the seed from the test and then it’ll keep running tests until it can find the quickest way to reproduce the failures with that seed. Now you have a way to (hopefully) have a consistent way to see if your fixes work.</li>
+  <li>Test the state: Remember the advice above—the flaky test failure probably has to do with some kind of global state. Check your assumptions for how things should be at the start of the test and at the end and do some debugging to see if that’s true.</li>
+</ul>
+
+<h3 id="conclusions">Conclusions?</h3>
+
+<p><img src="../images/smokey-the-bear-flaky-tests.jpg" alt="only you can prevent flaky tests" />
+￼ ￼</p>
+<ul>
+  <li>It’s a team effort. Get in the habit of reporting failures early and involve more people on your team in fixing them. Make it everyone’s responsibility. The closer you fix a failing test to when it’s introduced the easier it will be.</li>
+  <li>rspec bisect is your friend: <code class="highlighter-rouge">rspec spec --bisect --seed 1234</code></li>
+  <li>avoid nesting transactions at all costs</li>
+</ul>
+
+<h3 id="notes--resources">Notes / Resources</h3>
+<p>This one has a good list of anti-patterns including many related to flaky tests</p>
+
+<p><a href="https://www.stackbuilders.com/news/common-rails-testing-mistakes">Common Rails Testing Mistakes</a></p>
+
+<p>The particular problem I ran into at work had to do with test database setup and tear down, here’s some resources I found helpful in dealing with that (this probably deserves its own post)</p>
+
+<ul>
+  <li><a href="https://makandracards.com/makandra/13045-understanding-database-cleaning-strategies-in-tests">Understanding database cleaning strategies in tests - makandra dev</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>[Configuring database_cleaner with Rails, RSpec, Capybara, and Selenium</td>
+          <td>Virtuous Code](http://www.virtuouscode.com/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/)</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><a href="https://github.com/DatabaseCleaner/database_cleaner">GitHub - DatabaseCleaner/database_cleaner: Strategies for cleaning databases in Ruby.  Can be used to ensure a clean state for testing.</a></li>
+</ul>
+
+      <hr />
+      <footer role="contentinfo">
+        <div class="social-share">
+  <h4>Share on</h4>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=http://localhost:4000/flaky-rspec-specs/" class="twitter" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/flaky-rspec-specs/" class="facebook" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=http://localhost:4000/flaky-rspec-specs/" class="google-plus" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+  </ul>
+</div><!-- /.social-share -->
+        <p class="byline"><strong>Flaky tests</strong> was published on <time datetime="2019-07-25T00:00:00-07:00">July 25, 2019</time> and last modified on <time datetime="2019-07-25">July 25, 2019</time>.</p>
+      </footer>
+    </div><!-- /.article-wrap -->
+  
+    <section id="disqus_thread"></section><!-- /#disqus_thread -->
+  
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrap">
+  <div class="related-articles">
+  <h4>You might also enjoy <small class="pull-right">(<a href="http://localhost:4000/posts/">View all posts</a>)</small></h4>
+    <ul>
+    
+      <li><a href="http://localhost:4000/things-i-learned-working-on-remote-teams/" title="Five Things I Learned Working on Remote Teams">Five Things I Learned Working on Remote Teams</a></li>
+    
+      <li><a href="http://localhost:4000/enter-enter/" title="Enter...enter">Enter...enter</a></li>
+    
+      <li><a href="http://localhost:4000/refactoring-legacy-code/" title="Refactoring Legacy Code">Refactoring Legacy Code</a></li>
+    
+    </ul>
+    <hr />
+  </div><!-- /.related-articles -->
+  <footer>
+    
+
+<span>&copy; 2019 Stephen Mariano Cabrera. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a> theme.</span>
+
+  </footer>
+</div><!-- /.footer-wrap -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://localhost:4000/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://localhost:4000/assets/js/scripts.min.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  var _gaq = _gaq || [];
+  var pluginUrl = 
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'stephen.m.cabrera']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+  
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'smcabreragithubio'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+	        
+
+</body>
+</html>
