@@ -144,5 +144,5 @@ This one has a good list of anti-patterns including many related to flaky tests
 The particular problem I ran into at work had to do with test database setup and tear down, here's some resources I found helpful in dealing with that (this probably deserves its own post)
 
 - [Understanding database cleaning strategies in tests - makandra dev](https://makandracards.com/makandra/13045-understanding-database-cleaning-strategies-in-tests)
-- [Configuring database_cleaner with Rails, RSpec, Capybara, and Selenium | Virtuous Code](http://www.virtuouscode.com/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/)
-- [GitHub - DatabaseCleaner/database_cleaner: Strategies for cleaning databases in Ruby.  Can be used to ensure a clean state for testing.](https://github.com/DatabaseCleaner/database_cleaner)
+- [Configuring database_cleaner with Rails, RSpec, Capybara, and Selenium](http://www.virtuouscode.com/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/)
+- [GitHub - DatabaseCleaner/database_cleaner: Strategies for cleaning databases in Ruby](https://github.com/DatabaseCleaner/database_cleaner) 
