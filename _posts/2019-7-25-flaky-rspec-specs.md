@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Flaky tests
+title: Flaky RSpec specs
 modified: 2019-7-25
 tags: [testing]
 comments: true
