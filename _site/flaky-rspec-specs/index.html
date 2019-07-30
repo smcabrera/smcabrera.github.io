@@ -6,17 +6,7 @@
 <head>
 <meta charset="utf-8">
 <title>Flaky tests &#8211; Stephen Mariano Cabrera</title>
-<meta name="description" content="
-layout: post
-title: Flaky rspec specs
-modified: 2019-7-25
-tags: [testing]
-comments: true
-image:
-  feature:
-  credit:
-  creditlink:
-—
+<meta name="description" content="I recently got fed up with intermittent test failures piling up in our rails app and decided to do something about it. If you’ve been writing tests using CI for long enough you’re bound to have encountered the problem of intermittent test failures. We’ve all been there, you push up your code to CI and find that your changes have broken the build. Upon investigation you find that it was a test that has nothing to do with your changes.
 
 ">
 <meta name="keywords" content="testing">
@@ -24,17 +14,7 @@ image:
 
 <!-- Twitter Cards -->
 <meta name="twitter:title" content="Flaky tests">
-<meta name="twitter:description" content="
-layout: post
-title: Flaky rspec specs
-modified: 2019-7-25
-tags: [testing]
-comments: true
-image:
-  feature:
-  credit:
-  creditlink:
-—
+<meta name="twitter:description" content="I recently got fed up with intermittent test failures piling up in our rails app and decided to do something about it. If you’ve been writing tests using CI for long enough you’re bound to have encountered the problem of intermittent test failures. We’ve all been there, you push up your code to CI and find that your changes have broken the build. Upon investigation you find that it was a test that has nothing to do with your changes.
 
 ">
 <meta name="twitter:site" content="@stephenmarian0">
@@ -47,17 +27,7 @@ image:
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Flaky tests">
-<meta property="og:description" content="
-layout: post
-title: Flaky rspec specs
-modified: 2019-7-25
-tags: [testing]
-comments: true
-image:
-  feature:
-  credit:
-  creditlink:
-—
+<meta property="og:description" content="I recently got fed up with intermittent test failures piling up in our rails app and decided to do something about it. If you’ve been writing tests using CI for long enough you’re bound to have encountered the problem of intermittent test failures. We’ve all been there, you push up your code to CI and find that your changes have broken the build. Upon investigation you find that it was a test that has nothing to do with your changes.
 
 ">
 <meta property="og:url" content="http://localhost:4000/flaky-rspec-specs/">
@@ -194,19 +164,7 @@ image:
       
     </div><!--/ .headline-wrap -->
     <div class="article-wrap">
-      <hr />
-<p>layout: post
-title: Flaky rspec specs
-modified: 2019-7-25
-tags: [testing]
-comments: true
-image:
-  feature:
-  credit:
-  creditlink:
-—</p>
-
-<p>I recently got fed up with intermittent test failures piling up in our rails app and decided to do something about it. If you’ve been writing tests using CI for long enough you’re bound to have encountered the problem of intermittent test failures. We’ve all been there, you push up your code to CI and find that your changes have broken the build. Upon investigation you find that it was a test that has nothing to do with your changes.</p>
+      <p>I recently got fed up with intermittent test failures piling up in our rails app and decided to do something about it. If you’ve been writing tests using CI for long enough you’re bound to have encountered the problem of intermittent test failures. We’ve all been there, you push up your code to CI and find that your changes have broken the build. Upon investigation you find that it was a test that has nothing to do with your changes.</p>
 
 <p>It’s easy to consider them an annoyance–rebuild the build and see if it passes this time. Flaky tests are worse than a small annoyance though, and when not addressed in a timely way can lead to plunging productivity and morale problems. In this post I’d like to motivate why eliminating intermittent test failures is important and arm the reader with the tools to do so.</p>
 

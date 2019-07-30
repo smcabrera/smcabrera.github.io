@@ -10,18 +10,6 @@ image:
   creditlink:
 ---
 
----
-layout: post
-title: Flaky rspec specs
-modified: 2019-7-25
-tags: [testing]
-comments: true
-image:
-  feature:
-  credit:
-  creditlink:
----
-
 I recently got fed up with intermittent test failures piling up in our rails app and decided to do something about it. If you've been writing tests using CI for long enough you're bound to have encountered the problem of intermittent test failures. We’ve all been there, you push up your code to CI and find that your changes have broken the build. Upon investigation you find that it was a test that has nothing to do with your changes.
 
 It's easy to consider them an annoyance--rebuild the build and see if it passes this time. Flaky tests are worse than a small annoyance though, and when not addressed in a timely way can lead to plunging productivity and morale problems. In this post I'd like to motivate why eliminating intermittent test failures is important and arm the reader with the tools to do so.
