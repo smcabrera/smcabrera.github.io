@@ -5,14 +5,18 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>Get Freaky &#8211; Stephen Mariano Cabrera</title>
-<meta name="description" content="A ruby gem cli for browsing and downloading conference videos from confreaks.tv">
-<meta name="keywords" content="ruby, gems, cli">
+<title>New year new job &#8211; Stephen Mariano Cabrera</title>
+<meta name="description" content="What I’m looking for in my next gig
+
+">
+<meta name="keywords" content="testing">
 
 
 <!-- Twitter Cards -->
-<meta name="twitter:title" content="Get Freaky">
-<meta name="twitter:description" content="A ruby gem cli for browsing and downloading conference videos from confreaks.tv">
+<meta name="twitter:title" content="New year new job">
+<meta name="twitter:description" content="What I’m looking for in my next gig
+
+">
 <meta name="twitter:site" content="@stephenmarian0">
 <meta name="twitter:creator" content="@stephenmarian0">
 
@@ -22,16 +26,18 @@
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Get Freaky">
-<meta property="og:description" content="A ruby gem cli for browsing and downloading conference videos from confreaks.tv">
-<meta property="og:url" content="/get-freaky/">
+<meta property="og:title" content="New year new job">
+<meta property="og:description" content="What I’m looking for in my next gig
+
+">
+<meta property="og:url" content="/new-year-new-job/">
 <meta property="og:site_name" content="Stephen Mariano Cabrera">
 
 
 
 
 
-<link rel="canonical" href="/get-freaky/">
+<link rel="canonical" href="/new-year-new-job/">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Stephen Mariano Cabrera Feed">
 
 <!-- http://t.co/dKP3o1e -->
@@ -154,38 +160,45 @@
   <article class="post">
     <div class="headline-wrap">
       
-        <h1><a href="/get-freaky/" rel="bookmark" title="Get Freaky">Get Freaky</a></h1>
+        <h1><a href="/new-year-new-job/" rel="bookmark" title="New year new job">New year new job</a></h1>
       
     </div><!--/ .headline-wrap -->
     <div class="article-wrap">
-      <p>I made a thing. I’m a big fan of command line applications–sometimes I just don’t want to get distracted by everything that comes with using a web app (before you know it you’ve spent an hour and a half on twitter) and I just want a simple command line interface to do what I want to get done. As a bonus if there’s some part of the process you want to automate command line apps make this much easier to do.<br />
-So when I was checking out conference vieos on confreaks.tv and discovered that they have a public api I thought I’d take the opportunity to build a little ruby command line app to consume its API and automatically download videos taking advantage a few excellent gems that simplified matters a great deal and which I highly recommend:</p>
+      <h1 id="what-im-looking-for-in-my-next-gig">What I’m looking for in my next gig</h1>
 
+<p>One silver lining of the very public nature of <a href="https://techcrunch.com/2019/10/24/fair-the-softbank-backed-car-subscription-startup-lays-off-40-of-staff-sacks-cfo/">the subsequent layoffs of the Fair San Francisco office</a> is that I can now be very open about my reasons for searching for a new position.</p>
+
+<p>Doing a full time job search has given me a lot of practice to answering the question “what are you looking for in a new role?”. To save everyone some time I thought I’d write about it here.</p>
+
+<p>There are three main criteria I’m applying in my search, in ranked order of priority.</p>
+
+<h3 id="good-location-with-remote-flexibility">Good location with remote flexibility</h3>
+<p>I travel regularly to see my partner, as she is completing her PhD. I generally work remotely at least a week every month, so a company with some flexibility around remote work is a must. I’m open to fully remote opportunities but it would also be great to be able to interact with colleagues in the Bay Area where I’m based. I live near the CalTrain and could probably commute as far away as Palo Alto for the right opportunity.</p>
+
+<p>I have a wide range of experience with remote work and have learned a lot about how teams can do so effectively (<a href="http://fullstackalchemy.io/things-i-learned-working-on-remote-teams/">which I’ve written about here</a>). I’d love to work for a company that is either already successful with remote work or has a culture that values communication, empathy and productivity that could allow it to be successful.</p>
+
+<h3 id="opportunity-to-leverage-existing-strengths-while-continuing-to-learn">Opportunity to leverage existing strengths while continuing to learn</h3>
+<p>I’ve been writing Ruby on Rails backends for the last five years in a range of environments and would love to provide technical leadership and mentorship based on the expertise I’ve developed. At the same time, I’d like to deepen my experience in areas where I’ve had less exposure.</p>
+
+<p>Areas where I have particular interest and expertise include:</p>
 <ul>
-  <li><a href="https://github.com/rb2k/viddl-rb">viddl-rb</a>: gem for providing a simple interface for downloading videos from various sites (youtube, vimeo) as well as the</li>
-  <li><a href="http://johnnunemaker.com/httparty/">httparty</a>: gem which makes working with public APIs via HTTP a total cinch.</li>
-  <li><a href="https://github.com/tj/commander">commander</a>: Greatly simplifies spinning up interactive command line apps of the <code class="highlighter-rouge">appname subcommand --options</code> form.</li>
+  <li>Integrations with external APIs</li>
+  <li>Developer tools (CLIs, scripts to simplify common tasks)</li>
+  <li>Refactoring legacy codebases using SOLID principles</li>
+  <li>Improving test suites making them more reliable, less flaky and less brittle (e.g. when and how to use mocks, <a href="http://fullstackalchemy.io/flaky-rspec-specs/">how to identify and eliminate intermittent test failures</a>, test coverage at different levels of a testing pyramid)</li>
 </ul>
 
-<h2 id="usage">Usage</h2>
-<p>Complete documentation on the <a href="https://github.com/smcabrera/get_freaky">github page</a> but you can get some useful value out of the gem right away like this:</p>
+<p>Areas that I’m interested in learning more include:</p>
+<ul>
+  <li>Languages that are often tapped to replace ruby in contexts when performance is a concern (e.g. Elixir, Golang)</li>
+  <li>Distributed systems problems (pub/sub, microservices, consistency)</li>
+  <li>Component based frontend javascript frameworks like React or Vue</li>
+</ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install get_freaky
-$ get_freaky
-</code></pre></div></div>
+<p>My ideal company would be one where I can be a mentor in areas like the first list and can be mentored in areas like the second list.</p>
 
-<p>get_freaky by itself is aliased to the help which will give you all your options. If you’re not picky about which conference video you’d like to watch or just wanna make sure it works you can download the featured video like this</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ get_freaky featured
-</code></pre></div></div>
-<p>This will show you the featured video from confreaks, with its title and description and then ask you if you’d like to download the video.</p>
-
-<p>Check it out! If there’s something or there’s another feature you’d like please let me know and I’ll try to fix/build it. I’m open to any feedback for improving it and am open to pull requests or anyone who’d like to pair with me on a new feature.</p>
-
-<h2 id="build-your-own">Build your own!</h2>
-<p>Finally I highly recommend this process as a learning experience. I had a lot of fun and I think learned a lot, not just for building apps that consume APIs but also I think I’ve gotten a sense of what makes good interface design. It’s always nice if you’re going to build software to first know what it’s like to be a user of that software.</p>
-
-<p>If people are interested I could see if I can bang out a tutorial for how to build something like this.</p>
+<h3 id="making-an-impact">Making an impact</h3>
+<p><a href="http://fullstackalchemy.io/about/">I worked in non-profits before getting into engineering</a>. While it’s not as important as the first two criteria I haven’t given up hope for working to make an impact in something I can believe in.</p>
 
       <hr />
       <footer role="contentinfo">
@@ -193,17 +206,17 @@ $ get_freaky
   <h4>Share on</h4>
   <ul>
     <li>
-      <a href="https://twitter.com/intent/tweet?text=/get-freaky/" class="twitter" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+      <a href="https://twitter.com/intent/tweet?text=/new-year-new-job/" class="twitter" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
     </li>
     <li>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=/get-freaky/" class="facebook" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=/new-year-new-job/" class="facebook" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
     </li>
     <li>
-      <a href="https://plus.google.com/share?url=/get-freaky/" class="google-plus" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+      <a href="https://plus.google.com/share?url=/new-year-new-job/" class="google-plus" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
     </li>
   </ul>
 </div><!-- /.social-share -->
-        <p class="byline"><strong>Get Freaky</strong> was published on <time datetime="2015-06-14T00:00:00-04:00">June 14, 2015</time> and last modified on <time datetime="2015-06-14">June 14, 2015</time>.</p>
+        <p class="byline"><strong>New year new job</strong> was published on <time datetime="2019-11-19T00:00:00-05:00">November 19, 2019</time> and last modified on <time datetime="2019-07-25">July 25, 2019</time>.</p>
       </footer>
     </div><!-- /.article-wrap -->
   
@@ -217,11 +230,11 @@ $ get_freaky
   <h4>You might also enjoy <small class="pull-right">(<a href="/posts/">View all posts</a>)</small></h4>
     <ul>
     
-      <li><a href="/new-year-new-job/" title="New year new job">New year new job</a></li>
-    
       <li><a href="/flaky-rspec-specs/" title="Flaky RSpec specs">Flaky RSpec specs</a></li>
     
       <li><a href="/things-i-learned-working-on-remote-teams/" title="Five Things I Learned Working on Remote Teams">Five Things I Learned Working on Remote Teams</a></li>
+    
+      <li><a href="/enter-enter/" title="Enter...enter">Enter...enter</a></li>
     
     </ul>
     <hr />

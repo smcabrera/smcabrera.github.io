@@ -2,27 +2,81 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 <title type="text">Stephen Mariano Cabrera</title>
 <generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
-<link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml" />
-<link rel="alternate" type="text/html" href="http://localhost:4000" />
-<updated>2019-07-29T17:05:46-07:00</updated>
-<id>http://localhost:4000/</id>
+<link rel="self" type="application/atom+xml" href="/feed.xml" />
+<link rel="alternate" type="text/html" href="" />
+<updated>2019-11-19T18:53:03-05:00</updated>
+<id>/</id>
 <author>
   <name>Stephen Mariano Cabrera</name>
-  <uri>http://localhost:4000/</uri>
+  <uri>/</uri>
   <email>stephen.m.cabrera@gmail.com</email>
 </author>
 
 
 <entry>
-  <title type="html"><![CDATA[Flaky RSpec specs]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/flaky-rspec-specs/" />
-  <id>http://localhost:4000/flaky-rspec-specs</id>
+  <title type="html"><![CDATA[New year new job]]></title>
+  <link rel="alternate" type="text/html" href="/new-year-new-job/" />
+  <id>/new-year-new-job</id>
   <updated>2019-7-25T00:00:00-00:00</updated>
-  <published>2019-07-25T00:00:00-07:00</published>
+  <published>2019-11-19T00:00:00-05:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
+    <email>stephen.m.cabrera@gmail.com</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;what-im-looking-for-in-my-next-gig&quot;&gt;What I’m looking for in my next gig&lt;/h1&gt;
+
+&lt;p&gt;One silver lining of the very public nature of &lt;a href=&quot;https://techcrunch.com/2019/10/24/fair-the-softbank-backed-car-subscription-startup-lays-off-40-of-staff-sacks-cfo/&quot;&gt;the subsequent layoffs of the Fair San Francisco office&lt;/a&gt; is that I can now be very open about my reasons for searching for a new position.&lt;/p&gt;
+
+&lt;p&gt;Doing a full time job search has given me a lot of practice to answering the question “what are you looking for in a new role?”. To save everyone some time I thought I’d write about it here.&lt;/p&gt;
+
+&lt;p&gt;There are three main criteria I’m applying in my search, in ranked order of priority.&lt;/p&gt;
+
+&lt;h3 id=&quot;good-location-with-remote-flexibility&quot;&gt;Good location with remote flexibility&lt;/h3&gt;
+&lt;p&gt;I travel regularly to see my partner, as she is completing her PhD. I generally work remotely at least a week every month, so a company with some flexibility around remote work is a must. I’m open to fully remote opportunities but it would also be great to be able to interact with colleagues in the Bay Area where I’m based. I live near the CalTrain and could probably commute as far away as Palo Alto for the right opportunity.&lt;/p&gt;
+
+&lt;p&gt;I have a wide range of experience with remote work and have learned a lot about how teams can do so effectively (&lt;a href=&quot;http://fullstackalchemy.io/things-i-learned-working-on-remote-teams/&quot;&gt;which I’ve written about here&lt;/a&gt;). I’d love to work for a company that is either already successful with remote work or has a culture that values communication, empathy and productivity that could allow it to be successful.&lt;/p&gt;
+
+&lt;h3 id=&quot;opportunity-to-leverage-existing-strengths-while-continuing-to-learn&quot;&gt;Opportunity to leverage existing strengths while continuing to learn&lt;/h3&gt;
+&lt;p&gt;I’ve been writing Ruby on Rails backends for the last five years in a range of environments and would love to provide technical leadership and mentorship based on the expertise I’ve developed. At the same time, I’d like to deepen my experience in areas where I’ve had less exposure.&lt;/p&gt;
+
+&lt;p&gt;Areas where I have particular interest and expertise include:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Integrations with external APIs&lt;/li&gt;
+  &lt;li&gt;Developer tools (CLIs, scripts to simplify common tasks)&lt;/li&gt;
+  &lt;li&gt;Refactoring legacy codebases using SOLID principles&lt;/li&gt;
+  &lt;li&gt;Improving test suites making them more reliable, less flaky and less brittle (e.g. when and how to use mocks, &lt;a href=&quot;http://fullstackalchemy.io/flaky-rspec-specs/&quot;&gt;how to identify and eliminate intermittent test failures&lt;/a&gt;, test coverage at different levels of a testing pyramid)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Areas that I’m interested in learning more include:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Languages that are often tapped to replace ruby in contexts when performance is a concern (e.g. Elixir, Golang)&lt;/li&gt;
+  &lt;li&gt;Distributed systems problems (pub/sub, microservices, consistency)&lt;/li&gt;
+  &lt;li&gt;Component based frontend javascript frameworks like React or Vue&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;My ideal company would be one where I can be a mentor in areas like the first list and can be mentored in areas like the second list.&lt;/p&gt;
+
+&lt;h3 id=&quot;making-an-impact&quot;&gt;Making an impact&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;http://fullstackalchemy.io/about/&quot;&gt;I worked in non-profits before getting into engineering&lt;/a&gt;. While it’s not as important as the first two criteria I haven’t given up hope for working to make an impact in something I can believe in.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/new-year-new-job/&quot;&gt;New year new job&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on November 19, 2019.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Flaky RSpec specs]]></title>
+  <link rel="alternate" type="text/html" href="/flaky-rspec-specs/" />
+  <id>/flaky-rspec-specs</id>
+  <updated>2019-7-25T00:00:00-00:00</updated>
+  <published>2019-07-25T00:00:00-04:00</published>
+  
+  <author>
+    <name>Stephen Mariano Cabrera</name>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -175,21 +229,21 @@
   &lt;li&gt;&lt;a href=&quot;https://github.com/DatabaseCleaner/database_cleaner&quot;&gt;GitHub - DatabaseCleaner/database_cleaner: Strategies for cleaning databases in Ruby&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/flaky-rspec-specs/&quot;&gt;Flaky RSpec specs&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on July 25, 2019.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/flaky-rspec-specs/&quot;&gt;Flaky RSpec specs&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on July 25, 2019.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Five Things I Learned Working on Remote Teams]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/things-i-learned-working-on-remote-teams/" />
-  <id>http://localhost:4000/things-i-learned-working-on-remote-teams</id>
+  <link rel="alternate" type="text/html" href="/things-i-learned-working-on-remote-teams/" />
+  <id>/things-i-learned-working-on-remote-teams</id>
   <updated>2017-1-17T00:00:00-00:00</updated>
-  <published>2017-01-17T00:00:00-08:00</published>
+  <published>2017-01-17T00:00:00-05:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -243,21 +297,21 @@ We discussed the importance of video calls and screen-sharing. Both of these act
 &lt;p&gt;Every team has to establish their own mores on when and how to use communication tools and discover what works best for them.&lt;/p&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/things-i-learned-working-on-remote-teams/&quot;&gt;Five Things I Learned Working on Remote Teams&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on January 17, 2017.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/things-i-learned-working-on-remote-teams/&quot;&gt;Five Things I Learned Working on Remote Teams&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on January 17, 2017.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Enter...enter]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/enter-enter/" />
-  <id>http://localhost:4000/enter-enter</id>
+  <link rel="alternate" type="text/html" href="/enter-enter/" />
+  <id>/enter-enter</id>
   <updated>2015-4-7T00:00:00-00:00</updated>
-  <published>2016-09-12T00:00:00-07:00</published>
+  <published>2016-09-12T00:00:00-04:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -315,21 +369,21 @@ So I wrote this little shell script. Now instead of the above, whenever I want t
 
 &lt;p&gt;If people like the tool or the workflow and have suggestions on how to make it better I’m all ears :)&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/enter-enter/&quot;&gt;Enter...enter&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on September 12, 2016.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/enter-enter/&quot;&gt;Enter...enter&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on September 12, 2016.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Refactoring Legacy Code]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/refactoring-legacy-code/" />
-  <id>http://localhost:4000/refactoring-legacy-code</id>
+  <link rel="alternate" type="text/html" href="/refactoring-legacy-code/" />
+  <id>/refactoring-legacy-code</id>
   <updated>2015-7-9T00:00:00-00:00</updated>
-  <published>2015-07-10T08:58:13-07:00</published>
+  <published>2015-07-10T11:58:13-04:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -441,21 +495,21 @@ So I wrote this little shell script. Now instead of the above, whenever I want t
 &lt;p&gt;I love discussing the sorts of tradeoffs that different solutions require so if you’ve got any ideas about my process or my solutions to problems I’d love to hear about them in the comments.&lt;/p&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/refactoring-legacy-code/&quot;&gt;Refactoring Legacy Code&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on July 10, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/refactoring-legacy-code/&quot;&gt;Refactoring Legacy Code&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on July 10, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Get Freaky]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/get-freaky/" />
-  <id>http://localhost:4000/get-freaky</id>
+  <link rel="alternate" type="text/html" href="/get-freaky/" />
+  <id>/get-freaky</id>
   <updated>2015-6-14T00:00:00-00:00</updated>
-  <published>2015-06-14T00:00:00-07:00</published>
+  <published>2015-06-14T00:00:00-04:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -488,21 +542,21 @@ $ get_freaky
 
 &lt;p&gt;If people are interested I could see if I can bang out a tutorial for how to build something like this.&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/get-freaky/&quot;&gt;Get Freaky&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 14, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/get-freaky/&quot;&gt;Get Freaky&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 14, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Ruby Peru April 2015]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/ruby-peru-april-2015/" />
-  <id>http://localhost:4000/ruby-peru-april-2015</id>
+  <link rel="alternate" type="text/html" href="/ruby-peru-april-2015/" />
+  <id>/ruby-peru-april-2015</id>
   <updated>2015-4-16T00:00:00-00:00</updated>
-  <published>2015-04-16T00:00:00-07:00</published>
+  <published>2015-04-16T00:00:00-04:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -531,21 +585,21 @@ At some point soon I’ll be following &lt;a href=&quot;https://developmentseed.
 &lt;iframe src=&quot;https://www.slideshare.net/slideshow/embed_code/key/qjy7XWGxvasg3t&quot; width=&quot;476&quot; height=&quot;400&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/ruby-peru-april-2015/&quot;&gt;Ruby Peru April 2015&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 16, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/ruby-peru-april-2015/&quot;&gt;Ruby Peru April 2015&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 16, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Powered by Jekyll...what's Jekyll?]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/whats-jekyll/" />
-  <id>http://localhost:4000/whats-jekyll</id>
+  <link rel="alternate" type="text/html" href="/whats-jekyll/" />
+  <id>/whats-jekyll</id>
   <updated>2015-4-7T00:00:00-00:00</updated>
-  <published>2015-04-08T00:00:00-07:00</published>
+  <published>2015-04-08T00:00:00-04:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -569,21 +623,21 @@ At some point soon I’ll be following &lt;a href=&quot;https://developmentseed.
 &lt;p&gt;I’ve been having a blast blogging with Jekyll; I highly recommend it. I also recommend checking out &lt;a href=&quot;jekyllthemes.org&quot;&gt;Jekyll Themes&lt;/a&gt; a repository of free themes for use with Jekyll. They’re really easy to get started with. If you have any trouble hit me up via email or twitter.&lt;/p&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/whats-jekyll/&quot;&gt;Powered by Jekyll...what's Jekyll?&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 08, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/whats-jekyll/&quot;&gt;Powered by Jekyll...what's Jekyll?&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 08, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[How to lose your fear of regular expressions]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/how-to-lose-your-fear-of-regular-expressions/" />
-  <id>http://localhost:4000/how-to-lose-your-fear-of-regular-expressions</id>
+  <link rel="alternate" type="text/html" href="/how-to-lose-your-fear-of-regular-expressions/" />
+  <id>/how-to-lose-your-fear-of-regular-expressions</id>
   <updated>2015-4-8T00:00:00-00:00</updated>
-  <published>2015-04-01T00:00:00-07:00</published>
+  <published>2015-04-01T00:00:00-04:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -599,20 +653,20 @@ Perhaps an even better way to learn regular expressions is to just start writing
 The next time you need to write a regular expression check out Rubular. It’s meant for regular expressions in ruby, but they tend not to be super different between languages.&lt;/p&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/how-to-lose-your-fear-of-regular-expressions/&quot;&gt;How to lose your fear of regular expressions&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 01, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/how-to-lose-your-fear-of-regular-expressions/&quot;&gt;How to lose your fear of regular expressions&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on April 01, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Specify Gem Versions in your Gemfile]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/specify-gem-versions-in-your-gemfile/" />
-  <id>http://localhost:4000/specify-gem-versions-in-your-gemfile</id>
-  <published>2015-03-24T00:00:00-07:00</published>
-  <updated>2015-03-24T00:00:00-07:00</updated>
+  <link rel="alternate" type="text/html" href="/specify-gem-versions-in-your-gemfile/" />
+  <id>/specify-gem-versions-in-your-gemfile</id>
+  <published>2015-03-24T00:00:00-04:00</published>
+  <updated>2015-03-24T00:00:00-04:00</updated>
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -637,21 +691,21 @@ The next time you need to write a regular expression check out Rubular. It’s m
 &lt;p&gt;In case you’re lazy there’s actually a gem called gemrat which will do this for you. Install it with &lt;code class=&quot;highlighter-rouge&quot;&gt;gem install gemrat&lt;/code&gt; and then when you need to add a new gem to your project you just call &lt;code class=&quot;highlighter-rouge&quot;&gt;gemrat gemname&lt;/code&gt; and you’ll get the latest version. You can specify options to make it pessimistic (the setting I used above) or optimistic. Upon running the command the gem will be added to your gemfile and bundle will be run so that the gem will automatically be installed.&lt;/p&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/specify-gem-versions-in-your-gemfile/&quot;&gt;Specify Gem Versions in your Gemfile&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on March 24, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/specify-gem-versions-in-your-gemfile/&quot;&gt;Specify Gem Versions in your Gemfile&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on March 24, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Details to keep in Mind Setting up your Laravel App]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/things-to-keep-in-mind-setting-up-laravel-app/" />
-  <id>http://localhost:4000/things-to-keep-in-mind-setting-up-laravel-app</id>
+  <link rel="alternate" type="text/html" href="/things-to-keep-in-mind-setting-up-laravel-app/" />
+  <id>/things-to-keep-in-mind-setting-up-laravel-app</id>
   <updated>2015-04-06T00:00:00-00:00</updated>
-  <published>2014-11-21T00:00:00-08:00</published>
+  <published>2014-11-21T00:00:00-05:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -667,21 +721,21 @@ The next time you need to write a regular expression check out Rubular. It’s m
 
 &lt;p&gt;Those two docs pages above are also helpfully translated to Spanish &lt;a href=&quot;http://laraveles.com/docs/4.1/configuration#protecting-sensitive-configuration&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/things-to-keep-in-mind-setting-up-laravel-app/&quot;&gt;Details to keep in Mind Setting up your Laravel App&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on November 21, 2014.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/things-to-keep-in-mind-setting-up-laravel-app/&quot;&gt;Details to keep in Mind Setting up your Laravel App&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on November 21, 2014.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[The Slow Web]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/the-slow-web/" />
-  <id>http://localhost:4000/the-slow-web</id>
+  <link rel="alternate" type="text/html" href="/the-slow-web/" />
+  <id>/the-slow-web</id>
   <updated>2014-11-18T00:00:00-00:00</updated>
-  <published>2014-11-18T00:00:00-08:00</published>
+  <published>2014-11-18T00:00:00-05:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -698,21 +752,21 @@ The next time you need to write a regular expression check out Rubular. It’s m
 
 &lt;p&gt;There’s a lot more to this movement than what I just discussed so it’s definitely something I’m going to read into more. Also if folks are interested, much of what I now think about software was inspired by the excellent book &lt;a href=&quot;https://gettingreal.37signals.com/&quot;&gt;Getting Real&lt;/a&gt; by 37 signals (now basecamp), which has a lot of similar ideas about simplicity in software development.&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/the-slow-web/&quot;&gt;The Slow Web&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on November 18, 2014.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/the-slow-web/&quot;&gt;The Slow Web&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on November 18, 2014.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[To learn--a Christmas List]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/christmas-list-of-learning/" />
-  <id>http://localhost:4000/christmas-list-of-learning</id>
+  <link rel="alternate" type="text/html" href="/christmas-list-of-learning/" />
+  <id>/christmas-list-of-learning</id>
   <updated>2014-10-30T00:00:00-00:00</updated>
-  <published>2014-10-30T00:00:00-07:00</published>
+  <published>2014-10-30T00:00:00-04:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -753,21 +807,21 @@ The next time you need to write a regular expression check out Rubular. It’s m
 &lt;p&gt;Well, I don’t have time to get into all of them right now, but that’s a good start. Hopefully I can come back later and flesh out this list. I’d be interested to hear what’s on other people’s learning wish list and why.&lt;/p&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/christmas-list-of-learning/&quot;&gt;To learn--a Christmas List&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on October 30, 2014.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/christmas-list-of-learning/&quot;&gt;To learn--a Christmas List&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on October 30, 2014.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[REPL Driven Development with pry]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/REPL-Driven-Development/" />
-  <id>http://localhost:4000/REPL-Driven-Development</id>
+  <link rel="alternate" type="text/html" href="/REPL-Driven-Development/" />
+  <id>/REPL-Driven-Development</id>
   <updated>2015-4-7T00:00:00-00:00</updated>
-  <published>2014-10-10T00:00:00-07:00</published>
+  <published>2014-10-10T00:00:00-04:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -816,20 +870,20 @@ The next time you need to write a regular expression check out Rubular. It’s m
 &lt;/ul&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/REPL-Driven-Development/&quot;&gt;REPL Driven Development with pry&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on October 10, 2014.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/REPL-Driven-Development/&quot;&gt;REPL Driven Development with pry&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on October 10, 2014.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Remote Pairing Tools]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/remote-pairing-tools/" />
-  <id>http://localhost:4000/remote-pairing-tools</id>
-  <published>2014-06-20T00:00:00-07:00</published>
-  <updated>2014-06-20T00:00:00-07:00</updated>
+  <link rel="alternate" type="text/html" href="/remote-pairing-tools/" />
+  <id>/remote-pairing-tools</id>
+  <published>2014-06-20T00:00:00-04:00</published>
+  <updated>2014-06-20T00:00:00-04:00</updated>
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -907,21 +961,21 @@ having to restart it each time.&lt;/li&gt;
 
 &lt;p&gt;I haven’t tried any of this yet, but I’ll be giving these a shot and write about how it goes.&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/remote-pairing-tools/&quot;&gt;Remote Pairing Tools&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 20, 2014.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/remote-pairing-tools/&quot;&gt;Remote Pairing Tools&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 20, 2014.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Starting Bloc]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/starting-bloc/" />
-  <id>http://localhost:4000/starting bloc</id>
+  <link rel="alternate" type="text/html" href="/starting-bloc/" />
+  <id>/starting bloc</id>
   <updated>2015-4-7T00:00:00-00:00</updated>
-  <published>2014-06-15T00:00:00-07:00</published>
+  <published>2014-06-15T00:00:00-04:00</published>
   
   <author>
     <name>Stephen Mariano Cabrera</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>stephen.m.cabrera@gmail.com</email>
   </author>
   <content type="html">
@@ -937,7 +991,7 @@ having to restart it each time.&lt;/li&gt;
 
 &lt;p&gt;Education and &lt;em&gt;learning&lt;/em&gt; generally are areas that interest me a great deal. I’m very excited to see the ways that technology can transform education, so I expect I’ll have quite a bit to comment on as I go through Bloc. Stay tuned.&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;http://localhost:4000/starting-bloc/&quot;&gt;Starting Bloc&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;http://localhost:4000&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 15, 2014.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/starting-bloc/&quot;&gt;Starting Bloc&lt;/a&gt; was originally published by Stephen Mariano Cabrera at &lt;a href=&quot;&quot;&gt;Stephen Mariano Cabrera&lt;/a&gt; on June 15, 2014.&lt;/p&gt;
   </content>
 </entry>
 
